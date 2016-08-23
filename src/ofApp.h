@@ -10,7 +10,8 @@ class ofApp : public ofBaseApp, public ofxMidiListener{
 	public:
 		void setup();
         void setupMIDI();
-		void update();
+        void setupAudioInput();
+        void update();
 		void draw();
 
 		void keyPressed(int key);
@@ -24,8 +25,10 @@ class ofApp : public ofBaseApp, public ofxMidiListener{
 		void windowResized(int w, int h);
 		void dragEvent(ofDragInfo dragInfo);
 		void gotMessage(ofMessage msg);
-        void newMidiMessage(ofxMidiMessage& eventArgs);
     
+        //listener functions
+        void newMidiMessage(ofxMidiMessage& eventArgs);
+        void audioIn(float * input, int bufferSize, int nChannels);
     ofTrueTypeFont font;
     ofxOscReceiver receiver;
     
@@ -39,6 +42,10 @@ class ofApp : public ofBaseApp, public ofxMidiListener{
     
     int musicNum;
 
+    //sound input - see example code in audioinputexample
+    ofSoundStream soundStream;
+    
+    //MIDI stuff - see example code in ofxMIDI
     ofxMidiIn midiIn;
     ofxMidiMessage midiMessage;
 };
