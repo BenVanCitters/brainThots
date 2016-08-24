@@ -3,6 +3,8 @@
 #include "ofMain.h"
 #include "ofxOsc.h"
 #include "ofxMidi.h"
+#include "ColorFollower.h"
+
 #define PORT 7400
 
 class ofApp : public ofBaseApp, public ofxMidiListener{
@@ -26,6 +28,9 @@ class ofApp : public ofBaseApp, public ofxMidiListener{
 		void dragEvent(ofDragInfo dragInfo);
 		void gotMessage(ofMessage msg);
     
+        void pollOSCInput();
+    
+        void pollMockOSC();
         //listener functions
         void newMidiMessage(ofxMidiMessage& eventArgs);
         void audioIn(float * input, int bufferSize, int nChannels);
@@ -40,12 +45,16 @@ class ofApp : public ofBaseApp, public ofxMidiListener{
     
     ofImage receivedImage;
     
-    int musicNum;
-
+    float nextUpdateSeconds;
+    float updateDeltaSeconds;
+    
+    float musicNum;
+    float contNum;
     //sound input - see example code in audioinputexample
     ofSoundStream soundStream;
     
     //MIDI stuff - see example code in ofxMIDI
     ofxMidiIn midiIn;
     ofxMidiMessage midiMessage;
+    ColorFollower cf;
 };

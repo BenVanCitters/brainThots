@@ -3,10 +3,16 @@
 //--------------------------------------------------------------
 void ofApp::setup()
 {
+    ofSetBackgroundAuto(false);
+    ofSetBackgroundColor(0, 0, 0);
     setupMIDI();
     setupAudioInput();
     cout << "listening for osc messages on port " << PORT << "\n";
     receiver.setup(PORT);
+    
+    //mocking shit
+    nextUpdateSeconds = 0;;
+    updateDeltaSeconds = .5;
 }
 
 
@@ -40,20 +46,62 @@ void ofApp::setupMIDI()
 
 //--------------------------------------------------------------
 void ofApp::update(){
-    while(receiver.hasWaitingMessages()){
-        // get the next message
-        ofxOscMessage m;
-        receiver.getNextMessage(m);
-        musicNum = m.getArgAsInt32(0);
-    }
+//    pollOSCInput();
+    pollMockOSC();
+    cf.setCurrentIndex(musicNum);
+    cf.update();
+    
 }
 
 //--------------------------------------------------------------
-void ofApp::draw(){
+void ofApp::draw()
+{
     ofDrawBitmapString(ofToString(musicNum),500,200);
-
+    cf.draw();
 }
 
+
+//--------------------------------------------------------------
+void ofApp::pollMockOSC()
+{
+    contNum = ofRandom(7.f);
+    if(ofGetElapsedTimef() > nextUpdateSeconds)
+    {
+        musicNum = (int)ofRandom(7.f);
+        nextUpdateSeconds += updateDeltaSeconds;
+    }
+    
+}
+
+//--------------------------------------------------------------
+void ofApp::pollOSCInput()
+{
+    while(receiver.hasWaitingMessages())
+    {
+        // get the next message
+        ofxOscMessage m;
+        receiver.getNextMessage(m);
+        string addr =m.getAddress();
+        
+        const char* continuousStr = "/continuous";
+        const char* notechangeStr = "/notechange";
+        const char* addrCStr = addr.c_str();
+        if(0 ==  strcmp(addrCStr, continuousStr))
+        {
+            contNum = m.getArgAsFloat(0);
+        }
+        else if(0 == strcmp(addrCStr, notechangeStr))
+        {
+            musicNum = m.getArgAsFloat(0);
+            cout << "time: " << ofGetElapsedTimef() << " musicNum: " << musicNum << endl;
+            cout << "contNum: "  << contNum << endl;
+        }
+        else
+        {
+            cout << "unknown: " << addrCStr << endl;
+        }
+    }
+}
 //--------------------------------------------------------------
 void ofApp::keyPressed(int key){
 
