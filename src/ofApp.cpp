@@ -3,7 +3,7 @@
 //--------------------------------------------------------------
 void ofApp::setup()
 {
-    ofSetBackgroundAuto(false);
+//    ofSetBackgroundAuto(false);
     ofSetBackgroundColor(0, 0, 0);
     setupMIDI();
     setupAudioInput();
@@ -50,7 +50,8 @@ void ofApp::update(){
     pollMockOSC();
     cf.setCurrentIndex(musicNum);
     cf.update();
-    
+    particles.setTargetVector(cf.getCurrentPosition());
+    particles.update();
 }
 
 //--------------------------------------------------------------
@@ -58,6 +59,7 @@ void ofApp::draw()
 {
     ofDrawBitmapString(ofToString(musicNum),500,200);
     cf.draw();
+    particles.draw();
 }
 
 

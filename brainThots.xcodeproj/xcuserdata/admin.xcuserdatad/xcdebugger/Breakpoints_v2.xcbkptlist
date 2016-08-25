@@ -6,32 +6,16 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "src/ColorFollower.cpp"
-            timestampString = "493711230.034608"
+            filePath = "src/ColorMeshParticles.cpp"
+            timestampString = "493807302.16628"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "76"
-            endingLineNumber = "76"
-            landmarkName = "ColorFollower::getColorForIndex(int index)"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "src/ColorFollower.cpp"
-            timestampString = "493711276.53526"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "67"
-            endingLineNumber = "67"
-            landmarkName = "ColorFollower::getPositionForIndex(int index)"
+            startingLineNumber = "82"
+            endingLineNumber = "82"
+            landmarkName = "ColorMeshParticles::update()"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

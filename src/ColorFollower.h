@@ -20,7 +20,9 @@ class ColorFollower
     void draw();
     
     void setCurrentIndex(int index);
-    private:
+    ofVec3f getCurrentPosition(){return currentPos;};
+
+private:
     ofVec3f getPositionForIndex(int index);
     ofColor getColorForIndex(int index);
     

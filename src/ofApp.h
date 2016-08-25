@@ -4,6 +4,7 @@
 #include "ofxOsc.h"
 #include "ofxMidi.h"
 #include "ColorFollower.h"
+#include "ColorMeshParticles.h"
 
 #define PORT 7400
 
@@ -57,4 +58,6 @@ class ofApp : public ofBaseApp, public ofxMidiListener{
     ofxMidiIn midiIn;
     ofxMidiMessage midiMessage;
     ColorFollower cf;
+
+    ColorMeshParticles particles;
 };
