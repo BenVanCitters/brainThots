@@ -3,7 +3,7 @@
 //--------------------------------------------------------------
 void ofApp::setup()
 {
-//    ofSetBackgroundAuto(false);
+    ofSetBackgroundAuto(false);
     ofSetBackgroundColor(0, 0, 0);
     setupMIDI();
     setupAudioInput();
@@ -51,6 +51,7 @@ void ofApp::update(){
     cf.setCurrentIndex(musicNum);
     cf.update();
     particles.setTargetVector(cf.getCurrentPosition());
+    particles.color = cf.currentColor;
     particles.update();
 }
 

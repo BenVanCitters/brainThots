@@ -21,7 +21,8 @@ class ColorFollower
     
     void setCurrentIndex(int index);
     ofVec3f getCurrentPosition(){return currentPos;};
-
+    
+    ofColor currentColor;
 private:
     ofVec3f getPositionForIndex(int index);
     ofColor getColorForIndex(int index);
@@ -32,8 +33,7 @@ private:
     float maxDist; // max distance points could be apart from one another
     int maxIndex = 8;
     
-    ofVec3f lastPos;//={0,0};
-    ofVec3f currentPos;//={0,0};
-    ofColor currentColor;// ={0,0,0};
+    ofVec3f lastPos;     
+    ofVec3f currentPos;
 };
 #endif /* ColorFollower_h */

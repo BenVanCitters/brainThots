@@ -26,6 +26,9 @@ public:
     void update();
     void draw();
     inline void setTargetVector(ofVec3f targ){targetVector = targ;}
+    
+    ofColor color;
+    
 private:
     vector<ColorMeshParticle> particles;
     ofVec3f targetVector;

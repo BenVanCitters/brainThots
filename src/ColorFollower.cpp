@@ -49,7 +49,7 @@ void ColorFollower::draw()
 //    stroke(newColor);
 //    strokeWeight(currentSz);
 //    ofSetLineWidth(currentSz*20);
-    ofDrawLine(lastPos,currentPos);
+//    ofDrawLine(lastPos,currentPos);
 //    line(lastPos[0],lastPos[1],currentPos[0],currentPos[1]);
 
 }
