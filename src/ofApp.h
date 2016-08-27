@@ -14,6 +14,9 @@ class ofApp : public ofBaseApp, public ofxMidiListener{
 		void setup();
         void setupMIDI();
         void setupAudioInput();
+        void setupFBO();
+        void setupLights();
+    
         void update();
 		void draw();
 
@@ -44,7 +47,6 @@ class ofApp : public ofBaseApp, public ofxMidiListener{
     int mouseX, mouseY;
     string mouseButtonState;
     
-    ofImage receivedImage;
     
     float nextUpdateSeconds;
     float updateDeltaSeconds;
@@ -60,4 +62,9 @@ class ofApp : public ofBaseApp, public ofxMidiListener{
     ColorFollower cf;
 
     ColorMeshParticles particles;
+    
+    
+    ofLight directionalLight;
+    ofFbo offScreenBuffer;
+    ofFbo blurBuffer;
 };

@@ -28,7 +28,7 @@ private:
     ofColor getColorForIndex(int index);
     
     float currentSz = 10;
-    float maxSize = 20;
+    float maxSize = 35;
     int currentNum; //current seeked index
     float maxDist; // max distance points could be apart from one another
     int maxIndex = 8;

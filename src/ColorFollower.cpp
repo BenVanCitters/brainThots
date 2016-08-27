@@ -11,7 +11,7 @@
 ColorFollower::ColorFollower()
 {
     
-    maxIndex = 7;
+    maxIndex = 8;
     maxDist = sqrt(ofGetWindowWidth()*ofGetWindowWidth()+ofGetWindowHeight()*ofGetWindowHeight());
 }
 void ColorFollower::update()
@@ -37,21 +37,12 @@ void ColorFollower::update()
 
 void ColorFollower::draw()
 {
-//    currentColor[0] = lerp(currentColor[0],newR, .1);
-//    currentColor[1] = lerp(currentColor[1],newG, .1);
-//    currentColor[2] = lerp(currentColor[2],newB, .1);
-//    int newColor = color(currentColor[0],currentColor[1],currentColor[2],256);
+
     ofFill();
     ofSetColor(currentColor);
     ofDrawEllipse(currentPos.x, currentPos.y, currentSz, currentSz);
-//    noStroke();
-//    ellipse(currentPos[0],currentPos[1],currentSz,currentSz);
-//    stroke(newColor);
-//    strokeWeight(currentSz);
-//    ofSetLineWidth(currentSz*20);
+//    ofDrawSphere(currentPos.x, currentPos.y, currentSz);
 //    ofDrawLine(lastPos,currentPos);
-//    line(lastPos[0],lastPos[1],currentPos[0],currentPos[1]);
-
 }
 
 void ColorFollower::setCurrentIndex(int index)
@@ -64,7 +55,7 @@ ofVec3f ColorFollower::getPositionForIndex(int index)
     int width = ofGetWindowWidth();
     int height = ofGetWindowHeight();
     float rad = (index*1.f/8)*TWO_PI;
-    return ofVec3f((width/2.f) + (width/2.f-maxSize/2) *cosf(rad),
+    return ofVec3f((width/2.f) + (height/2.f-maxSize/2) *cosf(rad),
                    (height/2.f) + (height/2.f-maxSize/2) *sinf(rad),
                     0 );
 }

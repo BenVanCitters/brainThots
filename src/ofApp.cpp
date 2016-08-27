@@ -7,6 +7,7 @@ void ofApp::setup()
     ofSetBackgroundColor(0, 0, 0);
     setupMIDI();
     setupAudioInput();
+    setupLights();
     cout << "listening for osc messages on port " << PORT << "\n";
     receiver.setup(PORT);
     
@@ -15,6 +16,30 @@ void ofApp::setup()
     updateDeltaSeconds = .5;
 }
 
+void ofApp::setupFBO()
+{
+    int drawWidth = ofGetScreenWidth();
+    int drawHeight = ofGetScreenHeight();
+    
+    
+    //allocate and clear the framebuffer
+    offScreenBuffer.allocate(drawWidth, drawHeight, GL_RGBA);
+    offScreenBuffer.begin();
+    ofClear(0, 0, 0, 0);
+    offScreenBuffer.end();
+}
+
+void ofApp::setupLights()
+{
+    directionalLight.setDiffuseColor(ofColor(128.f, 128.f, 128.f));
+    directionalLight.setSpecularColor(ofColor(255.f, 255.f, 255.f));
+    directionalLight.setDirectional();
+    
+    // set the direction of the light
+    // set it pointing from left to right -> //
+    directionalLight.setOrientation( ofVec3f(0, 0, 900) );
+
+}
 
 void ofApp::setupAudioInput()
 {
@@ -58,19 +83,24 @@ void ofApp::update(){
 //--------------------------------------------------------------
 void ofApp::draw()
 {
+//    ofEnableLighting();
+//    directionalLight.enable();
+    
     ofDrawBitmapString(ofToString(musicNum),500,200);
     cf.draw();
     particles.draw();
+    
+    ofDisableLighting();
 }
 
 
 //--------------------------------------------------------------
 void ofApp::pollMockOSC()
 {
-    contNum = ofRandom(7.f);
+    contNum = ofRandom(8.f);
     if(ofGetElapsedTimef() > nextUpdateSeconds)
     {
-        musicNum = (int)ofRandom(7.f);
+        musicNum = (int)ofRandom(8.f);
         nextUpdateSeconds += updateDeltaSeconds;
     }
     
@@ -107,7 +137,14 @@ void ofApp::pollOSCInput()
 }
 //--------------------------------------------------------------
 void ofApp::keyPressed(int key){
-
+    switch(key)
+    {
+        case 'f':
+            ofToggleFullscreen();
+            break;
+        default:
+            break;
+    }
 }
 
 //--------------------------------------------------------------
