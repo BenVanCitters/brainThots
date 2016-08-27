@@ -16,7 +16,7 @@ class ofApp : public ofBaseApp, public ofxMidiListener{
         void setupAudioInput();
         void setupFBO();
         void setupLights();
-    
+        void setupShaders();
         void update();
 		void draw();
 
@@ -65,6 +65,10 @@ class ofApp : public ofBaseApp, public ofxMidiListener{
     
     
     ofLight directionalLight;
-    ofFbo offScreenBuffer;
     ofFbo blurBuffer;
+    ofFbo fbo;
+    ofShader hPassShader;
+    ofShader vPassShader;
+    
+    ofImage tmp;
 };

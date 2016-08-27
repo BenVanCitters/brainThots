@@ -35,7 +35,7 @@ void ColorMeshParticles::draw()
     for(int i = 0; i < particles.size(); i++)
     {
         ofVec3f end = particles[i].pos - particles[i].vel;
-        
+        ofSetLineWidth(5);
         ofDrawLine(particles[i].pos,end);
 //        ofDrawEllipse(particles[i].pos.x, particles[i].pos.y, 5, 5);
 //        ofVertex( particles[i].pos);

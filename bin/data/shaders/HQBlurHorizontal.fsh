@@ -1,15 +1,8 @@
-// Precision
-precision highp float;
-
 // Uniforms
-uniform highp float uTime;
-//uniform sampler2D texture[2];
 uniform sampler2DRect tex0;
-//uniform sampler2DRect tex1;
 uniform vec2 uResolution;
-varying vec2 vTexCoord;
 
-uniform highp float blurAmountShaderVar;
+uniform float blurAmountShaderVar;
 uniform vec2 sampleOffset;
 
 float weights[21];
@@ -39,10 +32,10 @@ void main()
     weights[19] = 0.014053461291849008;
     weights[20] = 0.00916792765601138;
     
-    vec2 sampleOffset = vec2(blurAmountShaderVar/uResolution.x,blurAmountShaderVar/uResolution.y);
+    vec2 sampleOffset = vec2(blurAmountShaderVar,blurAmountShaderVar);
     sampleOffset *= .1; //~~ /= weightCount;
     
-    vec2 position = vTexCoord;
+    vec2 position = uResolution*gl_TexCoord[0].st;
     vec4 sum = vec4( 0.0, 0.0, 0.0 , 0.0);
     vec2 baseOffset = -weightCount * sampleOffset;
     
@@ -50,9 +43,9 @@ void main()
     for( int s = 0; s < 21; ++s )
     {
         vec2 texcord = position.st + vec2(baseOffset.x + offset.x, 0.0);
-        sum += texture2D( tex0, texcord ) * weights[s];
+        sum += texture2DRect( tex0, texcord ) * weights[s];
         offset.x += sampleOffset.x;
     }
     
-    gl_FragColor = sum;// vec4(vTexCoord.x,vTexCoord.y,0.0,1.0);//
+    gl_FragColor = sum;// vec4(vTexCoord.x,vTexCoord.y,0.0,1.0);//vec4(gl_TexCoord[0].x,gl_TexCoord[0].y,0.0,1.0);//texture2DRect( tex0, uResolution*gl_TexCoord[0].st );//
 }

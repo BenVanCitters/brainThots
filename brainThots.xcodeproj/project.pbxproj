@@ -95,6 +95,7 @@
 		84F315F81D6D802000B3171D /* ColorMeshParticles.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ColorMeshParticles.h; sourceTree = "<group>"; };
 		84F316011D720CB900B3171D /* HQBlurHorizontal.fsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = HQBlurHorizontal.fsh; sourceTree = "<group>"; };
 		84F316021D720CB900B3171D /* HQBlurVertical.fsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = HQBlurVertical.fsh; sourceTree = "<group>"; };
+		84F316081D7212A000B3171D /* basicVert.vert */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = basicVert.vert; sourceTree = "<group>"; };
 		8B30E93FD3D3475EED522A0E /* ofxOscBundle.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ofxOscBundle.h; path = ../../../addons/ofxOsc/src/ofxOscBundle.h; sourceTree = SOURCE_ROOT; };
 		8C75AFC8774A62495DD53464 /* ofxOscReceiver.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ofxOscReceiver.h; path = ../../../addons/ofxOsc/src/ofxOscReceiver.h; sourceTree = SOURCE_ROOT; };
 		938214A2795AA8FED29086DB /* ofxMidiConstants.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ofxMidiConstants.h; path = ../../../addons/ofxMidi/src/ofxMidiConstants.h; sourceTree = SOURCE_ROOT; };
@@ -226,6 +227,7 @@
 		84F316001D720CB900B3171D /* shaders */ = {
 			isa = PBXGroup;
 			children = (
+				84F316081D7212A000B3171D /* basicVert.vert */,
 				84F316011D720CB900B3171D /* HQBlurHorizontal.fsh */,
 				84F316021D720CB900B3171D /* HQBlurVertical.fsh */,
 			);
