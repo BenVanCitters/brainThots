@@ -71,7 +71,7 @@ void ofApp::setupShaders()
         vec2 sampleOffset = vec2(blurAmountShaderVar,blurAmountShaderVar);
         sampleOffset *= .1; //~~ /= weightCount;
         
-        vec2 position = uResolution*gl_TexCoord[0].st;
+        vec2 position = uResolution * gl_TexCoord[0].st;
         vec4 sum = vec4( 0.0, 0.0, 0.0 , 0.0);
         vec2 baseOffset = -weightCount * sampleOffset;
         
@@ -147,7 +147,7 @@ void ofApp::setupShaders()
             offset.y += sampleOffset.y;
         }
         
-        gl_FragColor = sum;//sum;//vec4(1.0,0.0,0.0,1.0);//vec4(vTexCoord.x,vTexCoord.y,0.0,1.0);//texture2D( texture[0], vTexCoord );//
+        gl_FragColor = 0.9*sum;//sum;//vec4(1.0,0.0,0.0,1.0);//vec4(vTexCoord.x,vTexCoord.y,0.0,1.0);//texture2D( texture[0], vTexCoord );//
     }
 
     );
@@ -233,7 +233,7 @@ void ofApp::update(){
     hPassShader.begin();
     hPassShader.setUniformTexture("tex0", fbo.getTexture() , 1 );
     hPassShader.setUniform2f("uResolution", ofVec2f(ofGetScreenWidth(), ofGetScreenHeight() ));
-    hPassShader.setUniform1f("blurAmountShaderVar", 15);
+    hPassShader.setUniform1f("blurAmountShaderVar", 25);
     glBegin(GL_QUADS);
     glTexCoord2f(0, 0);
     glVertex3f(0, 0,0);
@@ -260,7 +260,7 @@ void ofApp::draw()
     vPassShader.begin();
     vPassShader.setUniformTexture("tex0", blurBuffer.getTexture() , 1 );
     vPassShader.setUniform2f("uResolution", ofVec2f(ofGetScreenWidth(), ofGetScreenHeight() ));
-    vPassShader.setUniform1f("blurAmountShaderVar", 15);
+    vPassShader.setUniform1f("blurAmountShaderVar", 25);
     glBegin(GL_QUADS);
     glTexCoord2f(0, 0);
     glVertex3f(0, 0,0);
@@ -280,7 +280,7 @@ void ofApp::draw()
 //        ofEnableLighting();
 //        directionalLight.enable();
     
-    ofDrawBitmapString(ofToString(musicNum),500,200);
+//    ofDrawBitmapString(ofToString(musicNum),500,200);
     cf.draw();
     particles.draw();
     
@@ -341,6 +341,9 @@ void ofApp::keyPressed(int key){
             fbo.begin();
             ofClear(0, 0, 0, 0);
             fbo.end();
+            blurBuffer.begin();
+            ofClear(0, 0, 0, 0);
+            blurBuffer.end();
             break;
         default:
             break;
