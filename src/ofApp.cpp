@@ -5,7 +5,7 @@ void ofApp::setup()
 {
     ofSetBackgroundAuto(false);
     ofSetBackgroundColor(0, 0, 0);
-    setupMIDI();
+    im.setupMIDI();
     setupAudioInput();
     setupLights();
     
@@ -40,9 +40,14 @@ void ofApp::setupShaders()
                                      
                                      uniform float blurAmountShaderVar;
                                      uniform vec2 sampleOffset;
-                                     
+                                               
+                                               uniform float time;
+                                               uniform float factor1;
+                                               
                                      float weights[21];
-                                     
+                                               float factor2;
+                                               float factor3;
+                                               float factor4;
                                      void main()
     {
         float weightCount = 10.0;
@@ -72,6 +77,9 @@ void ofApp::setupShaders()
         sampleOffset *= .1; //~~ /= weightCount;
         
         vec2 position = uResolution * gl_TexCoord[0].st;
+        vec2 inputOffset = factor1* vec2(4.0*cos(time + position.x*50.0),sin(time + position.y*20.0));
+        position = position + inputOffset;
+        
         vec4 sum = vec4( 0.0, 0.0, 0.0 , 0.0);
         vec2 baseOffset = -weightCount * sampleOffset;
         
@@ -105,8 +113,13 @@ void ofApp::setupShaders()
                                              uniform float blurAmountShaderVar;
                                              uniform vec2 sampleOffset;
                                              
-                                             float weights[21];
+                                             uniform float time;
+                                             uniform float factor1;
                                              
+                                             float weights[21];
+                                             float factor2;
+                                             float factor3;
+                                             float factor4;
                                              void main()
     {
         float weightCount = 10.0;
@@ -135,7 +148,11 @@ void ofApp::setupShaders()
         vec2 sampleOffset = vec2(blurAmountShaderVar,blurAmountShaderVar);
         sampleOffset *= .1; //~~ /= weightCount;
         
+        
         vec2 position = uResolution*gl_TexCoord[0].st;
+        vec2 inputOffset = factor1* vec2(4.0*cos(time + position.x*50.0),sin(time + position.y*20.0));
+        position = position + inputOffset;
+        
         vec4 sum = vec4( 0.0, 0.0, 0.0 , 0.0);
         vec2 baseOffset = -weightCount * sampleOffset;
         
@@ -191,15 +208,6 @@ void ofApp::setupLights()
 
 void ofApp::setupAudioInput()
 {
-//    left.assign(bufferSize, 0.0);
-//    right.assign(bufferSize, 0.0);
-//    volHistory.assign(400, 0.0);
-//    
-//    bufferCounter	= 0;
-//    drawCounter		= 0;
-//    smoothedVol     = 0.0;
-//    scaledVol		= 0.0;
-
     int bufferSize = 256;
     
     
@@ -209,19 +217,10 @@ void ofApp::setupAudioInput()
 }
 
 //--------------------------------------------------------------
-void ofApp::setupMIDI()
+void ofApp::update()
 {
-    midiIn.openPort("LPD8");
-
-    midiIn.ignoreTypes(false, false, false);
-    
-    midiIn.addListener(this);
-    
-//    midiIn.setVerbose(true);
-}
-
-//--------------------------------------------------------------
-void ofApp::update(){
+    shaderTime = ofGetElapsedTimef();
+    rbg.update();
 //    pollOSCInput();
     pollMockOSC();
     cf.setCurrentIndex(musicNum);
@@ -237,6 +236,9 @@ void ofApp::update(){
     hPassShader.setUniformTexture("tex0", fbo.getTexture() , 1 );
     hPassShader.setUniform2f("uResolution", ofVec2f(ofGetScreenWidth(), ofGetScreenHeight() ));
     hPassShader.setUniform1f("blurAmountShaderVar", 25);
+    hPassShader.setUniform1f("time", shaderTime);
+    float ghg =im.getFactor1();
+    hPassShader.setUniform1f("factor1", ghg);
     glBegin(GL_QUADS);
     glTexCoord2f(0, 0);
     glVertex3f(0, 0,0);
@@ -264,6 +266,9 @@ void ofApp::draw()
     vPassShader.setUniformTexture("tex0", blurBuffer.getTexture() , 1 );
     vPassShader.setUniform2f("uResolution", ofVec2f(ofGetScreenWidth(), ofGetScreenHeight() ));
     vPassShader.setUniform1f("blurAmountShaderVar", 25);
+    vPassShader.setUniform1f("time", shaderTime);
+    float ghg =im.getFactor1();
+    vPassShader.setUniform1f("factor1", ghg);
     glBegin(GL_QUADS);
     glTexCoord2f(0, 0);
     glVertex3f(0, 0,0);
@@ -291,6 +296,7 @@ void ofApp::draw()
     
     fbo.end();
     fbo.draw(0,0);
+    rbg.draw();
 }
 
 
@@ -317,6 +323,7 @@ void ofApp::pollOSCInput()
         
         const char* continuousStr = "/continuous";
         const char* notechangeStr = "/notechange";
+        const char* rawDataStr = "/rawData";
         const char* addrCStr = addr.c_str();
         if(0 ==  strcmp(addrCStr, continuousStr))
         {
@@ -327,6 +334,18 @@ void ofApp::pollOSCInput()
             musicNum = m.getArgAsFloat(0);
             cout << "time: " << ofGetElapsedTimef() << " musicNum: " << musicNum << endl;
             cout << "contNum: "  << contNum << endl;
+        }
+        else if(0 == strcmp(addrCStr, notechangeStr))
+        {
+            musicNum = m.getArgAsFloat(0);
+            cout << "time: " << ofGetElapsedTimef() << " musicNum: " << musicNum << endl;
+            cout << "contNum: "  << contNum << endl;
+        }
+        else if(0 == strcmp(addrCStr, rawDataStr))
+        {
+//            brainBuffer.ad
+            float val = m.getArgAsFloat(0);
+            cout << "time: " << ofGetElapsedTimef() << " rawData: " << val << endl;
         }
         else
         {
@@ -402,27 +421,7 @@ void ofApp::dragEvent(ofDragInfo dragInfo){
 
 }
 
-// incoming midi
-//--------------------------------------------------------------
-void ofApp::newMidiMessage(ofxMidiMessage& msg)
-{
-    stringstream text;
-    
-    // make a copy of the latest message
-    midiMessage = msg;
-    
-    //buttons in pad mode
-    if(midiMessage.pitch >= 36 && midiMessage.pitch <=43)
-    {
-        cout << " pitch: " << midiMessage.pitch << endl;
-    }
-    //knobs in pad mode
-    if(midiMessage.control >= 1 && midiMessage.control <= 8)
-    {
-        cout << " control: " << midiMessage.control << endl;
-        cout << " val: " << midiMessage.value << endl;
-    }
-}
+
 
 // incoming audio stream
 //--------------------------------------------------------------

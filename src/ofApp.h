@@ -2,17 +2,17 @@
 
 #include "ofMain.h"
 #include "ofxOsc.h"
-#include "ofxMidi.h"
+#include "InputManager.h"
 #include "ColorFollower.h"
 #include "ColorMeshParticles.h"
+#include "RawBrainGraphic.h"
 
 #define PORT 7400
 
-class ofApp : public ofBaseApp, public ofxMidiListener{
+class ofApp : public ofBaseApp{
 
 	public:
 		void setup();
-        void setupMIDI();
         void setupAudioInput();
         void setupFBO();
         void setupLights();
@@ -56,14 +56,13 @@ class ofApp : public ofBaseApp, public ofxMidiListener{
     //sound input - see example code in audioinputexample
     ofSoundStream soundStream;
     float curVol = 0.0;
-    
+    float shaderTime;
     //MIDI stuff - see example code in ofxMIDI
-    ofxMidiIn midiIn;
-    ofxMidiMessage midiMessage;
+ 
     ColorFollower cf;
 
     ColorMeshParticles particles;
-    
+    InputManager im;
     
     ofLight directionalLight;
     ofFbo blurBuffer;
@@ -72,6 +71,8 @@ class ofApp : public ofBaseApp, public ofxMidiListener{
     ofShader vPassShader;
     
     ofImage tmp;
+    
+    RawBrainGraphic rbg;
     
     vector <float> left;
     vector <float> right;

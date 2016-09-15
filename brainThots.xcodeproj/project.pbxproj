@@ -23,6 +23,8 @@
 		72A929D3561B8232A182ABFC /* ofxOscBundle.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 65EEFA3DA3526E9CDD9C21F9 /* ofxOscBundle.cpp */; };
 		83D9F930112E0944444124EE /* ofxMidiOut.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 04F77E5C73A62E2E77C78EC6 /* ofxMidiOut.cpp */; };
 		843935D11D6D4789001BCB0A /* ColorFollower.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 843935CF1D6D4789001BCB0A /* ColorFollower.cpp */; };
+		84737BA61D8A489300442BF8 /* RawBrainGraphic.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 84737BA41D8A489300442BF8 /* RawBrainGraphic.cpp */; };
+		84737BA91D8A4EF200442BF8 /* InputManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 84737BA71D8A4EF200442BF8 /* InputManager.cpp */; };
 		84F315F91D6D802000B3171D /* ColorMeshParticles.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 84F315F71D6D801F00B3171D /* ColorMeshParticles.cpp */; };
 		879A251454401BC0B6E4F238 /* OscTypes.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D9BFFBBF4CC43DEE890B3C3E /* OscTypes.cpp */; };
 		8F5205AEF8861EF234F0651A /* ofxOscSender.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 81967292BFC87A0144BD32C6 /* ofxOscSender.cpp */; };
@@ -91,6 +93,10 @@
 		81AC32CCCB56FAABA3E1BDE0 /* CoreMIDI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMIDI.framework; path = /System/Library/Frameworks/CoreMIDI.framework; sourceTree = "<group>"; };
 		843935CF1D6D4789001BCB0A /* ColorFollower.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ColorFollower.cpp; sourceTree = "<group>"; };
 		843935D01D6D4789001BCB0A /* ColorFollower.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ColorFollower.h; sourceTree = "<group>"; };
+		84737BA41D8A489300442BF8 /* RawBrainGraphic.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = RawBrainGraphic.cpp; sourceTree = "<group>"; };
+		84737BA51D8A489300442BF8 /* RawBrainGraphic.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RawBrainGraphic.h; sourceTree = "<group>"; };
+		84737BA71D8A4EF200442BF8 /* InputManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = InputManager.cpp; sourceTree = "<group>"; };
+		84737BA81D8A4EF200442BF8 /* InputManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InputManager.h; sourceTree = "<group>"; };
 		84F315F71D6D801F00B3171D /* ColorMeshParticles.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ColorMeshParticles.cpp; sourceTree = "<group>"; };
 		84F315F81D6D802000B3171D /* ColorMeshParticles.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ColorMeshParticles.h; sourceTree = "<group>"; };
 		84F316011D720CB900B3171D /* HQBlurHorizontal.fsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = HQBlurHorizontal.fsh; sourceTree = "<group>"; };
@@ -351,6 +357,10 @@
 				843935D01D6D4789001BCB0A /* ColorFollower.h */,
 				84F315F71D6D801F00B3171D /* ColorMeshParticles.cpp */,
 				84F315F81D6D802000B3171D /* ColorMeshParticles.h */,
+				84737BA41D8A489300442BF8 /* RawBrainGraphic.cpp */,
+				84737BA51D8A489300442BF8 /* RawBrainGraphic.h */,
+				84737BA71D8A4EF200442BF8 /* InputManager.cpp */,
+				84737BA81D8A4EF200442BF8 /* InputManager.h */,
 			);
 			path = src;
 			sourceTree = SOURCE_ROOT;
@@ -486,6 +496,7 @@
 				83D9F930112E0944444124EE /* ofxMidiOut.cpp in Sources */,
 				63D0FD8734D5760B8080C901 /* RtMidi.cpp in Sources */,
 				72A929D3561B8232A182ABFC /* ofxOscBundle.cpp in Sources */,
+				84737BA91D8A4EF200442BF8 /* InputManager.cpp in Sources */,
 				5864AD82E20F15536D054EA3 /* ofxOscMessage.cpp in Sources */,
 				4ADB88E2FB52E76A471065DE /* ofxOscParameterSync.cpp in Sources */,
 				640279EE111671BD026CB013 /* ofxOscReceiver.cpp in Sources */,
@@ -493,6 +504,7 @@
 				8F5205AEF8861EF234F0651A /* ofxOscSender.cpp in Sources */,
 				ADE367465D2A8EBAD4C7A8D9 /* IpEndpointName.cpp in Sources */,
 				67FE4C7B15C2F0478C8126C2 /* NetworkingUtils.cpp in Sources */,
+				84737BA61D8A489300442BF8 /* RawBrainGraphic.cpp in Sources */,
 				510CAFE035E576A4E1502D52 /* UdpSocket.cpp in Sources */,
 				62545D179C94265CA1389D4A /* OscOutboundPacketStream.cpp in Sources */,
 				C4782ECC372420ACE0615B74 /* OscPrintReceivedElements.cpp in Sources */,
