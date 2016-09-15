@@ -35,13 +35,13 @@ void ColorFollower::update()
     currentColor = currentColor.lerp(newc, .1);
 }
 
-void ColorFollower::draw()
+void ColorFollower::draw(float sz)
 {
-
+    float add = 700 * sz;
     ofFill();
     ofSetColor(currentColor);
 //    ofDrawEllipse(currentPos.x, currentPos.y, currentSz, currentSz);
-    ofDrawSphere(currentPos.x, currentPos.y, currentSz);
+    ofDrawSphere(currentPos.x, currentPos.y, currentSz+add);
 //    ofDrawLine(lastPos,currentPos);
 }
 

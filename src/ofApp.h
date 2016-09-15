@@ -55,6 +55,7 @@ class ofApp : public ofBaseApp, public ofxMidiListener{
     float contNum;
     //sound input - see example code in audioinputexample
     ofSoundStream soundStream;
+    float curVol = 0.0;
     
     //MIDI stuff - see example code in ofxMIDI
     ofxMidiIn midiIn;
@@ -71,4 +72,7 @@ class ofApp : public ofBaseApp, public ofxMidiListener{
     ofShader vPassShader;
     
     ofImage tmp;
+    
+    vector <float> left;
+    vector <float> right;
 };

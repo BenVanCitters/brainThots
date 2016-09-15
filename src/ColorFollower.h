@@ -17,7 +17,7 @@ class ColorFollower
     public:
     ColorFollower();
     void update();
-    void draw();
+    void draw(float sz);
     
     void setCurrentIndex(int index);
     ofVec3f getCurrentPosition(){return currentPos;};
