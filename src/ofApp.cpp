@@ -77,7 +77,7 @@ void ofApp::setupShaders()
         sampleOffset *= .1; //~~ /= weightCount;
         
         vec2 position = uResolution * gl_TexCoord[0].st;
-        vec2 inputOffset = factor1* vec2(4.0*cos(time + position.x*50.0),sin(time + position.y*20.0));
+        vec2 inputOffset = factor1* vec2(4.0*cos(time + position.x / 8.0),sin(time + position.x / 3.0 + position.y / 9.0));
         position = position + inputOffset;
         
         vec4 sum = vec4( 0.0, 0.0, 0.0 , 0.0);
@@ -150,7 +150,7 @@ void ofApp::setupShaders()
         
         
         vec2 position = uResolution*gl_TexCoord[0].st;
-        vec2 inputOffset = factor1* vec2(4.0*cos(time + position.x*50.0),sin(time + position.y*20.0));
+        vec2 inputOffset = factor1* vec2(4.0*cos(time + position.x / 8.0),sin(time + position.x / 3.0 + position.y / 9.0));
         position = position + inputOffset;
         
         vec4 sum = vec4( 0.0, 0.0, 0.0 , 0.0);
@@ -219,7 +219,7 @@ void ofApp::setupAudioInput()
 //--------------------------------------------------------------
 void ofApp::update()
 {
-    shaderTime = ofGetElapsedTimef();
+    shaderTime = ofGetElapsedTimef()*3;
     rbg.update();
 //    pollOSCInput();
     pollMockOSC();
@@ -238,7 +238,7 @@ void ofApp::update()
     hPassShader.setUniform1f("blurAmountShaderVar", 25);
     hPassShader.setUniform1f("time", shaderTime);
     float ghg =im.getFactor1();
-    hPassShader.setUniform1f("factor1", ghg);
+    hPassShader.setUniform1f("factor1", 5);
     glBegin(GL_QUADS);
     glTexCoord2f(0, 0);
     glVertex3f(0, 0,0);
@@ -262,6 +262,7 @@ void ofApp::update()
 void ofApp::draw()
 {
     fbo.begin();
+//    glClear(GL_DEPTH_BUFFER_BIT);
     vPassShader.begin();
     vPassShader.setUniformTexture("tex0", blurBuffer.getTexture() , 1 );
     vPassShader.setUniform2f("uResolution", ofVec2f(ofGetScreenWidth(), ofGetScreenHeight() ));
@@ -285,18 +286,23 @@ void ofApp::draw()
     vPassShader.end();
     
     
-//        ofEnableLighting();
-//        directionalLight.enable();
+        ofEnableLighting();
+        directionalLight.enable();
     
-//    ofDrawBitmapString(ofToString(musicNum),500,200);
     cf.draw(curVol);
     particles.draw();
     
     ofDisableLighting();
     
+    directionalLight.disable();
+    ofDisableLighting();
+    
     fbo.end();
+    
     fbo.draw(0,0);
     rbg.draw();
+    
+    
 }
 
 
