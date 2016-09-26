@@ -6,6 +6,7 @@
 #include "ColorFollower.h"
 #include "ColorMeshParticles.h"
 #include "RawBrainGraphic.h"
+#include "Brain3D.h"
 
 #define PORT 7400
 
@@ -13,7 +14,6 @@ class ofApp : public ofBaseApp{
 
 	public:
 		void setup();
-        void setupAudioInput();
         void setupFBO();
         void setupLights();
         void setupShaders();
@@ -37,7 +37,7 @@ class ofApp : public ofBaseApp{
         void pollMockOSC();
         //listener functions
         void newMidiMessage(ofxMidiMessage& eventArgs);
-        void audioIn(float * input, int bufferSize, int nChannels);
+        
     ofTrueTypeFont font;
     ofxOscReceiver receiver;
     
@@ -53,11 +53,8 @@ class ofApp : public ofBaseApp{
     
     float musicNum;
     float contNum;
-    //sound input - see example code in audioinputexample
-    ofSoundStream soundStream;
-    float curVol = 0.0;
+
     float shaderTime;
-    //MIDI stuff - see example code in ofxMIDI
  
     ColorFollower cf;
 
@@ -73,7 +70,5 @@ class ofApp : public ofBaseApp{
     ofImage tmp;
     
     RawBrainGraphic rbg;
-    
-    vector <float> left;
-    vector <float> right;
+    Brain3D brain3d;
 };

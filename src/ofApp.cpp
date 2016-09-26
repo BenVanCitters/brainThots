@@ -6,7 +6,7 @@ void ofApp::setup()
     ofSetBackgroundAuto(false);
     ofSetBackgroundColor(0, 0, 0);
     im.setupMIDI();
-    setupAudioInput();
+    im.setupAudioInput();
     setupLights();
     
     setupFBO();
@@ -206,19 +206,12 @@ void ofApp::setupLights()
 
 }
 
-void ofApp::setupAudioInput()
-{
-    int bufferSize = 256;
-    
-    
-    left.assign(bufferSize, 0.0);
-    right.assign(bufferSize, 0.0);
-    soundStream.setup(this, 0, 2, 44100, bufferSize, 4);
-}
+
 
 //--------------------------------------------------------------
 void ofApp::update()
 {
+    brain3d.update();
     shaderTime = ofGetElapsedTimef()*3;
     rbg.update();
 //    pollOSCInput();
@@ -237,7 +230,7 @@ void ofApp::update()
     hPassShader.setUniform2f("uResolution", ofVec2f(ofGetScreenWidth(), ofGetScreenHeight() ));
     hPassShader.setUniform1f("blurAmountShaderVar", 25);
     hPassShader.setUniform1f("time", shaderTime);
-    float ghg =im.getFactor1();
+    float ghg =im.getMIDIKnob1();
     hPassShader.setUniform1f("factor1", 5);
     glBegin(GL_QUADS);
     glTexCoord2f(0, 0);
@@ -268,7 +261,7 @@ void ofApp::draw()
     vPassShader.setUniform2f("uResolution", ofVec2f(ofGetScreenWidth(), ofGetScreenHeight() ));
     vPassShader.setUniform1f("blurAmountShaderVar", 25);
     vPassShader.setUniform1f("time", shaderTime);
-    float ghg =im.getFactor1();
+    float ghg =im.getMIDIKnob1();
     vPassShader.setUniform1f("factor1", ghg);
     glBegin(GL_QUADS);
     glTexCoord2f(0, 0);
@@ -289,7 +282,7 @@ void ofApp::draw()
         ofEnableLighting();
         directionalLight.enable();
     
-    cf.draw(curVol);
+    cf.draw(im.curVol);
     particles.draw();
     
     ofDisableLighting();
@@ -298,10 +291,12 @@ void ofApp::draw()
     ofDisableLighting();
     
     fbo.end();
-    
+    brain3d.draw();
     fbo.draw(0,0);
     rbg.draw();
-    
+    ofSetColor(255, 255, 255 );
+    ofDrawBitmapString("fps: "+ofToString(ofGetFrameRate(), 2), 10, 15);
+
     
 }
 
@@ -429,28 +424,5 @@ void ofApp::dragEvent(ofDragInfo dragInfo){
 
 
 
-// incoming audio stream
-//--------------------------------------------------------------
-void ofApp::audioIn(float * input, int bufferSize, int nChannels)
-{
-    // samples are "interleaved"
-    int numCounted = 0;
-    
-    //lets go through each sample and calculate the root mean square which is a rough way to calculate volume
-    for (int i = 0; i < bufferSize; i++){
-        left[i]		= input[i*2]*0.5;
-        right[i]	= input[i*2+1]*0.5;
-        
-        curVol += left[i] * left[i];
-        curVol += right[i] * right[i];
-        numCounted+=2;
-    }
-    
-    //this is how we get the mean of rms :)
-    curVol /= (float)numCounted;
-    
-    // this is how we get the root of rms :)
-    curVol = sqrt( curVol );
-    
-}
+
 
