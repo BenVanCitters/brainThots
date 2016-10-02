@@ -21,6 +21,7 @@ public:
     void setupAudioInput();
     void audioIn(float * input, int bufferSize, int nChannels);
     float getMIDIKnob1();
+    float getMIDIKnob2();
     
     float curVol = 0.0;
 private:

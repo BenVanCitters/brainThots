@@ -37,7 +37,11 @@ void InputManager::newMidiMessage(ofxMidiMessage& msg)
     {
         if(msg.control == 1)
         {
-            midiKnob1 = msg.value;    
+            midiKnob1 = msg.value;
+        }
+        else if(msg.control == 2)
+        {
+            midiKnob2 = msg.value;
         }
         
         cout << " control: " << msg.control << endl;
@@ -48,9 +52,13 @@ void InputManager::newMidiMessage(ofxMidiMessage& msg)
 
 float InputManager::getMIDIKnob1()
 {
-    return 4*midiKnob1/128.f;
+    return 10*midiKnob1/128.f;
 }
 
+float InputManager::getMIDIKnob2()
+{
+    return 10*midiKnob2/128.f;
+}
 
 void InputManager::setupAudioInput()
 {

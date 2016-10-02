@@ -164,7 +164,7 @@ void ofApp::setupShaders()
             offset.y += sampleOffset.y;
         }
         
-        gl_FragColor = 0.9*sum;//sum;//vec4(1.0,0.0,0.0,1.0);//vec4(vTexCoord.x,vTexCoord.y,0.0,1.0);//texture2D( texture[0], vTexCoord );//
+        gl_FragColor = sum;//sum;//vec4(1.0,0.0,0.0,1.0);//vec4(vTexCoord.x,vTexCoord.y,0.0,1.0);//texture2D( texture[0], vTexCoord );//
     }
 
     );
@@ -196,13 +196,14 @@ void ofApp::setupFBO()
 
 void ofApp::setupLights()
 {
+    directionalLight.setPosition(0, 0, -1000);
     directionalLight.setDiffuseColor(ofColor(128.f, 128.f, 128.f));
     directionalLight.setSpecularColor(ofColor(255.f, 255.f, 255.f));
     directionalLight.setDirectional();
     
     // set the direction of the light
     // set it pointing from left to right -> //
-    directionalLight.setOrientation( ofVec3f(0, 0, 900) );
+    directionalLight.setOrientation( ofVec3f(100, 1000, -900) );
 
 }
 
@@ -255,7 +256,6 @@ void ofApp::update()
 void ofApp::draw()
 {
     fbo.begin();
-//    glClear(GL_DEPTH_BUFFER_BIT);
     vPassShader.begin();
     vPassShader.setUniformTexture("tex0", blurBuffer.getTexture() , 1 );
     vPassShader.setUniform2f("uResolution", ofVec2f(ofGetScreenWidth(), ofGetScreenHeight() ));
@@ -278,26 +278,26 @@ void ofApp::draw()
     glEnd();
     vPassShader.end();
     
-    
-        ofEnableLighting();
-        directionalLight.enable();
+    glClear(GL_DEPTH_BUFFER_BIT);
+    glEnable(GL_DEPTH_TEST);
+    ofEnableLighting();
+    directionalLight.enable();
     
     cf.draw(im.curVol);
-    particles.draw();
     
-    ofDisableLighting();
+    brain3d.draw();
     
     directionalLight.disable();
     ofDisableLighting();
     
+    particles.draw();
+    glDisable(GL_DEPTH_TEST);
     fbo.end();
-    brain3d.draw();
     fbo.draw(0,0);
     rbg.draw();
+
     ofSetColor(255, 255, 255 );
     ofDrawBitmapString("fps: "+ofToString(ofGetFrameRate(), 2), 10, 15);
-
-    
 }
 
 
