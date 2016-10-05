@@ -59,9 +59,7 @@ class ofApp : public ofBaseApp{
     ofFbo fbo;
     ofShader hPassShader;
     ofShader vPassShader;
-    
-    ofImage tmp;
-    
+        
     RawBrainGraphic rbg;
     Brain3D brain3d;
 };
