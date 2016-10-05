@@ -8,6 +8,18 @@
 
 #include "InputManager.h"
 
+#define PORT 7400
+
+void InputManager::setupOSC()
+{
+    receiver.setup(PORT);
+    cout << "listening for osc messages on port " << PORT << "\n";
+    //mocking shit
+    nextUpdateSeconds = 0;
+    updateDeltaSeconds = .5;
+}
+
+
 void InputManager::setupMIDI()
 {
     midiIn.openPort("LPD8");
@@ -17,16 +29,13 @@ void InputManager::setupMIDI()
     midiIn.addListener(this);
     
     //    midiIn.setVerbose(true);
-
 }
+
 
 // incoming midi
 //--------------------------------------------------------------
 void InputManager::newMidiMessage(ofxMidiMessage& msg)
 {
-//    stringstream text;
-
-    
     //buttons in pad mode
     if(msg.pitch >= 36 && msg.pitch <=43)
     {
@@ -90,5 +99,119 @@ void InputManager::audioIn(float * input, int bufferSize, int nChannels)
     
     // this is how we get the root of rms :)
     curVol = sqrt( curVol );
+}
+//--------------------------------------------------------------
+void InputManager::pollMockOSC()
+{
+    contNum = ofRandom(8.f);
+    if(ofGetElapsedTimef() > nextUpdateSeconds)
+    {
+        brainNote = (int)ofRandom(8.f);
+        nextUpdateSeconds += updateDeltaSeconds;
+    }
+}
+
+float InputManager::getBrainNote()
+{
+    return brainNote;
+}
+
+//--------------------------------------------------------------
+void InputManager::pollOSCInput()
+{
+    if(usingMockOSC)
+    {
+        pollMockOSC();
+        return;
+    }
+    
+    while(receiver.hasWaitingMessages())
+    {
+        // get the next message
+        ofxOscMessage m;
+        receiver.getNextMessage(m);
+        string addr =m.getAddress();
+        
+        const char* continuousStr = "/continuous";
+        const char* notechangeStr = "/notechange";
+        const char* rawDataStr = "/rawData";
+        const char* addrCStr = addr.c_str();
+        if(0 ==  strcmp(addrCStr, continuousStr))
+        {
+            contNum = m.getArgAsFloat(0);
+        }
+        else if(0 == strcmp(addrCStr, notechangeStr))
+        {
+            brainNote = m.getArgAsFloat(0);
+            cout << "time: " << ofGetElapsedTimef() << " brainNote: " << brainNote << endl;
+            cout << "contNum: "  << contNum << endl;
+        }
+        else if(0 == strcmp(addrCStr, notechangeStr))
+        {
+            brainNote = m.getArgAsFloat(0);
+            cout << "time: " << ofGetElapsedTimef() << " brainNote: " << brainNote << endl;
+            cout << "contNum: "  << contNum << endl;
+        }
+        else if(0 == strcmp(addrCStr, rawDataStr))
+        {
+            //            brainBuffer.ad
+            float val = m.getArgAsFloat(0);
+            cout << "time: " << ofGetElapsedTimef() << " rawData: " << val << endl;
+        }
+        else
+        {
+            cout << "unknown: " << addrCStr << endl;
+        }
+    }
+}
+
+void InputManager::keyPressed(int key)
+{
+    switch(key)
+    {
+        case 'm':
+            usingMockOSC = !usingMockOSC;
+        default:
+            break;
+    }
+
+}
+//--------------------------------------------------------------
+void InputManager::keyReleased(int key)
+{
+    
+}
+
+//--------------------------------------------------------------
+void InputManager::mouseMoved(int x, int y )
+{
+    
+}
+
+//--------------------------------------------------------------
+void InputManager::mouseDragged(int x, int y, int button)
+{
+    
+}
+
+//--------------------------------------------------------------
+void InputManager::mousePressed(int x, int y, int button)
+{
+    
+}
+
+//--------------------------------------------------------------
+void InputManager::mouseReleased(int x, int y, int button)
+{
+    
+}
+
+//--------------------------------------------------------------
+void InputManager::mouseEntered(int x, int y){
+    
+}
+
+//--------------------------------------------------------------
+void InputManager::mouseExited(int x, int y){
     
 }

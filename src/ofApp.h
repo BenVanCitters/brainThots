@@ -8,7 +8,7 @@
 #include "RawBrainGraphic.h"
 #include "Brain3D.h"
 
-#define PORT 7400
+
 
 class ofApp : public ofBaseApp{
 
@@ -39,7 +39,6 @@ class ofApp : public ofBaseApp{
         void newMidiMessage(ofxMidiMessage& eventArgs);
         
     ofTrueTypeFont font;
-    ofxOscReceiver receiver;
     
     int current_msg_string;
 
@@ -47,12 +46,6 @@ class ofApp : public ofBaseApp{
     int mouseX, mouseY;
     string mouseButtonState;
     
-    
-    float nextUpdateSeconds;
-    float updateDeltaSeconds;
-    
-    float musicNum;
-    float contNum;
 
     float shaderTime;
  

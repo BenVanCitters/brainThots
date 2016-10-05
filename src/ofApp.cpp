@@ -6,17 +6,12 @@ void ofApp::setup()
     ofSetBackgroundAuto(false);
     ofSetBackgroundColor(0, 0, 0);
     im.setupMIDI();
+    im.setupOSC();
     im.setupAudioInput();
     setupLights();
     
     setupFBO();
     setupShaders();
-    cout << "listening for osc messages on port " << PORT << "\n";
-    receiver.setup(PORT);
-    
-    //mocking shit
-    nextUpdateSeconds = 0;;
-    updateDeltaSeconds = .5;
 }
 
 #define STRINGIFY(A) #A
@@ -204,9 +199,7 @@ void ofApp::setupLights()
     // set the direction of the light
     // set it pointing from left to right -> //
     directionalLight.setOrientation( ofVec3f(100, 1000, -900) );
-
 }
-
 
 
 //--------------------------------------------------------------
@@ -215,9 +208,9 @@ void ofApp::update()
     brain3d.update();
     shaderTime = ofGetElapsedTimef()*3;
     rbg.update();
-//    pollOSCInput();
-    pollMockOSC();
-    cf.setCurrentIndex(musicNum);
+    im.pollOSCInput();
+    
+    cf.setCurrentIndex(im.getBrainNote());
     cf.update();
     particles.setTargetVector(cf.getCurrentPosition());
     particles.color = cf.currentColor;
@@ -252,9 +245,11 @@ void ofApp::update()
     //end blur
 }
 
+
 //--------------------------------------------------------------
 void ofApp::draw()
 {
+//    ofRect(<#float x1#>, <#float y1#>, <#float w#>, <#float h#>)
     fbo.begin();
     vPassShader.begin();
     vPassShader.setUniformTexture("tex0", blurBuffer.getTexture() , 1 );
@@ -302,60 +297,10 @@ void ofApp::draw()
 
 
 //--------------------------------------------------------------
-void ofApp::pollMockOSC()
+void ofApp::keyPressed(int key)
 {
-    contNum = ofRandom(8.f);
-    if(ofGetElapsedTimef() > nextUpdateSeconds)
-    {
-        musicNum = (int)ofRandom(8.f);
-        nextUpdateSeconds += updateDeltaSeconds;
-    }
-}
-
-//--------------------------------------------------------------
-void ofApp::pollOSCInput()
-{
-    while(receiver.hasWaitingMessages())
-    {
-        // get the next message
-        ofxOscMessage m;
-        receiver.getNextMessage(m);
-        string addr =m.getAddress();
-        
-        const char* continuousStr = "/continuous";
-        const char* notechangeStr = "/notechange";
-        const char* rawDataStr = "/rawData";
-        const char* addrCStr = addr.c_str();
-        if(0 ==  strcmp(addrCStr, continuousStr))
-        {
-            contNum = m.getArgAsFloat(0);
-        }
-        else if(0 == strcmp(addrCStr, notechangeStr))
-        {
-            musicNum = m.getArgAsFloat(0);
-            cout << "time: " << ofGetElapsedTimef() << " musicNum: " << musicNum << endl;
-            cout << "contNum: "  << contNum << endl;
-        }
-        else if(0 == strcmp(addrCStr, notechangeStr))
-        {
-            musicNum = m.getArgAsFloat(0);
-            cout << "time: " << ofGetElapsedTimef() << " musicNum: " << musicNum << endl;
-            cout << "contNum: "  << contNum << endl;
-        }
-        else if(0 == strcmp(addrCStr, rawDataStr))
-        {
-//            brainBuffer.ad
-            float val = m.getArgAsFloat(0);
-            cout << "time: " << ofGetElapsedTimef() << " rawData: " << val << endl;
-        }
-        else
-        {
-            cout << "unknown: " << addrCStr << endl;
-        }
-    }
-}
-//--------------------------------------------------------------
-void ofApp::keyPressed(int key){
+    im.keyPressed(key);
+    
     switch(key)
     {
         case 'f':
@@ -373,39 +318,25 @@ void ofApp::keyPressed(int key){
 }
 
 //--------------------------------------------------------------
-void ofApp::keyReleased(int key){
-
-}
+void ofApp::keyReleased(int key){ im.keyReleased(key); }
 
 //--------------------------------------------------------------
-void ofApp::mouseMoved(int x, int y ){
-
-}
+void ofApp::mouseMoved(int x, int y ){ im.mouseMoved(x,y); }
 
 //--------------------------------------------------------------
-void ofApp::mouseDragged(int x, int y, int button){
-
-}
+void ofApp::mouseDragged(int x, int y, int button){ im.mouseDragged(x,y,button); }
 
 //--------------------------------------------------------------
-void ofApp::mousePressed(int x, int y, int button){
-
-}
+void ofApp::mousePressed(int x, int y, int button){ im.mousePressed(x,y,button); }
 
 //--------------------------------------------------------------
-void ofApp::mouseReleased(int x, int y, int button){
-
-}
+void ofApp::mouseReleased(int x, int y, int button){ im.mouseReleased(x,y,button); }
 
 //--------------------------------------------------------------
-void ofApp::mouseEntered(int x, int y){
-
-}
+void ofApp::mouseEntered(int x, int y){ im.mouseEntered(x,y); }
 
 //--------------------------------------------------------------
-void ofApp::mouseExited(int x, int y){
-
-}
+void ofApp::mouseExited(int x, int y){ im.mouseExited(x,y); }
 
 //--------------------------------------------------------------
 void ofApp::windowResized(int w, int h){
