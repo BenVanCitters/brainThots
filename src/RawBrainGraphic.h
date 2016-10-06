@@ -15,12 +15,16 @@
 class RawBrainGraphic
 {
 public:
+    RawBrainGraphic(int count);
     void update();
     void draw();
-    void addSample(float newSample);
+    void addSample(int index, float newSample);
+//    void addSample(float newSample);
     
 private:
-    vector <float> brainBuffer;
-    int currentIndex;
+    vector <vector <float>> brainBuffers;
+//    vector <float> brainBuffer;
+//    int currentIndex;
+    int maxFloatLen = 200;
 };
 #endif /* RawBrainGraphic_h */

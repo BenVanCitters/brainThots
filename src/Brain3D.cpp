@@ -19,21 +19,19 @@ void Brain3D::draw()
 {
     ofMesh mesh = model.getCurrentAnimatedMesh(0);
     
-    for(int i = 0; i < 5; i++)
+    for(int i = 0; i < 1; i++)
     {
-        
-    for(int j = 0; j < 5; j++)
+    for(int j = 0; j < 1; j++)
         {
-    ofPushMatrix();
-    ofTranslate(model.getPosition().x+100, model.getPosition().y, 0);
-    ofRotate(-ofGetMouseX(), 0, 1, 0);
-    ofTranslate(-model.getPosition().x + 150*i, -model.getPosition().y + 150*j, 0);
-            ofScale(ofPoint(.3,.3,.3));
-    model.drawFaces();
-    ofPopMatrix();
+            ofPushMatrix();
+            ofTranslate(model.getPosition().x, model.getPosition().y, 0);
+            ofRotate(-ofGetMouseX(), 0, 1, 0);
+            ofTranslate(-model.getPosition().x + 150*i, -model.getPosition().y + 150*j, 0);
+//            ofScale(ofPoint(.3,.3,.3));
+            model.drawFaces();
+            ofPopMatrix();
         }
-}
-
+    }
 }
 
 

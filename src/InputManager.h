@@ -31,6 +31,7 @@ public:
     
     float curVol = 0.0;
     
+    bool showDebug;
     
     //input marshalling from ofApp
     void keyPressed(int key);

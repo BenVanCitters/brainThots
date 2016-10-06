@@ -13,6 +13,7 @@
 class ofApp : public ofBaseApp{
 
 	public:
+        ofApp();
 		void setup();
         void setupFBO();
         void setupLights();
@@ -49,10 +50,10 @@ class ofApp : public ofBaseApp{
 
     float shaderTime;
  
-    ColorFollower cf;
+    ColorFollower colorFollower;
 
     ColorMeshParticles particles;
-    InputManager im;
+    InputManager inputManager;
     
     ofLight directionalLight;
     ofFbo blurBuffer;
@@ -60,6 +61,9 @@ class ofApp : public ofBaseApp{
     ofShader hPassShader;
     ofShader vPassShader;
         
-    RawBrainGraphic rbg;
+    RawBrainGraphic rawBrainGraphic;
     Brain3D brain3d;
+    
+    float cachedScrWidth;
+    float cachedScrHeight;
 };

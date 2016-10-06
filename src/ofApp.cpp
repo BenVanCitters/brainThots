@@ -1,13 +1,22 @@
 #include "ofApp.h"
 
+ofApp::ofApp()
+:rawBrainGraphic(16)
+{
+//    super();
+}
+
 //--------------------------------------------------------------
 void ofApp::setup()
 {
+    cachedScrWidth = ofGetScreenWidth();
+    cachedScrHeight = ofGetScreenHeight();
+    
     ofSetBackgroundAuto(false);
     ofSetBackgroundColor(0, 0, 0);
-    im.setupMIDI();
-    im.setupOSC();
-    im.setupAudioInput();
+    inputManager.setupMIDI();
+    inputManager.setupOSC();
+    inputManager.setupAudioInput();
     setupLights();
     
     setupFBO();
@@ -22,7 +31,7 @@ string getStringFromFilePath(string filepath)
     return stringStream.str();
 }
 
-#define STRINGIFY(A) #A
+
 void ofApp::setupShaders()
 {
     string data = ofFilePath::join(ofFilePath::getCurrentExeDir(), "../../../data/");
@@ -43,8 +52,8 @@ void ofApp::setupShaders()
 
 void ofApp::setupFBO()
 {
-    int drawWidth = ofGetScreenWidth();
-    int drawHeight = ofGetScreenHeight();
+    int drawWidth = cachedScrWidth;
+    int drawHeight = cachedScrHeight;
     
     
     //allocate and clear the framebuffer
@@ -70,7 +79,6 @@ void ofApp::setupLights()
     directionalLight.setDirectional();
     
     // set the direction of the light
-    // set it pointing from left to right -> //
     directionalLight.setOrientation( ofVec3f(100, 1000, -900) );
 }
 
@@ -80,37 +88,36 @@ void ofApp::update()
 {
     brain3d.update();
     shaderTime = ofGetElapsedTimef()*3;
-    rbg.update();
-    im.pollOSCInput();
+    rawBrainGraphic.update();
+    inputManager.pollOSCInput();
     
-    cf.setCurrentIndex(im.getBrainNote());
-    cf.update();
-    particles.setTargetVector(cf.getCurrentPosition());
-    particles.color = cf.currentColor;
+    colorFollower.setCurrentIndex(inputManager.getBrainNote());
+    colorFollower.update();
+    particles.setTargetVector(colorFollower.getCurrentPosition());
+    particles.color = colorFollower.currentColor;
     particles.update();
-    
     
     //blur first/horizontal-pass stuff
     blurBuffer.begin();
     hPassShader.begin();
     hPassShader.setUniformTexture("tex0", fbo.getTexture() , 1 );
-    hPassShader.setUniform2f("uResolution", ofVec2f(ofGetScreenWidth(), ofGetScreenHeight() ));
+    hPassShader.setUniform2f("uResolution", ofVec2f(cachedScrWidth, cachedScrHeight ));
     hPassShader.setUniform1f("blurAmountShaderVar", 25);
     hPassShader.setUniform1f("time", shaderTime);
-    float ghg =im.getMIDIKnob1();
+    float ghg =inputManager.getMIDIKnob1();
     hPassShader.setUniform1f("factor1", 5);
     glBegin(GL_QUADS);
     glTexCoord2f(0, 0);
     glVertex3f(0, 0,0);
     
     glTexCoord2f(1, 0);
-    glVertex3f(ofGetScreenWidth(), 0, 0);
+    glVertex3f(cachedScrWidth, 0, 0);
     
     glTexCoord2f(1, 1);
-    glVertex3f(ofGetScreenWidth(), ofGetScreenHeight(),0);
+    glVertex3f(cachedScrWidth, cachedScrHeight,0);
     
     glTexCoord2f(0, 1);
-    glVertex3f(0, ofGetScreenHeight(), 0);
+    glVertex3f(0, cachedScrHeight, 0);
     glEnd();
     
     hPassShader.end();
@@ -122,27 +129,26 @@ void ofApp::update()
 //--------------------------------------------------------------
 void ofApp::draw()
 {
-//    ofRect(<#float x1#>, <#float y1#>, <#float w#>, <#float h#>)
     fbo.begin();
     vPassShader.begin();
     vPassShader.setUniformTexture("tex0", blurBuffer.getTexture() , 1 );
-    vPassShader.setUniform2f("uResolution", ofVec2f(ofGetScreenWidth(), ofGetScreenHeight() ));
+    vPassShader.setUniform2f("uResolution", ofVec2f(cachedScrWidth, cachedScrHeight ));
     vPassShader.setUniform1f("blurAmountShaderVar", 25);
     vPassShader.setUniform1f("time", shaderTime);
-    float ghg =im.getMIDIKnob1();
+    float ghg =inputManager.getMIDIKnob1();
     vPassShader.setUniform1f("factor1", ghg);
     glBegin(GL_QUADS);
     glTexCoord2f(0, 0);
     glVertex3f(0, 0,0);
     
     glTexCoord2f(1, 0);
-    glVertex3f(ofGetScreenWidth(), 0, 0);
+    glVertex3f(cachedScrWidth, 0, 0);
     
     glTexCoord2f(1, 1);
-    glVertex3f(ofGetScreenWidth(), ofGetScreenHeight(),0);
+    glVertex3f(cachedScrWidth, cachedScrHeight,0);
     
     glTexCoord2f(0, 1);
-    glVertex3f(0, ofGetScreenHeight(), 0);
+    glVertex3f(0, cachedScrHeight, 0);
     glEnd();
     vPassShader.end();
     
@@ -151,7 +157,7 @@ void ofApp::draw()
     ofEnableLighting();
     directionalLight.enable();
     
-    cf.draw(im.curVol);
+    colorFollower.draw(inputManager.curVol);
     
     brain3d.draw();
     
@@ -162,17 +168,20 @@ void ofApp::draw()
     glDisable(GL_DEPTH_TEST);
     fbo.end();
     fbo.draw(0,0);
-    rbg.draw();
+    rawBrainGraphic.draw();
 
-    ofSetColor(255, 255, 255 );
-    ofDrawBitmapString("fps: "+ofToString(ofGetFrameRate(), 2), 10, 15);
+    if(inputManager.showDebug)
+    {
+        ofSetColor(255, 255, 255 );
+        ofDrawBitmapString("fps: "+ofToString(ofGetFrameRate(), 2), 10, 15);
+    }
 }
 
 
 //--------------------------------------------------------------
 void ofApp::keyPressed(int key)
 {
-    im.keyPressed(key);
+    inputManager.keyPressed(key);
     
     switch(key)
     {
@@ -191,29 +200,30 @@ void ofApp::keyPressed(int key)
 }
 
 //--------------------------------------------------------------
-void ofApp::keyReleased(int key){ im.keyReleased(key); }
+void ofApp::keyReleased(int key){ inputManager.keyReleased(key); }
 
 //--------------------------------------------------------------
-void ofApp::mouseMoved(int x, int y ){ im.mouseMoved(x,y); }
+void ofApp::mouseMoved(int x, int y ){ inputManager.mouseMoved(x,y); }
 
 //--------------------------------------------------------------
-void ofApp::mouseDragged(int x, int y, int button){ im.mouseDragged(x,y,button); }
+void ofApp::mouseDragged(int x, int y, int button){ inputManager.mouseDragged(x,y,button); }
 
 //--------------------------------------------------------------
-void ofApp::mousePressed(int x, int y, int button){ im.mousePressed(x,y,button); }
+void ofApp::mousePressed(int x, int y, int button){ inputManager.mousePressed(x,y,button); }
 
 //--------------------------------------------------------------
-void ofApp::mouseReleased(int x, int y, int button){ im.mouseReleased(x,y,button); }
+void ofApp::mouseReleased(int x, int y, int button){ inputManager.mouseReleased(x,y,button); }
 
 //--------------------------------------------------------------
-void ofApp::mouseEntered(int x, int y){ im.mouseEntered(x,y); }
+void ofApp::mouseEntered(int x, int y){ inputManager.mouseEntered(x,y); }
 
 //--------------------------------------------------------------
-void ofApp::mouseExited(int x, int y){ im.mouseExited(x,y); }
+void ofApp::mouseExited(int x, int y){ inputManager.mouseExited(x,y); }
 
 //--------------------------------------------------------------
 void ofApp::windowResized(int w, int h){
-
+    cachedScrWidth = ofGetScreenWidth();
+    cachedScrHeight = ofGetScreenHeight();
 }
 
 //--------------------------------------------------------------

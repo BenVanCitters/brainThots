@@ -171,6 +171,10 @@ void InputManager::keyPressed(int key)
     {
         case 'm':
             usingMockOSC = !usingMockOSC;
+            break;
+        case 'd':
+            showDebug = !showDebug;
+            break;
         default:
             break;
     }
