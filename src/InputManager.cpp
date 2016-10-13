@@ -77,6 +77,13 @@ void InputManager::setupAudioInput()
     soundStream.setup( 0, 2, 44100, bufferSize, 4);
 }
 
+void InputManager::getEEGStreams(float* streams)
+{
+    for(int i = 0; i < 16; i++)
+    {
+        streams[i] = eegStreams[i];
+    }
+}
 // incoming audio stream
 //--------------------------------------------------------------
 void InputManager::audioIn(float * input, int bufferSize, int nChannels)
@@ -108,6 +115,12 @@ void InputManager::pollMockOSC()
     {
         brainNote = (int)ofRandom(8.f);
         nextUpdateSeconds += updateDeltaSeconds;
+    }
+    
+    //what is actual range of eeg signals?
+    for(int i = 0; i < 16; i++)
+    {
+        eegStreams[i] = ofRandom(400.f);
     }
 }
 

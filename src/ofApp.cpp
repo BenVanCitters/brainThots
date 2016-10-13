@@ -1,7 +1,6 @@
 #include "ofApp.h"
 
 ofApp::ofApp()
-:rawBrainGraphic(16)
 {
 //    super();
 }
@@ -86,9 +85,14 @@ void ofApp::setupLights()
 //--------------------------------------------------------------
 void ofApp::update()
 {
+    float eegStreams[16];
+    inputManager.getEEGStreams(eegStreams);
+    brain3d.addSamples(eegStreams);
     brain3d.update();
+    
+    
     shaderTime = ofGetElapsedTimef()*3;
-    rawBrainGraphic.update();
+
     inputManager.pollOSCInput();
     
     colorFollower.setCurrentIndex(inputManager.getBrainNote());
@@ -168,7 +172,6 @@ void ofApp::draw()
     glDisable(GL_DEPTH_TEST);
     fbo.end();
     fbo.draw(0,0);
-    rawBrainGraphic.draw();
 
     if(inputManager.showDebug)
     {

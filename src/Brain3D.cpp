@@ -9,10 +9,22 @@
 #include "Brain3D.h"
 
 
-Brain3D::Brain3D()
+Brain3D::Brain3D():rawBrainGraphic(16)
 {
     model.loadModel("models/decimatex2.dae", false);
     model.setPosition(ofGetWidth() * 0.5, (float)ofGetHeight() * 0.75 , 0);
+    
+    //load the eeg node positions...
+    const aiScene * t = model.getAssimpScene();
+    aiNode* eegParent = t->mRootNode->FindNode("EEGNodes");
+    for(int i = 0; i < 16; i++)
+    {
+        stringstream s;
+        s << "eeg" << i;
+        string t = s.str();
+        rawBrainGraphic.setTransform( i, eegParent->FindNode( t.c_str() )->mTransformation );
+    }
+//    rawBrainGraphic.setTransform( 1, eegParent->FindNode("eeg1")->mTransformation );
 }
 
 void Brain3D::draw()
@@ -32,11 +44,19 @@ void Brain3D::draw()
             ofPopMatrix();
         }
     }
+    
+    rawBrainGraphic.draw();
 }
 
+void Brain3D::addSamples(float* samples)
+{
+    rawBrainGraphic.addSamples(samples);
+    rawBrainGraphic.update();
+}
 
 void Brain3D::update()
 {
+    
     model.update();
 
 }

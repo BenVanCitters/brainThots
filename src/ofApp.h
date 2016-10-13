@@ -5,7 +5,6 @@
 #include "InputManager.h"
 #include "ColorFollower.h"
 #include "ColorMeshParticles.h"
-#include "RawBrainGraphic.h"
 #include "Brain3D.h"
 
 
@@ -61,7 +60,6 @@ class ofApp : public ofBaseApp{
     ofShader hPassShader;
     ofShader vPassShader;
         
-    RawBrainGraphic rawBrainGraphic;
     Brain3D brain3d;
     
     float cachedScrWidth;

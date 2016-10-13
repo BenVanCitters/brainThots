@@ -21,13 +21,15 @@ RawBrainGraphic::RawBrainGraphic(int count)
 void RawBrainGraphic::update()
 {
     //cut down the size if they get too long
+    int k = 0;
     for (vector<vector<float>>::iterator it = brainBuffers.begin() ; it != brainBuffers.end(); ++it)
     {
-        cout << "\nvec: ";
+        cout << "\nvec" << k << ": ";
         for(int i = 0; i < it->size(); i++)
         {
             cout << it->at(i) << ",";
         }
+        k++;
     }
 }
 
@@ -55,4 +57,24 @@ void RawBrainGraphic::addSample(int index, float newSample)
 //    brainBuffers.at(index)[currentIndex] = newSample;
 //    brainBuffers[index][currentIndex] = newSample;
 //    currentIndex++;
+}
+
+void RawBrainGraphic::addSamples(float* newSample)
+{
+    for(int i = 0; i < 16; i++)
+    {
+        brainBuffers[i].insert(brainBuffers[i].begin(), newSample[i]);
+        while(brainBuffers[i].size() > maxFloatLen)
+        {
+            brainBuffers[i].pop_back();
+        }
+    }
+    //    brainBuffers.at(index)[currentIndex] = newSample;
+    //    brainBuffers[index][currentIndex] = newSample;
+    //    currentIndex++;
+}
+
+void  RawBrainGraphic::setTransform(int index, aiMatrix4x4 transformation)
+{
+    mTransformations[index] = transformation;
 }

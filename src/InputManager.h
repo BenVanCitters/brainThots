@@ -43,6 +43,8 @@ public:
     void mouseEntered(int x, int y);
     void mouseExited(int x, int y);
     
+    void getEEGStreams(float* streams);
+    
 private:
     
     //MIDI stuff - see example code in ofxMIDI
@@ -63,6 +65,8 @@ private:
     float updateDeltaSeconds;
     float brainNote;
     float contNum;
+    
+    float eegStreams[16];
     
     bool usingMockOSC = false;
     
