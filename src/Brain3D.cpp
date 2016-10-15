@@ -20,6 +20,8 @@ aiMatrix4x4 recusrMult(aiNode* node)
 Brain3D::Brain3D():rawBrainGraphic(16)
 {
     model.loadModel("models/decimatex2.dae", false);
+    model.setScaleNormalization(false);
+    model.setScale(1.f,1.f,1.f);
 //    model.setPosition(ofGetWidth() * 0.5, (float)ofGetHeight() * 0.75 , 0);
     
     //load the eeg node positions...

@@ -22,8 +22,8 @@ void InputManager::setupOSC()
 
 void InputManager::setupMIDI()
 {
-    midiIn.openPort("LPD8");
-    
+//    midiIn.openPort("MPD26");
+    midiIn.openPort(0);
     midiIn.ignoreTypes(false, false, false);
     
     midiIn.addListener(this);
@@ -36,8 +36,9 @@ void InputManager::setupMIDI()
 //--------------------------------------------------------------
 void InputManager::newMidiMessage(ofxMidiMessage& msg)
 {
+//    cout << " MIDI msg: " << msg << endl;
     //buttons in pad mode
-    if(msg.pitch >= 36 && msg.pitch <=43)
+    if(msg.pitch >= 39 && msg.pitch <=51)
     {
         cout << " pitch: " << msg.pitch << endl;
     }
@@ -167,9 +168,18 @@ void InputManager::pollOSCInput()
         }
         else if(0 == strcmp(addrCStr, rawDataStr))
         {
-            //            brainBuffer.ad
+            cout << "time: " << ofGetElapsedTimef()<< " rawData: ";
             float val = m.getArgAsFloat(0);
-            cout << "time: " << ofGetElapsedTimef() << " rawData: " << val << endl;
+            for(int i = 0; i < 16; i++)
+            {
+                eegStreams[i] =m.getArgAsFloat(i);
+                   cout << val << ", ";
+            }
+            cout << endl;
+//            for (vector<vector<float>>::iterator it = brainBuffers.begin() ; it != brainBuffers.end(); ++it)
+//            {
+//                cout << "time: " << ofGetElapsedTimef() << " rawData: " << val << endl;
+//            }
         }
         else
         {

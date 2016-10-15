@@ -56,8 +56,13 @@ private:
     float midiKnob4;
     float midiKnob5;
     float midiKnob6;
-    float midiKnob7;
-    float midiKnob8;
+    
+    float midiFader1;
+    float midiFader2;
+    float midiFader3;
+    float midiFader4;
+    float midiFader5;
+    float midiFader6;
     
     //osc stuff
     ofxOscReceiver receiver;
