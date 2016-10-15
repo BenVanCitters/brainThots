@@ -9,6 +9,7 @@
 #ifndef RawBrainGraphic_h
 #define RawBrainGraphic_h
 
+#define LINE_COUNT 16
 #include <stdio.h>
 #include "ofMain.h"
 #include "ofxAssimpModelLoader.h"
@@ -22,14 +23,16 @@ public:
     void addSample(int index, float newSample);
     void addSamples(float* newSample);
     
-    void setTransform(int index, aiMatrix4x4 transformation);
+    void setTransform(int index, aiMatrix4x4 t);
 //    void addSample(float newSample);
     
 private:
+    void printVecs();
     vector <vector <float>> brainBuffers;
-    aiMatrix4x4 mTransformations[16];
+    ofMatrix4x4 mTransformations[LINE_COUNT];
+    ofVboMesh mMesh[LINE_COUNT];
 //    vector <float> brainBuffer;
 //    int currentIndex;
-    int maxFloatLen = 10;
+    int maxFloatLen = 50;
 };
 #endif /* RawBrainGraphic_h */

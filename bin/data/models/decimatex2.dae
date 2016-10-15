@@ -5,8 +5,8 @@
       <author>Blender User</author>
       <authoring_tool>Blender 2.75.0 commit date:2015-07-07, commit time:14:56, hash:c27589e</authoring_tool>
     </contributor>
-    <created>2016-10-13T00:02:51</created>
-    <modified>2016-10-13T00:02:51</modified>
+    <created>2016-10-15T00:37:37</created>
+    <modified>2016-10-15T00:37:37</modified>
     <unit name="meter" meter="1"/>
     <up_axis>Z_UP</up_axis>
   </asset>
@@ -214,59 +214,59 @@
   <library_controllers/>
   <library_visual_scenes>
     <visual_scene id="Scene" name="Scene">
+      <node id="EEGNodes" name="EEGNodes" type="NODE">
+        <matrix sid="transform">1 0 0 0 0 1 0 0 0 0 1 0 0 0 0 1</matrix>
+        <node id="eeg2" name="eeg2" type="NODE">
+          <matrix sid="transform">1 0 0 -10.13732 0 0.9999999 0 100.6364 0 0 1 25.25309 0 0 0 1</matrix>
+        </node>
+        <node id="eeg1" name="eeg1" type="NODE">
+          <matrix sid="transform">1 0 0 0.03324926 0 0.05233597 -0.9986295 -56.7455 0 0.9986295 0.05233597 70.88967 0 0 0 1</matrix>
+        </node>
+        <node id="eeg3" name="eeg3" type="NODE">
+          <matrix sid="transform">1 0 0 38.63773 0 0.9999999 0 6.850388 0 0 1 93.55016 0 0 0 1</matrix>
+        </node>
+        <node id="eeg4" name="eeg4" type="NODE">
+          <matrix sid="transform">1 0 0 -62.19079 0 0.9999999 0 38.38874 0 0 1 80.80539 0 0 0 1</matrix>
+        </node>
+        <node id="eeg5" name="eeg5" type="NODE">
+          <matrix sid="transform">1 0 0 58.86302 0 0.9999999 0 75.91652 0 0 1 18.78615 0 0 0 1</matrix>
+        </node>
+        <node id="eeg6" name="eeg6" type="NODE">
+          <matrix sid="transform">1 0 0 -17.66677 0 0.9999999 0 51.89913 0 0 1 93.81113 0 0 0 1</matrix>
+        </node>
+        <node id="eeg7" name="eeg7" type="NODE">
+          <matrix sid="transform">1 0 0 7.095279 0 0.9999999 0 2.002815 0 0 1 93.522 0 0 0 1</matrix>
+        </node>
+        <node id="eeg8" name="eeg8" type="NODE">
+          <matrix sid="transform">1 0 0 23.84981 0 0.9999999 0 -52.06754 0 0 1 71.63823 0 0 0 1</matrix>
+        </node>
+        <node id="eeg9" name="eeg9" type="NODE">
+          <matrix sid="transform">1 0 0 66.51986 0 0.9999999 0 36.38786 0 0 1 44.84019 0 0 0 1</matrix>
+        </node>
+        <node id="eeg10" name="eeg10" type="NODE">
+          <matrix sid="transform">1 0 0 -28.23882 0 0.9999999 0 -8.84996 0 0 1 93.45901 0 0 0 1</matrix>
+        </node>
+        <node id="eeg11" name="eeg11" type="NODE">
+          <matrix sid="transform">1 0 0 -57.80346 0 0.9999999 0 -33.90877 0 0 1 47.35172 0 0 0 1</matrix>
+        </node>
+        <node id="eeg12" name="eeg12" type="NODE">
+          <matrix sid="transform">1 0 0 19.12248 0 0.9999999 0 -31.35855 0 0 1 93.32867 0 0 0 1</matrix>
+        </node>
+        <node id="eeg13" name="eeg13" type="NODE">
+          <matrix sid="transform">1 0 0 21.36666 0 0.9999999 0 64.07129 0 0 1 93.88178 0 0 0 1</matrix>
+        </node>
+        <node id="eeg14" name="eeg14" type="NODE">
+          <matrix sid="transform">1 0 0 -49.32342 0 0.9999999 0 83.35684 0 0 1 19.38013 0 0 0 1</matrix>
+        </node>
+        <node id="eeg0" name="eeg0" type="NODE">
+          <matrix sid="transform">1 0 0 -62.26492 0 0.9999999 0 4.490944 0 0 1 51.48566 0 0 0 1</matrix>
+        </node>
+        <node id="eeg15" name="eeg15" type="NODE">
+          <matrix sid="transform">1 0 0 53.25248 0 0.9999999 0 12.61897 0 0 1 76.91267 0 0 0 1</matrix>
+        </node>
+      </node>
       <node id="Brain" name="Brain" type="NODE">
         <matrix sid="transform">-1 8.74228e-8 0 0 -8.74228e-8 -1 0 0 0 0 1 0 0 0 0 1</matrix>
-        <node id="EEGNodes" name="EEGNodes" type="NODE">
-          <matrix sid="transform">-1 -8.74228e-8 0 0 8.74228e-8 -1 0 0 0 0 1 0 0 0 0 1</matrix>
-          <node id="eeg2" name="eeg2" type="NODE">
-            <matrix sid="transform">1 0 0 -10.13732 0 0.9999999 0 100.6364 0 0 1 25.25309 0 0 0 1</matrix>
-          </node>
-          <node id="eeg1" name="eeg1" type="NODE">
-            <matrix sid="transform">1 0 0 0.03324926 0 0.05233597 -0.9986295 -56.7455 0 0.9986295 0.05233597 70.88967 0 0 0 1</matrix>
-          </node>
-          <node id="eeg3" name="eeg3" type="NODE">
-            <matrix sid="transform">1 0 0 38.63773 0 0.9999999 0 6.850388 0 0 1 93.55016 0 0 0 1</matrix>
-          </node>
-          <node id="eeg4" name="eeg4" type="NODE">
-            <matrix sid="transform">1 0 0 -62.19079 0 0.9999999 0 38.38874 0 0 1 80.80539 0 0 0 1</matrix>
-          </node>
-          <node id="eeg5" name="eeg5" type="NODE">
-            <matrix sid="transform">1 0 0 58.86302 0 0.9999999 0 75.91652 0 0 1 18.78615 0 0 0 1</matrix>
-          </node>
-          <node id="eeg6" name="eeg6" type="NODE">
-            <matrix sid="transform">1 0 0 -17.66677 0 0.9999999 0 51.89913 0 0 1 93.81113 0 0 0 1</matrix>
-          </node>
-          <node id="eeg7" name="eeg7" type="NODE">
-            <matrix sid="transform">1 0 0 7.095279 0 0.9999999 0 2.002815 0 0 1 93.522 0 0 0 1</matrix>
-          </node>
-          <node id="eeg8" name="eeg8" type="NODE">
-            <matrix sid="transform">1 0 0 23.84981 0 0.9999999 0 -52.06754 0 0 1 71.63823 0 0 0 1</matrix>
-          </node>
-          <node id="eeg9" name="eeg9" type="NODE">
-            <matrix sid="transform">1 0 0 66.51986 0 0.9999999 0 36.38786 0 0 1 44.84019 0 0 0 1</matrix>
-          </node>
-          <node id="eeg10" name="eeg10" type="NODE">
-            <matrix sid="transform">1 0 0 -28.23882 0 0.9999999 0 -8.84996 0 0 1 93.45901 0 0 0 1</matrix>
-          </node>
-          <node id="eeg11" name="eeg11" type="NODE">
-            <matrix sid="transform">1 0 0 -57.80346 0 0.9999999 0 -33.90877 0 0 1 47.35172 0 0 0 1</matrix>
-          </node>
-          <node id="eeg12" name="eeg12" type="NODE">
-            <matrix sid="transform">1 0 0 19.12248 0 0.9999999 0 -31.35855 0 0 1 93.32867 0 0 0 1</matrix>
-          </node>
-          <node id="eeg13" name="eeg13" type="NODE">
-            <matrix sid="transform">1 0 0 21.36666 0 0.9999999 0 64.07129 0 0 1 93.88178 0 0 0 1</matrix>
-          </node>
-          <node id="eeg14" name="eeg14" type="NODE">
-            <matrix sid="transform">1 0 0 -49.32342 0 0.9999999 0 83.35684 0 0 1 19.38013 0 0 0 1</matrix>
-          </node>
-          <node id="eeg0" name="eeg0" type="NODE">
-            <matrix sid="transform">1 0 0 -62.26492 0 0.9999999 0 4.490944 0 0 1 51.48566 0 0 0 1</matrix>
-          </node>
-          <node id="eeg15" name="eeg15" type="NODE">
-            <matrix sid="transform">1 0 0 53.25248 0 0.9999999 0 12.61897 0 0 1 76.91267 0 0 0 1</matrix>
-          </node>
-        </node>
         <node id="Meshes" name="Meshes" type="NODE">
           <matrix sid="transform">1 0 0 0 0 1 0 0 0 0 1 0 0 0 0 1</matrix>
           <node id="Brain_003" name="Brain_003" type="NODE">
