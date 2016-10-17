@@ -84,6 +84,8 @@ void ofApp::setupLights()
 //--------------------------------------------------------------
 void ofApp::update()
 {
+    
+    inputManager.pollOSCInput();
     float eegStreams[16];
     inputMask.update(0);
     inputManager.getEEGStreams(eegStreams);
@@ -93,12 +95,12 @@ void ofApp::update()
     rawBrainGraphic.addSamples(eegStreams);
     rawBrainGraphic.update();
 //    brain3d.addSamples(eegStreams);
+    brain3d.setScale(inputMask.brain3DScale.get());
     brain3d.update();
     
     
     shaderTime = ofGetElapsedTimef()*3;
 
-    inputManager.pollOSCInput();
     
     colorFollower.setCurrentIndex(inputManager.getBrainNote());
     colorFollower.update();

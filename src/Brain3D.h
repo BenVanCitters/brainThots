@@ -19,10 +19,13 @@ class Brain3D
 {
 
 public:
+    Brain3D();
+    
     void draw();
     void update();
+    
     void addSamples(float* samples);
-        Brain3D();
+    void setScale(float s);
 private:
     ofxAssimpModelLoader model;
     

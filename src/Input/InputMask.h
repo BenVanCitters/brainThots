@@ -19,7 +19,7 @@ public:
     InputMask(InputManager* input);
     void update(float dt);
     
-    
+    LerpedFloat brain3DScale;
     LerpedFloat blurAmount;
     
 private:

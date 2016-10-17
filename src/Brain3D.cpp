@@ -52,7 +52,10 @@ Brain3D::Brain3D()
 //    getTransformsForRBGs();
 }
 
-
+void Brain3D::setScale(float s)
+{
+    model.setScale(s,s,s);
+}
 
 void Brain3D::draw()
 {
