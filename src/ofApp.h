@@ -3,10 +3,10 @@
 #include "ofMain.h"
 #include "ofxOsc.h"
 #include "InputManager.h"
+#include "InputMask.h"
 #include "ColorFollower.h"
 #include "ColorMeshParticles.h"
 #include "Brain3D.h"
-
 
 
 class ofApp : public ofBaseApp{
@@ -53,6 +53,7 @@ class ofApp : public ofBaseApp{
 
     ColorMeshParticles particles;
     InputManager inputManager;
+    InputMask inputMask;
     
     ofLight directionalLight;
     ofFbo blurBuffer;
@@ -62,6 +63,7 @@ class ofApp : public ofBaseApp{
         
     Brain3D brain3d;
     
+    RawBrainGraphic rawBrainGraphic;
     float cachedScrWidth;
     float cachedScrHeight;
 };

@@ -26,7 +26,6 @@ public:
 private:
     ofxAssimpModelLoader model;
     
-    RawBrainGraphic rawBrainGraphic;
 };
 
 

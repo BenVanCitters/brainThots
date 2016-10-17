@@ -24,15 +24,16 @@ public:
     void addSamples(float* newSample);
     
     void setTransform(int index, aiMatrix4x4 t);
-//    void addSample(float newSample);
-    
+    void setBrainAmplitude(float amplitude);
+    void setBrainLineLength(float length);
 private:
     void printVecs();
     vector <vector <float>> brainBuffers;
     ofMatrix4x4 mTransformations[LINE_COUNT];
     ofVboMesh mMesh[LINE_COUNT];
-//    vector <float> brainBuffer;
-//    int currentIndex;
-    int maxFloatLen = 50;
+    int maxFloatLen = 120;
+    
+    float brainLen = 0;    //'scale' or total length of the line
+    float brainAmp = 0;
 };
 #endif /* RawBrainGraphic_h */

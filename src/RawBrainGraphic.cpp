@@ -9,7 +9,6 @@
 #include "RawBrainGraphic.h"
 
 
-
 RawBrainGraphic::RawBrainGraphic(int count)
 {
     for(int i = 0; i < count; i++)
@@ -31,17 +30,26 @@ RawBrainGraphic::RawBrainGraphic(int count)
     }
 }
 
+void RawBrainGraphic::setBrainAmplitude(float amplitude)
+{
+    brainAmp = amplitude;
+}
+
+void RawBrainGraphic::setBrainLineLength(float length)
+{
+    brainLen = length;
+    
+}
+//update all of the meshes to reflect the new samples
 void RawBrainGraphic::update()
 {
-    float lineLen = 500;
-    
     int j = 0;
     for (vector<vector<float>>::iterator it = brainBuffers.begin() ; it != brainBuffers.end(); ++it)
     {
-        float sectionLen = lineLen/it->size();
+        float sectionLen = brainLen/it->size();
         for(int i = 0; i < it->size(); i++)
         {
-            ofVec3f v(it->at(i), -i*sectionLen, 0);
+            ofVec3f v(brainAmp*it->at(i), -i*sectionLen, 0);
             mMesh[j].setVertex(i, v);
         }
         j++;
@@ -65,14 +73,22 @@ void RawBrainGraphic::printVecs()
 
 void RawBrainGraphic::draw()
 {
+    ofPushMatrix();
+    ofTranslate(ofGetWidth()/2, ofGetHeight()/2);
+    float radianDivision = TWO_PI/LINE_COUNT;
     for(int i = 0; i < LINE_COUNT; i++)
     {
         ofPushMatrix();
-        ofMultMatrix(mTransformations[i]);
+//        ofMultMatrix(mTransformations[i]);
+        ofVec3f v(100*cos(i*radianDivision),100*sin(i*radianDivision),0);
+        ofTranslate(v);
+        ofRotateX(-90);
+        ofRotateY(90-i*360.f/LINE_COUNT );
         ofSetColor(255,255,255,255);
         mMesh[i].draw();
         ofPopMatrix();
     }
+    ofPopMatrix();
 }
 
 void RawBrainGraphic::addSample(int index, float newSample)

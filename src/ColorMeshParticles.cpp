@@ -30,7 +30,7 @@ void ColorMeshParticles::draw()
 {
     ofSetColor(color);
     ofFill();
-    ofSetPolyMode(OF_POLY_WINDING_NONZERO);
+//    ofSetPolyMode(OF_POLY_WINDING_NONZERO);
 //    ofBeginShape();
     for(int i = 0; i < particles.size(); i++)
     {

@@ -40,9 +40,11 @@ void ColorFollower::draw(float sz)
     float add = 700 * sz;
     ofFill();
     ofSetColor(currentColor);
-//    ofDrawEllipse(currentPos.x, currentPos.y, currentSz, currentSz);
+    ofPushMatrix();
+//    ofRotateZ(ofGetElapsedTimef()/3 * 360/TWO_PI);
+
     ofDrawSphere(currentPos.x, currentPos.y, currentSz+add);
-//    ofDrawLine(lastPos,currentPos);
+    ofPopMatrix();
 }
 
 void ColorFollower::setCurrentIndex(int index)
@@ -54,7 +56,7 @@ ofVec3f ColorFollower::getPositionForIndex(int index)
 {
     int width = ofGetWindowWidth();
     int height = ofGetWindowHeight();
-    float rad = ofGetElapsedTimef()/3 + (index*1.f/8)*TWO_PI;
+    float rad = (index*1.f/8)*TWO_PI;
     return ofVec3f((width/2.f) + (height/2.f-maxSize/2) *cosf(rad),
                    (height/2.f) + (height/2.f-maxSize/2) *sinf(rad),
                     0 );

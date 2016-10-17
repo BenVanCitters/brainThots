@@ -1,6 +1,6 @@
 #include "ofApp.h"
 
-ofApp::ofApp()
+ofApp::ofApp():rawBrainGraphic(16), inputMask(&inputManager)
 {
 //    super();
 }
@@ -13,11 +13,10 @@ void ofApp::setup()
     
     ofSetBackgroundAuto(false);
     ofSetBackgroundColor(0, 0, 0);
-    inputManager.setupMIDI();
-    inputManager.setupOSC();
-    inputManager.setupAudioInput();
-    setupLights();
     
+    inputManager.setup();
+//    inputMask = InputMask(&inputManager);
+    setupLights();
     setupFBO();
     setupShaders();
 }
@@ -58,14 +57,14 @@ void ofApp::setupFBO()
     //allocate and clear the framebuffer
     blurBuffer.allocate(drawWidth, drawHeight, GL_RGBA);
     blurBuffer.begin();
-    ofClear(0, 0, 0, 0);
+    ofClear(0, 0, 0, 255);
     blurBuffer.end();
     
     
     //allocate and clear the framebuffer
     fbo.allocate(drawWidth, drawHeight, GL_RGBA);
     fbo.begin();
-    ofClear(0, 0, 0, 0);
+    ofClear(0, 0, 0, 255);
     fbo.end();
     
 }
@@ -86,8 +85,14 @@ void ofApp::setupLights()
 void ofApp::update()
 {
     float eegStreams[16];
+    inputMask.update(0);
     inputManager.getEEGStreams(eegStreams);
-    brain3d.addSamples(eegStreams);
+    
+    rawBrainGraphic.setBrainLineLength(2000.f*inputManager.getMIDIFader1());
+    rawBrainGraphic.setBrainAmplitude(5.f*inputManager.getMIDIFader2());
+    rawBrainGraphic.addSamples(eegStreams);
+    rawBrainGraphic.update();
+//    brain3d.addSamples(eegStreams);
     brain3d.update();
     
     
@@ -106,7 +111,7 @@ void ofApp::update()
     hPassShader.begin();
     hPassShader.setUniformTexture("tex0", fbo.getTexture() , 1 );
     hPassShader.setUniform2f("uResolution", ofVec2f(cachedScrWidth, cachedScrHeight ));
-    hPassShader.setUniform1f("blurAmountShaderVar", 25);
+    hPassShader.setUniform1f("blurAmountShaderVar", inputMask.blurAmount.get());
     hPassShader.setUniform1f("time", shaderTime);
     float ghg =inputManager.getMIDIKnob1();
     hPassShader.setUniform1f("factor1", 5);
@@ -137,7 +142,7 @@ void ofApp::draw()
     vPassShader.begin();
     vPassShader.setUniformTexture("tex0", blurBuffer.getTexture() , 1 );
     vPassShader.setUniform2f("uResolution", ofVec2f(cachedScrWidth, cachedScrHeight ));
-    vPassShader.setUniform1f("blurAmountShaderVar", 25);
+    vPassShader.setUniform1f("blurAmountShaderVar", inputMask.blurAmount.get());
     vPassShader.setUniform1f("time", shaderTime);
     float ghg =inputManager.getMIDIKnob1();
     vPassShader.setUniform1f("factor1", ghg);
@@ -161,18 +166,21 @@ void ofApp::draw()
     ofEnableLighting();
     directionalLight.enable();
     
-    colorFollower.draw(inputManager.curVol);
     
     brain3d.draw();
     
     directionalLight.disable();
     ofDisableLighting();
     
+    
+    colorFollower.draw(inputManager.curVol);
+    
     particles.draw();
     glDisable(GL_DEPTH_TEST);
     fbo.end();
     fbo.draw(0,0);
-
+    
+    rawBrainGraphic.draw();
     if(inputManager.showDebug)
     {
         ofSetColor(255, 255, 255 );
@@ -191,10 +199,10 @@ void ofApp::keyPressed(int key)
         case 'f':
             ofToggleFullscreen();
             fbo.begin();
-            ofClear(0, 0, 0, 0);
+            ofClear(0, 0, 0, 255);
             fbo.end();
             blurBuffer.begin();
-            ofClear(0, 0, 0, 0);
+            ofClear(0, 0, 0, 255);
             blurBuffer.end();
             break;
         default:
