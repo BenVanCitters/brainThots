@@ -13,7 +13,7 @@
 #include "LerpedFloat.h"
 #include "InputManager.h"
 //class to handle tasks associated with grabbing and updating input
-class InputMask
+class InputMask : public MIDIPADListener
 {
 public:
     InputMask(InputManager* input);
@@ -21,6 +21,18 @@ public:
     
     LerpedFloat brain3DScale;
     LerpedFloat blurAmount;
+    
+    void PAD1NoteOn(ofxMidiMessage& msg);
+
+    void PAD2NoteOn(ofxMidiMessage& msg);
+
+    void PAD3NoteOn(ofxMidiMessage& msg);
+
+    void PAD4NoteOn(ofxMidiMessage& msg);
+
+    void PAD5NoteOn(ofxMidiMessage& msg);
+
+    void PAD6NoteOn(ofxMidiMessage& msg);
     
 private:
     InputManager* im;

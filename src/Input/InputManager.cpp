@@ -38,6 +38,28 @@ void InputManager::setupMIDI()
     //    midiIn.setVerbose(true);
 }
 
+void InputManager::addMIDIPADListener(MIDIPADListener* listener)
+{
+    for (vector<MIDIPADListener*>::iterator it = midiPadlisteners.begin(); it != midiPadlisteners.end(); ++it)
+    {
+        if((*it) == listener)
+        {
+            return;
+        }
+    }
+    midiPadlisteners.push_back(listener);
+}
+void InputManager::removeMIDIPADListener(MIDIPADListener* listener)
+{
+    for (vector<MIDIPADListener*>::iterator it = midiPadlisteners.begin(); it != midiPadlisteners.end(); ++it)
+    {
+        if((*it) == listener)
+        {
+            midiPadlisteners.erase(it);
+            return;
+        }
+    }
+}
 
 // incoming midi
 //--------------------------------------------------------------
@@ -53,8 +75,34 @@ void InputManager::newMidiMessage(ofxMidiMessage& msg)
     if(msg.status == MIDI_NOTE_ON)
     {
         //buttons in pad mode - pitch:PAD# - 36:1, 37:2... 51:16
-        if(msg.pitch >= 39 && msg.pitch <=51)
+        if(msg.pitch >= 36 && msg.pitch <=51)
         {
+            for (vector<MIDIPADListener*>::iterator it = midiPadlisteners.begin(); it != midiPadlisteners.end(); ++it)
+            {
+                switch (msg.pitch) {
+                    case 36:
+                        (*it)->PAD1NoteOn(msg);
+                        break;
+                    case 37:
+                        (*it)->PAD2NoteOn(msg);
+                        break;
+                    case 38:
+                        (*it)->PAD3NoteOn(msg);
+                        break;
+                    case 39:
+                        (*it)->PAD4NoteOn(msg);
+                        break;
+                    case 40:
+                        (*it)->PAD5NoteOn(msg);
+                        break;
+                    case 41:
+                        (*it)->PAD6NoteOn(msg);
+                        break;
+                    ///////etc
+                    default:
+                        break;
+                }
+            }
             cout << "pad/pitch on: " << msg.pitch << " vel: " << msg.velocity << endl;
         }
     }
@@ -152,13 +200,6 @@ float InputManager::getMIDIFader4(){return midiFader4/128.f;}
 float InputManager::getMIDIFader5(){return midiFader5/128.f;}
 float InputManager::getMIDIFader6(){return midiFader6/128.f;}
 
-void InputManager::setupAudioInput()
-{
-    int bufferSize = 256;
-    left.assign(bufferSize, 0.0);
-    right.assign(bufferSize, 0.0);
-    soundStream.setup( 0, 2, 44100, bufferSize, 4);
-}
 
 void InputManager::getEEGStreams(float* streams)
 {
@@ -167,6 +208,16 @@ void InputManager::getEEGStreams(float* streams)
         streams[i] = eegStreams[i];
     }
 }
+
+void InputManager::setupAudioInput()
+{
+    int bufferSize = 256;
+    left.assign(bufferSize, 0.0);
+    right.assign(bufferSize, 0.0);
+    soundStream.setup( 0, 2, 44100, bufferSize, 4);
+}
+
+
 // incoming audio stream
 //--------------------------------------------------------------
 void InputManager::audioIn(float * input, int bufferSize, int nChannels)

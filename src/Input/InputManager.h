@@ -13,6 +13,19 @@
 #include "ofMain.h"
 #include "ofxOsc.h"
 #include "ofxMidi.h"
+
+
+class MIDIPADListener
+{
+public:
+    virtual void PAD1NoteOn(ofxMidiMessage& msg) = 0;
+    virtual void PAD2NoteOn(ofxMidiMessage& msg) = 0;
+    virtual void PAD3NoteOn(ofxMidiMessage& msg) = 0;
+    virtual void PAD4NoteOn(ofxMidiMessage& msg) = 0;
+    virtual void PAD5NoteOn(ofxMidiMessage& msg) = 0;
+    virtual void PAD6NoteOn(ofxMidiMessage& msg) = 0;
+};
+
 class InputManager : public ofxMidiListener
 {
 public:
@@ -40,6 +53,9 @@ public:
     float getMIDIFader5();
     float getMIDIFader6();
     
+    void addMIDIPADListener(MIDIPADListener* listener);
+    void removeMIDIPADListener(MIDIPADListener* listener);
+    
     float getBrainNote();
     
     float curVol = 0.0;
@@ -62,7 +78,6 @@ private:
     
     //MIDI stuff - see example code in ofxMIDI
     ofxMidiIn midiIn;
-
     
     float midiKnob1;
     float midiKnob2;
@@ -77,6 +92,9 @@ private:
     float midiFader4;
     float midiFader5;
     float midiFader6;
+    
+    vector<MIDIPADListener*> midiPadlisteners;
+    
     //osc stuff
     ofxOscReceiver receiver;
     float nextUpdateSeconds;
