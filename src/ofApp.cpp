@@ -1,6 +1,6 @@
 #include "ofApp.h"
 
-ofApp::ofApp():rawBrainGraphic(16), inputMask(&inputManager)
+ofApp::ofApp():rawBrainGraphic(16), inputMarshaller(&inputManager)
 {
 //    super();
 }
@@ -11,11 +11,11 @@ void ofApp::setup()
     cachedScrWidth = ofGetScreenWidth();
     cachedScrHeight = ofGetScreenHeight();
     
+    ofHideCursor();
     ofSetBackgroundAuto(false);
     ofSetBackgroundColor(0, 0, 0);
     
     inputManager.setup();
-//    inputMask = InputMask(&inputManager);
     setupLights();
     setupFBO();
     setupShaders();
@@ -84,18 +84,18 @@ void ofApp::setupLights()
 //--------------------------------------------------------------
 void ofApp::update()
 {
+    inputMarshaller.update(0);
     
     inputManager.pollOSCInput();
     float eegStreams[16];
-    inputMask.update(0);
     inputManager.getEEGStreams(eegStreams);
     
-    rawBrainGraphic.setBrainLineLength(2000.f*inputManager.getMIDIFader1());
-    rawBrainGraphic.setBrainAmplitude(5.f*inputManager.getMIDIFader2());
+    rawBrainGraphic.setBrainLineLength(inputMarshaller.rbgLinesMask.lineLength.get());
+    rawBrainGraphic.setBrainAmplitude(inputMarshaller.rbgLinesMask.amplitude.get());
     rawBrainGraphic.addSamples(eegStreams);
     rawBrainGraphic.update();
 //    brain3d.addSamples(eegStreams);
-    brain3d.setScale(inputMask.brain3DScale.get());
+    brain3d.setScale(inputMarshaller.brain3DMask.brain3DScale.get());
     brain3d.update();
     
     
@@ -113,10 +113,10 @@ void ofApp::update()
     hPassShader.begin();
     hPassShader.setUniformTexture("tex0", fbo.getTexture() , 1 );
     hPassShader.setUniform2f("uResolution", ofVec2f(cachedScrWidth, cachedScrHeight ));
-    hPassShader.setUniform1f("blurAmountShaderVar", inputMask.blurAmount.get());
+    hPassShader.setUniform1f("blurAmountShaderVar", inputMarshaller.shaderMask.blurAmount.get());
     hPassShader.setUniform1f("time", shaderTime);
     float ghg =inputManager.getMIDIKnob1();
-    hPassShader.setUniform1f("factor1", 5);
+    hPassShader.setUniform1f("factor1", inputMarshaller.shaderMask.shaderVar1.get());
     glBegin(GL_QUADS);
     glTexCoord2f(0, 0);
     glVertex3f(0, 0,0);
@@ -144,10 +144,9 @@ void ofApp::draw()
     vPassShader.begin();
     vPassShader.setUniformTexture("tex0", blurBuffer.getTexture() , 1 );
     vPassShader.setUniform2f("uResolution", ofVec2f(cachedScrWidth, cachedScrHeight ));
-    vPassShader.setUniform1f("blurAmountShaderVar", inputMask.blurAmount.get());
+    vPassShader.setUniform1f("blurAmountShaderVar", inputMarshaller.shaderMask.blurAmount.get());
     vPassShader.setUniform1f("time", shaderTime);
-    float ghg =inputManager.getMIDIKnob1();
-    vPassShader.setUniform1f("factor1", ghg);
+    vPassShader.setUniform1f("factor1", inputMarshaller.shaderMask.shaderVar1.get());
     glBegin(GL_QUADS);
     glTexCoord2f(0, 0);
     glVertex3f(0, 0,0);

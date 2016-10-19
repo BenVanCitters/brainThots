@@ -7,7 +7,7 @@
 #include "ColorFollower.h"
 #include "ColorMeshParticles.h"
 #include "Brain3D.h"
-
+#include "InputMarshaller.h"
 
 class ofApp : public ofBaseApp{
 
@@ -53,7 +53,7 @@ class ofApp : public ofBaseApp{
 
     ColorMeshParticles particles;
     InputManager inputManager;
-    InputMask inputMask;
+    InputMarshaller inputMarshaller;
     
     ofLight directionalLight;
     ofFbo blurBuffer;

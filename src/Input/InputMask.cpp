@@ -9,46 +9,51 @@
 #include "InputMask.h"
 
 InputMask::InputMask(InputManager* input)
-:blurAmount(0,0,.01), brain3DScale(0,0,.1)
 {
     im = input;
-    im->addMIDIPADListener(this);
 }
 
-void InputMask::update(float dt)
+void InputMask::update(float dt){ }
+
+ShaderInputMask::ShaderInputMask(InputManager* input)
+:InputMask(input), blurAmount(0,0,.1),shaderVar1(0,0,.1)
+{ }
+
+void ShaderInputMask::update(float dt)
 {
     if(im != NULL)
     {
-        blurAmount.setTarget( 50 * im->getMIDIFader3() );
-        brain3DScale.setTarget( 5 * im->getMIDIFader4() );
+        blurAmount.setTarget( 25 * im->getMIDIFader1() );
+        shaderVar1.setTarget( im->getMIDIFader2() );
     }
     blurAmount.update(dt);
+    shaderVar1.update(dt);
+}
+
+Brain3DInputMask::Brain3DInputMask(InputManager* input)
+:InputMask(input), brain3DScale(0,0,.1)
+{ }
+
+void Brain3DInputMask::update(float dt)
+{
+    if(im != NULL)
+    {
+        brain3DScale.setTarget( 5 * im->getMIDIFader1() );
+    }
     brain3DScale.update(dt);
 }
 
-#pragma
+RBGInputMask::RBGInputMask(InputManager* input)
+:InputMask(input), amplitude(0,0,.01), lineLength(0,0,.1)
+{ }
 
-void InputMask::PAD1NoteOn(ofxMidiMessage& msg)
+void RBGInputMask::update(float dt)
 {
-    cout << " i fucn got called like a boss" << endl;
-}
-void InputMask::PAD2NoteOn(ofxMidiMessage& msg)
-{
-    
-}
-void InputMask::PAD3NoteOn(ofxMidiMessage& msg)
-{
-    
-}
-void InputMask::PAD4NoteOn(ofxMidiMessage& msg)
-{
-    
-}
-void InputMask::PAD5NoteOn(ofxMidiMessage& msg)
-{
-    
-}
-void InputMask::PAD6NoteOn(ofxMidiMessage& msg)
-{
-    
+    if(im != NULL)
+    {
+        amplitude.setTarget( 1* im->getMIDIFader2() );
+        lineLength.setTarget( 2000.f * im->getMIDIFader1() );
+    }
+    amplitude.update(dt);
+    lineLength.update(dt);
 }

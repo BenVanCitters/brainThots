@@ -13,28 +13,39 @@
 #include "LerpedFloat.h"
 #include "InputManager.h"
 //class to handle tasks associated with grabbing and updating input
-class InputMask : public MIDIPADListener
+class InputMask
 {
 public:
     InputMask(InputManager* input);
-    void update(float dt);
+    virtual void update(float dt);
     
-    LerpedFloat brain3DScale;
-    LerpedFloat blurAmount;
-    
-    void PAD1NoteOn(ofxMidiMessage& msg);
-
-    void PAD2NoteOn(ofxMidiMessage& msg);
-
-    void PAD3NoteOn(ofxMidiMessage& msg);
-
-    void PAD4NoteOn(ofxMidiMessage& msg);
-
-    void PAD5NoteOn(ofxMidiMessage& msg);
-
-    void PAD6NoteOn(ofxMidiMessage& msg);
-    
-private:
+protected:
     InputManager* im;
+};
+
+class ShaderInputMask : public InputMask
+{
+    public:
+    ShaderInputMask(InputManager* input);
+    LerpedFloat blurAmount;
+    LerpedFloat shaderVar1;
+    void update(float dt);
+};
+
+class Brain3DInputMask : public InputMask
+{
+public:
+    Brain3DInputMask(InputManager* input);
+    LerpedFloat brain3DScale;
+    void update(float dt);
+};
+
+class RBGInputMask : public InputMask
+{
+public:
+    RBGInputMask(InputManager* input);
+    LerpedFloat amplitude;
+    LerpedFloat lineLength;
+    void update(float dt);
 };
 #endif /* InputMask_h */
