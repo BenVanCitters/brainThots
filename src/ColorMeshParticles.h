@@ -28,8 +28,10 @@ public:
     inline void setTargetVector(ofVec3f targ){targetVector = targ;}
     
     ofColor color;
-    
+
+    float strokeWeight = 0;
 private:
+    float lastWeight;
     vector<ColorMeshParticle> particles;
     ofVec3f targetVector;
 };

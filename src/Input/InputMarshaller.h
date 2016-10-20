@@ -23,7 +23,8 @@ public:
     ShaderInputMask shaderMask;
     RBGInputMask rbgLinesMask;
     Brain3DInputMask brain3DMask;
-//    InputMask brain3DMask;
+    FollowerMask followerMask;
+    LightingMask lightingMask;
     
     void PAD1NoteOn(ofxMidiMessage& msg);
     void PAD2NoteOn(ofxMidiMessage& msg);

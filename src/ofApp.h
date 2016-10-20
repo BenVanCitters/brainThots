@@ -3,7 +3,7 @@
 #include "ofMain.h"
 #include "ofxOsc.h"
 #include "InputManager.h"
-#include "InputMask.h"
+#include "LightingRig.h"
 #include "ColorFollower.h"
 #include "ColorMeshParticles.h"
 #include "Brain3D.h"
@@ -15,7 +15,6 @@ class ofApp : public ofBaseApp{
         ofApp();
 		void setup();
         void setupFBO();
-        void setupLights();
         void setupShaders();
         void update();
 		void draw();
@@ -54,8 +53,8 @@ class ofApp : public ofBaseApp{
     ColorMeshParticles particles;
     InputManager inputManager;
     InputMarshaller inputMarshaller;
-    
-    ofLight directionalLight;
+    LightingRig lightingRig;
+//    ofLight directionalLight;
     ofFbo blurBuffer;
     ofFbo fbo;
     ofShader hPassShader;

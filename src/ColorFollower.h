@@ -23,6 +23,8 @@ class ColorFollower
     ofVec3f getCurrentPosition(){return currentPos;};
     
     ofColor currentColor;
+    
+    float lerpSpeed = .2;
 private:
     ofVec3f getPositionForIndex(int index);
     ofColor getColorForIndex(int index);

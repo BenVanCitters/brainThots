@@ -41,7 +41,7 @@ void main()
     sampleOffset *= .1; //~~ /= weightCount;
 
     vec2 position = uResolution * gl_TexCoord[0].st;
-    vec2 inputOffset = vec2(0.0);//factor1* vec2(4.0*cos(time + position.x / 8.0),sin(time + position.x / 3.0 + position.y / 9.0));
+    vec2 inputOffset = factor1* vec2(4.0*cos(time + position.x / 8.0),sin(time + position.x / 3.0 + position.y / 9.0));
     position = position + inputOffset;
 
     vec4 sum = vec4( 0.0, 0.0, 0.0 , 0.0);

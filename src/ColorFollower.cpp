@@ -27,8 +27,7 @@ void ColorFollower::update()
     float newSz = d*maxSize;
     
     currentSz =  ofLerp(currentSz,newSz,.5);
-    float lerpAmt = .2;
-    currentPos = currentPos.getInterpolated(tmp,lerpAmt);
+    currentPos = currentPos.getInterpolated(tmp,lerpSpeed);
 
     
     ofColor newc = getColorForIndex(currentNum);
@@ -42,8 +41,8 @@ void ColorFollower::draw(float sz)
     ofSetColor(currentColor);
     ofPushMatrix();
 //    ofRotateZ(ofGetElapsedTimef()/3 * 360/TWO_PI);
-
-    ofDrawSphere(currentPos.x, currentPos.y, currentSz+add);
+    ofTranslate(currentPos.x, currentPos.y);
+    ofDrawSphere(0,0, currentSz+add);
     ofPopMatrix();
 }
 

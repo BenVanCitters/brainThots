@@ -29,6 +29,7 @@
 		8415FB351DB4A30100195475 /* InputManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8415FB311DB4A30100195475 /* InputManager.cpp */; };
 		8415FB361DB4A30100195475 /* InputMask.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8415FB331DB4A30100195475 /* InputMask.cpp */; };
 		8415FB3A1DB7306700195475 /* InputMarshaller.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8415FB381DB7306700195475 /* InputMarshaller.cpp */; };
+		8415FB3D1DB8704700195475 /* LightingRig.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8415FB3B1DB8704700195475 /* LightingRig.cpp */; };
 		846254811D98A63E00FEE84E /* Brain3D.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8462547F1D98A63E00FEE84E /* Brain3D.cpp */; };
 		879A251454401BC0B6E4F238 /* OscTypes.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D9BFFBBF4CC43DEE890B3C3E /* OscTypes.cpp */; };
 		8DED5056525646FA71980866 /* ofxAssimpModelLoader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EDE55D82BD962DAC0E94B708 /* ofxAssimpModelLoader.cpp */; };
@@ -136,6 +137,8 @@
 		8415FB341DB4A30100195475 /* InputMask.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InputMask.h; sourceTree = "<group>"; };
 		8415FB381DB7306700195475 /* InputMarshaller.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = InputMarshaller.cpp; sourceTree = "<group>"; };
 		8415FB391DB7306700195475 /* InputMarshaller.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InputMarshaller.h; sourceTree = "<group>"; };
+		8415FB3B1DB8704700195475 /* LightingRig.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = LightingRig.cpp; sourceTree = "<group>"; };
+		8415FB3C1DB8704700195475 /* LightingRig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LightingRig.h; sourceTree = "<group>"; };
 		8462547F1D98A63E00FEE84E /* Brain3D.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Brain3D.cpp; sourceTree = "<group>"; };
 		846254801D98A63E00FEE84E /* Brain3D.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Brain3D.h; sourceTree = "<group>"; };
 		8B30E93FD3D3475EED522A0E /* ofxOscBundle.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ofxOscBundle.h; path = ../../../addons/ofxOsc/src/ofxOscBundle.h; sourceTree = SOURCE_ROOT; };
@@ -522,6 +525,8 @@
 				846254801D98A63E00FEE84E /* Brain3D.h */,
 				8415FB2A1DB498B300195475 /* LerpedFloat.cpp */,
 				8415FB2B1DB498B300195475 /* LerpedFloat.h */,
+				8415FB3B1DB8704700195475 /* LightingRig.cpp */,
+				8415FB3C1DB8704700195475 /* LightingRig.h */,
 			);
 			path = src;
 			sourceTree = SOURCE_ROOT;
@@ -677,6 +682,7 @@
 				72A929D3561B8232A182ABFC /* ofxOscBundle.cpp in Sources */,
 				5864AD82E20F15536D054EA3 /* ofxOscMessage.cpp in Sources */,
 				4ADB88E2FB52E76A471065DE /* ofxOscParameterSync.cpp in Sources */,
+				8415FB3D1DB8704700195475 /* LightingRig.cpp in Sources */,
 				640279EE111671BD026CB013 /* ofxOscReceiver.cpp in Sources */,
 				8F5205AEF8861EF234F0651A /* ofxOscSender.cpp in Sources */,
 				ADE367465D2A8EBAD4C7A8D9 /* IpEndpointName.cpp in Sources */,

@@ -1,6 +1,6 @@
 #include "ofApp.h"
 
-ofApp::ofApp():rawBrainGraphic(16), inputMarshaller(&inputManager)
+ofApp::ofApp():rawBrainGraphic(16), inputMarshaller(&inputManager),lightingRig(ofVec2f(ofGetScreenWidth(),ofGetScreenHeight()))
 {
 //    super();
 }
@@ -16,7 +16,6 @@ void ofApp::setup()
     ofSetBackgroundColor(0, 0, 0);
     
     inputManager.setup();
-    setupLights();
     setupFBO();
     setupShaders();
 }
@@ -60,24 +59,11 @@ void ofApp::setupFBO()
     ofClear(0, 0, 0, 255);
     blurBuffer.end();
     
-    
     //allocate and clear the framebuffer
     fbo.allocate(drawWidth, drawHeight, GL_RGBA);
     fbo.begin();
     ofClear(0, 0, 0, 255);
     fbo.end();
-    
-}
-
-void ofApp::setupLights()
-{
-    directionalLight.setPosition(0, 0, -1000);
-    directionalLight.setDiffuseColor(ofColor(128.f, 128.f, 128.f));
-    directionalLight.setSpecularColor(ofColor(255.f, 255.f, 255.f));
-    directionalLight.setDirectional();
-    
-    // set the direction of the light
-    directionalLight.setOrientation( ofVec3f(100, 1000, -900) );
 }
 
 
@@ -97,18 +83,23 @@ void ofApp::update()
 //    brain3d.addSamples(eegStreams);
     brain3d.setScale(inputMarshaller.brain3DMask.brain3DScale.get());
     brain3d.update();
+    brain3d.currentRotation += ofGetLastFrameTime()*10;
     
-    
-    shaderTime = ofGetElapsedTimef()*3;
 
-    
+    //
     colorFollower.setCurrentIndex(inputManager.getBrainNote());
     colorFollower.update();
+    colorFollower.lerpSpeed = inputMarshaller.followerMask.speed.get();
     particles.setTargetVector(colorFollower.getCurrentPosition());
     particles.color = colorFollower.currentColor;
     particles.update();
+    particles.strokeWeight = inputMarshaller.followerMask.particleSize.get();
+    
+    lightingRig.update(0, &inputMarshaller.lightingMask);
     
     //blur first/horizontal-pass stuff
+    
+    shaderTime = ofGetElapsedTimef()*3;
     blurBuffer.begin();
     hPassShader.begin();
     hPassShader.setUniformTexture("tex0", fbo.getTexture() , 1 );
@@ -164,17 +155,12 @@ void ofApp::draw()
     
     glClear(GL_DEPTH_BUFFER_BIT);
     glEnable(GL_DEPTH_TEST);
-    ofEnableLighting();
-    directionalLight.enable();
-    
-    
-    brain3d.draw();
-    
-    directionalLight.disable();
-    ofDisableLighting();
-    
+    lightingRig.enable();
     
     colorFollower.draw(inputManager.curVol);
+    brain3d.draw();
+    
+    lightingRig.diable();
     
     particles.draw();
     glDisable(GL_DEPTH_TEST);
@@ -236,6 +222,7 @@ void ofApp::mouseExited(int x, int y){ inputManager.mouseExited(x,y); }
 void ofApp::windowResized(int w, int h){
     cachedScrWidth = ofGetScreenWidth();
     cachedScrHeight = ofGetScreenHeight();
+    lightingRig.setWindowSize(ofVec2f(cachedScrWidth,cachedScrHeight));
 }
 
 //--------------------------------------------------------------

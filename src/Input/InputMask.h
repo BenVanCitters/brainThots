@@ -37,6 +37,7 @@ class Brain3DInputMask : public InputMask
 public:
     Brain3DInputMask(InputManager* input);
     LerpedFloat brain3DScale;
+    LerpedFloat brain3DRotationSpeed;
     void update(float dt);
 };
 
@@ -46,6 +47,25 @@ public:
     RBGInputMask(InputManager* input);
     LerpedFloat amplitude;
     LerpedFloat lineLength;
+    void update(float dt);
+};
+
+class FollowerMask : public InputMask
+{
+public:
+    FollowerMask(InputManager* input);
+    LerpedFloat speed;
+    LerpedFloat size;
+    LerpedFloat particleSize;
+    void update(float dt);
+};
+
+class LightingMask : public InputMask
+{
+public:
+    LightingMask(InputManager* input);
+    LerpedFloat speed;
+    LerpedFloat ambientLight;
     void update(float dt);
 };
 #endif /* InputMask_h */
