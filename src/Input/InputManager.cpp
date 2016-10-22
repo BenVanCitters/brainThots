@@ -103,7 +103,7 @@ void InputManager::newMidiMessage(ofxMidiMessage& msg)
                         break;
                 }
             }
-            cout << "pad/pitch on: " << msg.pitch << " vel: " << msg.velocity << endl;
+//            cout << "pad/pitch on: " << msg.pitch << " vel: " << msg.velocity << endl;
         }
     }
     if(msg.status == MIDI_CONTROL_CHANGE)
@@ -144,7 +144,7 @@ void InputManager::newMidiMessage(ofxMidiMessage& msg)
                 knobNum = 6;
             }
             
-            cout << "knob: " << knobNum << " val: " << msg.value << endl;
+//            cout << "knob: " << knobNum << " val: " << msg.value << endl;
         }
         
         if(msg.control >= 1 && msg.control <= 6)
@@ -173,8 +173,17 @@ void InputManager::newMidiMessage(ofxMidiMessage& msg)
             {
                 midiFader6 = msg.value;
             }
-            cout << "fader: " << msg.control << " val: " << msg.value << endl;
+//            cout << "fader: " << msg.control << " val: " << msg.value << endl;
         }
+    }
+
+    if((msg.status == MIDI_NOTE_ON) || (msg.status == MIDI_CONTROL_CHANGE))
+    {
+        cout<<setfill('=')<<setw(49)<<"="<<endl << setfill(' ');
+        cout << setw(4) << "f1"<< setw(4) << "f2"<< setw(4) << "f3"<< setw(4) << "f4"<< setw(4) << "f5"<< setw(4) << "f6";
+        cout << setw(4) << "k1"<< setw(4) << "k2"<< setw(4) << "k3"<< setw(4) << "k4"<< setw(4) << "k5"<< setw(4) << "k6" <<endl;
+        cout << setw(4) << midiFader1<< setw(4) << midiFader2<< setw(4) << midiFader3<< setw(4) << midiFader4<< setw(4) << midiFader5<< setw(4) << midiFader6;
+        cout << setw(4) << midiKnob1<< setw(4) << midiKnob2<< setw(4) << midiKnob3<< setw(4) << midiKnob4<< setw(4) << midiKnob5<< setw(4) << midiKnob6 << endl;
     }
 }
 
