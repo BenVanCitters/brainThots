@@ -18,12 +18,13 @@ class LightingRig
 public:
     LightingRig(ofVec2f wxh);
     void enable();
-    void diable();
+    void disable();
     void update(float dt, LightingMask* inputMask);
     void setWindowSize(ofVec2f wxh) {windowSize=wxh;}
     
+    double lightTime = 0;
     ofLight pointLight;
-    
+    ofLight ambientLight;
     
 private:
     ofVec2f windowSize;

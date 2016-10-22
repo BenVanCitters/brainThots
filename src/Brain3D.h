@@ -13,7 +13,7 @@
 #include <stdio.h>
 #include "ofMain.h"
 #include "ofxAssimpModelLoader.h"
-#include "RawBrainGraphic.h"
+#include "InputMask.h"
 
 class Brain3D
 {
@@ -22,10 +22,12 @@ public:
     Brain3D();
     
     void draw();
-    void update();
+    void update(float dt, Brain3DInputMask* bim);
     
     void addSamples(float* samples);
     void setScale(float s);
+    
+    double currentRotation;
 private:
     ofxAssimpModelLoader model;
     

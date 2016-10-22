@@ -41,7 +41,7 @@ void RawBrainGraphic::setBrainLineLength(float length)
     
 }
 //update all of the meshes to reflect the new samples
-void RawBrainGraphic::update()
+void RawBrainGraphic::update(float dt, RBGInputMask* inputMask)
 {
     int j = 0;
     for (vector<vector<float>>::iterator it = brainBuffers.begin() ; it != brainBuffers.end(); ++it)
@@ -54,6 +54,10 @@ void RawBrainGraphic::update()
         }
         j++;
     }
+    
+    setBrainLineLength(inputMask->lineLength.get());
+    setBrainAmplitude(inputMask->amplitude.get());
+    brainLineThickness = inputMask->lineThickness.get();
 //    printVecs();
 }
 
@@ -73,6 +77,8 @@ void RawBrainGraphic::printVecs()
 
 void RawBrainGraphic::draw()
 {
+    //lineThickness
+    ofSetLineWidth(brainLineThickness);
     ofPushMatrix();
     ofTranslate(ofGetWidth()/2, ofGetHeight()/2);
     float radianDivision = TWO_PI/LINE_COUNT;

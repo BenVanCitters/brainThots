@@ -70,32 +70,30 @@ void ofApp::setupFBO()
 //--------------------------------------------------------------
 void ofApp::update()
 {
-    inputMarshaller.update(0);
+    float dt = ofGetLastFrameTime();
+    inputMarshaller.update(dt);
     
     inputManager.pollOSCInput();
     float eegStreams[16];
     inputManager.getEEGStreams(eegStreams);
     
-    rawBrainGraphic.setBrainLineLength(inputMarshaller.rbgLinesMask.lineLength.get());
-    rawBrainGraphic.setBrainAmplitude(inputMarshaller.rbgLinesMask.amplitude.get());
+
     rawBrainGraphic.addSamples(eegStreams);
-    rawBrainGraphic.update();
-//    brain3d.addSamples(eegStreams);
-    brain3d.setScale(inputMarshaller.brain3DMask.brain3DScale.get());
-    brain3d.update();
-    brain3d.currentRotation += ofGetLastFrameTime()*10;
+    rawBrainGraphic.update(dt, &inputMarshaller.rbgLinesMask);
+    
+    brain3d.update(dt, &inputMarshaller.brain3DMask);
     
 
     //
     colorFollower.setCurrentIndex(inputManager.getBrainNote());
-    colorFollower.update();
+    colorFollower.update(dt, &inputMarshaller.followerMask);
     colorFollower.lerpSpeed = inputMarshaller.followerMask.speed.get();
     particles.setTargetVector(colorFollower.getCurrentPosition());
     particles.color = colorFollower.currentColor;
-    particles.update();
+    particles.update(dt);
     particles.strokeWeight = inputMarshaller.followerMask.particleSize.get();
     
-    lightingRig.update(0, &inputMarshaller.lightingMask);
+    lightingRig.update(dt, &inputMarshaller.lightingMask);
     
     //blur first/horizontal-pass stuff
     
@@ -106,8 +104,8 @@ void ofApp::update()
     hPassShader.setUniform2f("uResolution", ofVec2f(cachedScrWidth, cachedScrHeight ));
     hPassShader.setUniform1f("blurAmountShaderVar", inputMarshaller.shaderMask.blurAmount.get());
     hPassShader.setUniform1f("time", shaderTime);
-    float ghg =inputManager.getMIDIKnob1();
     hPassShader.setUniform1f("factor1", inputMarshaller.shaderMask.shaderVar1.get());
+    hPassShader.setUniform1f("factor2", inputMarshaller.shaderMask.shaderVar2.get());
     glBegin(GL_QUADS);
     glTexCoord2f(0, 0);
     glVertex3f(0, 0,0);
@@ -138,6 +136,7 @@ void ofApp::draw()
     vPassShader.setUniform1f("blurAmountShaderVar", inputMarshaller.shaderMask.blurAmount.get());
     vPassShader.setUniform1f("time", shaderTime);
     vPassShader.setUniform1f("factor1", inputMarshaller.shaderMask.shaderVar1.get());
+    vPassShader.setUniform1f("factor2", inputMarshaller.shaderMask.shaderVar2.get());
     glBegin(GL_QUADS);
     glTexCoord2f(0, 0);
     glVertex3f(0, 0,0);
@@ -160,7 +159,7 @@ void ofApp::draw()
     colorFollower.draw(inputManager.curVol);
     brain3d.draw();
     
-    lightingRig.diable();
+    lightingRig.disable();
     
     particles.draw();
     glDisable(GL_DEPTH_TEST);

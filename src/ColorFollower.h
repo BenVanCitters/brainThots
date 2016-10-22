@@ -9,14 +9,15 @@
 #ifndef ColorFollower_h
 #define ColorFollower_h
 
-#include "ofMain.h"
 #include <stdio.h>
+#include "ofMain.h"
+#include "InputMask.h"
 
 class ColorFollower
 {
     public:
     ColorFollower();
-    void update();
+    void update(float dt, FollowerMask* mask);
     void draw(float sz);
     
     void setCurrentIndex(int index);

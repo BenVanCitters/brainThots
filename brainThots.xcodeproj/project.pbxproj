@@ -30,6 +30,7 @@
 		8415FB361DB4A30100195475 /* InputMask.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8415FB331DB4A30100195475 /* InputMask.cpp */; };
 		8415FB3A1DB7306700195475 /* InputMarshaller.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8415FB381DB7306700195475 /* InputMarshaller.cpp */; };
 		8415FB3D1DB8704700195475 /* LightingRig.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8415FB3B1DB8704700195475 /* LightingRig.cpp */; };
+		8415FB401DB9B48F00195475 /* AudioVisual.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8415FB3E1DB9B48F00195475 /* AudioVisual.cpp */; };
 		846254811D98A63E00FEE84E /* Brain3D.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8462547F1D98A63E00FEE84E /* Brain3D.cpp */; };
 		879A251454401BC0B6E4F238 /* OscTypes.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D9BFFBBF4CC43DEE890B3C3E /* OscTypes.cpp */; };
 		8DED5056525646FA71980866 /* ofxAssimpModelLoader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EDE55D82BD962DAC0E94B708 /* ofxAssimpModelLoader.cpp */; };
@@ -139,6 +140,8 @@
 		8415FB391DB7306700195475 /* InputMarshaller.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InputMarshaller.h; sourceTree = "<group>"; };
 		8415FB3B1DB8704700195475 /* LightingRig.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = LightingRig.cpp; sourceTree = "<group>"; };
 		8415FB3C1DB8704700195475 /* LightingRig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LightingRig.h; sourceTree = "<group>"; };
+		8415FB3E1DB9B48F00195475 /* AudioVisual.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AudioVisual.cpp; sourceTree = "<group>"; };
+		8415FB3F1DB9B48F00195475 /* AudioVisual.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AudioVisual.h; sourceTree = "<group>"; };
 		8462547F1D98A63E00FEE84E /* Brain3D.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Brain3D.cpp; sourceTree = "<group>"; };
 		846254801D98A63E00FEE84E /* Brain3D.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Brain3D.h; sourceTree = "<group>"; };
 		8B30E93FD3D3475EED522A0E /* ofxOscBundle.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ofxOscBundle.h; path = ../../../addons/ofxOsc/src/ofxOscBundle.h; sourceTree = SOURCE_ROOT; };
@@ -527,6 +530,8 @@
 				8415FB2B1DB498B300195475 /* LerpedFloat.h */,
 				8415FB3B1DB8704700195475 /* LightingRig.cpp */,
 				8415FB3C1DB8704700195475 /* LightingRig.h */,
+				8415FB3E1DB9B48F00195475 /* AudioVisual.cpp */,
+				8415FB3F1DB9B48F00195475 /* AudioVisual.h */,
 			);
 			path = src;
 			sourceTree = SOURCE_ROOT;
@@ -664,6 +669,7 @@
 				CA234AF6D76178B89CFF10A3 /* ColorMeshParticles.cpp in Sources */,
 				7E27881A939D76E8CC628818 /* RawBrainGraphic.cpp in Sources */,
 				3B8120368B4FCCD80883BAF3 /* ofxAssimpAnimation.cpp in Sources */,
+				8415FB401DB9B48F00195475 /* AudioVisual.cpp in Sources */,
 				483FA4F6D5FA6422C559B1F5 /* ofxAssimpMeshHelper.cpp in Sources */,
 				8DED5056525646FA71980866 /* ofxAssimpModelLoader.cpp in Sources */,
 				B8846EF8E504895A4A9EFEC0 /* ofxAssimpTexture.cpp in Sources */,

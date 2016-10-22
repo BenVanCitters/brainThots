@@ -23,7 +23,7 @@ class ColorMeshParticles
 {
 public:
     ColorMeshParticles();
-    void update();
+    void update(float dt);
     void draw();
     inline void setTargetVector(ofVec3f targ){targetVector = targ;}
     

@@ -29,6 +29,7 @@ class ShaderInputMask : public InputMask
     ShaderInputMask(InputManager* input);
     LerpedFloat blurAmount;
     LerpedFloat shaderVar1;
+    LerpedFloat shaderVar2;
     void update(float dt);
 };
 
@@ -47,6 +48,7 @@ public:
     RBGInputMask(InputManager* input);
     LerpedFloat amplitude;
     LerpedFloat lineLength;
+    LerpedFloat lineThickness;
     void update(float dt);
 };
 

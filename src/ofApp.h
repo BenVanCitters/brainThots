@@ -8,6 +8,7 @@
 #include "ColorMeshParticles.h"
 #include "Brain3D.h"
 #include "InputMarshaller.h"
+#include "RawBrainGraphic.h"
 
 class ofApp : public ofBaseApp{
 
@@ -54,7 +55,6 @@ class ofApp : public ofBaseApp{
     InputManager inputManager;
     InputMarshaller inputMarshaller;
     LightingRig lightingRig;
-//    ofLight directionalLight;
     ofFbo blurBuffer;
     ofFbo fbo;
     ofShader hPassShader;

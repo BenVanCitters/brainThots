@@ -13,12 +13,13 @@
 #include <stdio.h>
 #include "ofMain.h"
 #include "ofxAssimpModelLoader.h"
+#include "InputMask.h"
 
 class RawBrainGraphic
 {
 public:
     RawBrainGraphic(int count);
-    void update();
+    void update(float dt, RBGInputMask* inputMask);
     void draw();
     void addSample(int index, float newSample);
     void addSamples(float* newSample);
@@ -26,6 +27,7 @@ public:
     void setTransform(int index, aiMatrix4x4 t);
     void setBrainAmplitude(float amplitude);
     void setBrainLineLength(float length);
+    float brainLineThickness = 0;
 private:
     void printVecs();
     vector <vector <float>> brainBuffers;

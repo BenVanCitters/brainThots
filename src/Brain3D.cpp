@@ -79,7 +79,7 @@ void Brain3D::draw()
 //            ofScale(ofPoint(.3,.3,.3));
             ofPushMatrix();
             ofPopMatrix();
-            ofRotate(-ofGetElapsedTimef()*10, 0, 1, 0);
+            ofRotate(currentRotation, 0, 1, 0);
             ofScale(ofPoint(3,3,3));
             model.drawFaces();
             ofPopMatrix();
@@ -93,9 +93,10 @@ void Brain3D::addSamples(float* samples)
 //    rawBrainGraphic.update();
 }
 
-void Brain3D::update()
+void Brain3D::update(float dt, Brain3DInputMask* bim)
 {
-    
-    model.update();
-
+//    model.update();
+    brainTime += dt* bim->brain3DRotationSpeed.get();
+    currentRotation = brainTime ;
+    setScale(bim->brain3DScale.get());
 }

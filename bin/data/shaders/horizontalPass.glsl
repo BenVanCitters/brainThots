@@ -9,7 +9,7 @@ uniform float time;
 uniform float factor1;
 
 float weights[21];
-float factor2;
+uniform float factor2;
 float factor3;
 float factor4;
 void main()
@@ -41,7 +41,8 @@ void main()
     sampleOffset *= .1; //~~ /= weightCount;
 
     vec2 position = uResolution * gl_TexCoord[0].st;
-    vec2 inputOffset = factor1* vec2(4.0*cos(time + position.x / 8.0),sin(time + position.x / 3.0 + position.y / 9.0));
+    vec2 inputOffset = factor1* vec2(cos(time + position.x*factor1 / 8.0),
+                                     sin(time*0.91 + position.x / 3.0 + position.y /(factor2*9.0)));
     position = position + inputOffset;
 
     vec4 sum = vec4( 0.0, 0.0, 0.0 , 0.0);

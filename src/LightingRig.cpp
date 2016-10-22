@@ -22,19 +22,23 @@ void LightingRig::enable()
 {
     ofEnableLighting();
     pointLight.enable();
-
+    ambientLight.enable();
 }
 
-void LightingRig::diable()
+void LightingRig::disable()
 {
     pointLight.disable();
+    ambientLight.disable();
     ofDisableLighting();
 }
 
 
 void LightingRig::update(float dt, LightingMask* inputMask)
 {
-    float t = ofGetElapsedTimef()*3;
+    lightTime += dt* inputMask->speed.get();
+    float t = lightTime;
     ofVec2f halfWin = windowSize/2;
     pointLight.setPosition(halfWin.x *(1+cos(t)),halfWin.y *(1+sin(t)), 500);
+    float ambientColor = inputMask->ambientLight.get();
+    ambientLight.setAmbientColor(ofColor(ambientColor,ambientColor,ambientColor));
 }

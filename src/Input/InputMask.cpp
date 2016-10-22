@@ -16,7 +16,7 @@ InputMask::InputMask(InputManager* input)
 void InputMask::update(float dt){ }
 
 ShaderInputMask::ShaderInputMask(InputManager* input)
-:InputMask(input), blurAmount(0,0,.1),shaderVar1(0,0,.1)
+:InputMask(input), blurAmount(0,0,.1),shaderVar1(0,0,.1),shaderVar2(0,0,.1)
 { }
 
 void ShaderInputMask::update(float dt)
@@ -25,9 +25,11 @@ void ShaderInputMask::update(float dt)
     {
         blurAmount.setTarget( 25 * im->getMIDIFader1() );
         shaderVar1.setTarget( im->getMIDIFader2() );
+        shaderVar2.setTarget( 20*im->getMIDIFader3() );
     }
     blurAmount.update(dt);
     shaderVar1.update(dt);
+    shaderVar2.update(dt);
 }
 
 Brain3DInputMask::Brain3DInputMask(InputManager* input)
@@ -39,14 +41,15 @@ void Brain3DInputMask::update(float dt)
     if(im != NULL)
     {
         brain3DScale.setTarget( 5 * im->getMIDIFader1() );
-        brain3DRotationSpeed.setTarget( 5 * im->getMIDIFader2() );
+        float rotSpd = im->getMIDIFader2()*2-1;
+        brain3DRotationSpeed.setTarget( 100 * rotSpd );
     }
     brain3DScale.update(dt);
     brain3DRotationSpeed.update(dt);
 }
 
 RBGInputMask::RBGInputMask(InputManager* input)
-:InputMask(input), amplitude(0,0,.01), lineLength(0,0,.1)
+:InputMask(input), amplitude(0,0,.01), lineLength(0,0,.1), lineThickness(0,0,.1)
 { }
 
 void RBGInputMask::update(float dt)
@@ -55,9 +58,11 @@ void RBGInputMask::update(float dt)
     {
         amplitude.setTarget( 1* im->getMIDIFader2() );
         lineLength.setTarget( 2000.f * im->getMIDIFader1() );
+        lineThickness.setTarget(20 * im->getMIDIFader3());
     }
     amplitude.update(dt);
     lineLength.update(dt);
+    lineThickness.update(dt);
 }
 
 
@@ -71,7 +76,7 @@ void FollowerMask::update(float dt)
     {
         speed.setTarget( 1* im->getMIDIFader1() );
         size.setTarget( 2000.f * im->getMIDIFader2() );
-        particleSize.setTarget(200.f * im->getMIDIFader3());
+        particleSize.setTarget(20.f * im->getMIDIFader3());
     }
     speed.update(dt);
     size.update(dt);
@@ -80,15 +85,15 @@ void FollowerMask::update(float dt)
 
 
 LightingMask::LightingMask(InputManager* input)
-:InputMask(input), speed(0,0,.01), ambientLight(0,0,.1)
+:InputMask(input), speed(0,0,.07), ambientLight(0,0,.1)
 { }
 
 void LightingMask::update(float dt)
 {
     if(im != NULL)
     {
-        speed.setTarget( 1* im->getMIDIFader1() );
-        ambientLight.setTarget( 2000.f * im->getMIDIFader2() );
+        speed.setTarget( 50* im->getMIDIFader1() );
+        ambientLight.setTarget( 255.f * im->getMIDIFader2() );
     }
     speed.update(dt);
     ambientLight.update(dt);

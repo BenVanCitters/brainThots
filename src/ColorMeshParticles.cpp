@@ -44,7 +44,7 @@ void ColorMeshParticles::draw()
 //    ofEndShape();
 }
 
-void ColorMeshParticles::update()
+void ColorMeshParticles::update(float dt)
 {
     float maxDist = ofDist(0, 0, ofGetWindowWidth(), ofGetWindowHeight());
     float repulseAmt = .000001;

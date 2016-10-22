@@ -25,22 +25,27 @@ void InputMarshaller::update(float dt)
 
 void InputMarshaller::PAD1NoteOn(ofxMidiMessage& msg)
 {
+    cout << "Brain Data Mode" << endl;
     activeMask = &rbgLinesMask;
 }
 void InputMarshaller::PAD2NoteOn(ofxMidiMessage& msg)
 {
+    cout << "Shader Mode" << endl;
     activeMask = &shaderMask;
 }
 void InputMarshaller::PAD3NoteOn(ofxMidiMessage& msg)
 {
+    cout << "3D Brain Mode" << endl;
     activeMask = &brain3DMask;
 }
 void InputMarshaller::PAD4NoteOn(ofxMidiMessage& msg)
 {
+    cout << "Follower Mode" << endl;
     activeMask = &followerMask;
 }
 void InputMarshaller::PAD5NoteOn(ofxMidiMessage& msg)
 {
+    cout << "Lighting Mode" << endl;
     activeMask = &lightingMask;
 }
 void InputMarshaller::PAD6NoteOn(ofxMidiMessage& msg)

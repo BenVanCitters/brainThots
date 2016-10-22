@@ -179,15 +179,8 @@ void InputManager::newMidiMessage(ofxMidiMessage& msg)
 }
 
 
-float InputManager::getMIDIKnob1()
-{
-    return 10*midiKnob1/128.f;
-}
-
-float InputManager::getMIDIKnob2()
-{
-    return 10*midiKnob2/128.f;
-}
+float InputManager::getMIDIKnob1(){return midiKnob1/128.f;}
+float InputManager::getMIDIKnob2(){return midiKnob2/128.f;}
 float InputManager::getMIDIKnob3(){return midiKnob3/128.f;}
 float InputManager::getMIDIKnob4(){return midiKnob4/128.f;}
 float InputManager::getMIDIKnob5(){return midiKnob5/128.f;}
@@ -290,14 +283,8 @@ void InputManager::pollOSCInput()
         else if(0 == strcmp(addrCStr, notechangeStr))
         {
             brainNote = m.getArgAsFloat(0);
-            cout << "time: " << ofGetElapsedTimef() << " brainNote: " << brainNote << endl;
-            cout << "contNum: "  << contNum << endl;
-        }
-        else if(0 == strcmp(addrCStr, notechangeStr))
-        {
-            brainNote = m.getArgAsFloat(0);
-            cout << "time: " << ofGetElapsedTimef() << " brainNote: " << brainNote << endl;
-            cout << "contNum: "  << contNum << endl;
+//            cout << "time: " << ofGetElapsedTimef() << " brainNote: " << brainNote << endl;
+//            cout << "contNum: "  << contNum << endl;
         }
         else if(0 == strcmp(addrCStr, rawDataStr))
         {
@@ -306,17 +293,16 @@ void InputManager::pollOSCInput()
                 eegStreams[i] =m.getArgAsFloat(i);
             }
             //print vals
-            cout << "time: " << ofGetElapsedTimef()<< " rawData: ";
-            for(int i = 0; i < 16; i++)
-            {
-                cout << eegStreams[i] << ", ";
-            }
-            cout << endl;
-
+//            cout << "time: " << ofGetElapsedTimef()<< " rawData: ";
+//            for(int i = 0; i < 16; i++)
+//            {
+//                cout << eegStreams[i] << ", ";
+//            }
+//            cout << endl;
         }
         else
         {
-            cout << "unknown: " << addrCStr << endl;
+//            cout << "unknown: " << addrCStr << endl;
         }
     }
 }

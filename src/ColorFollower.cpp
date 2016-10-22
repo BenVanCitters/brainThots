@@ -14,7 +14,7 @@ ColorFollower::ColorFollower()
     maxIndex = 8;
     maxDist = sqrt(ofGetWindowWidth()*ofGetWindowWidth()+ofGetWindowHeight()*ofGetWindowHeight());
 }
-void ColorFollower::update()
+void ColorFollower::update(float dt, FollowerMask* mask)
 {
     //save the old pos
     lastPos = currentPos;
@@ -53,6 +53,7 @@ void ColorFollower::setCurrentIndex(int index)
 
 ofVec3f ColorFollower::getPositionForIndex(int index)
 {
+    //size
     int width = ofGetWindowWidth();
     int height = ofGetWindowHeight();
     float rad = (index*1.f/8)*TWO_PI;
