@@ -1,6 +1,6 @@
 #include "ofApp.h"
 
-ofApp::ofApp():rawBrainGraphic(16), inputMarshaller(&inputManager),lightingRig(ofVec2f(ofGetScreenWidth(),ofGetScreenHeight()))
+ofApp::ofApp():rawBrainGraphic(16), inputMarshaller(&inputManager),audioVisual(256), lightingRig(ofVec2f(ofGetScreenWidth(),ofGetScreenHeight()))
 {
 //    super();
 }
@@ -76,7 +76,8 @@ void ofApp::update()
     rawBrainGraphic.addSamples(eegStreams);
     rawBrainGraphic.update(dt, &inputMarshaller.rbgLinesMask);
     brain3d.update(dt, &inputMarshaller.brain3DMask);
-    
+    audioVisual.update(dt);
+    audioVisual.setSamples(inputManager.getAudioStream());
 
     //
     colorFollower.setCurrentIndex(inputManager.getBrainNote());
@@ -151,6 +152,10 @@ void ofApp::draw()
     
     glClear(GL_DEPTH_BUFFER_BIT);
     glEnable(GL_DEPTH_TEST);
+    
+    
+    audioVisual.draw();
+    
     lightingRig.enable();
     
     colorFollower.draw(inputManager.curVol);
@@ -159,7 +164,9 @@ void ofApp::draw()
     lightingRig.disable();
     
     particles.draw();
+    
     glDisable(GL_DEPTH_TEST);
+    
     fbo.end();
     fbo.draw(0,0);
     
@@ -178,6 +185,8 @@ void ofApp::updateScreenSize(int w, int h)
     colorFollower.currentScreenSize = cachedScrSz;
     brain3d.currentScreenSz = cachedScrSz;
     particles.currentScreenSz = cachedScrSz;
+    audioVisual.currentScreenSz = cachedScrSz;
+
     fbo.begin();
     ofClear(0, 0, 0, 255);
     fbo.end();

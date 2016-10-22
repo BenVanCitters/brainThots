@@ -244,6 +244,11 @@ void InputManager::audioIn(float * input, int bufferSize, int nChannels)
     // this is how we get the root of rms :)
     curVol = sqrt( curVol );
 }
+
+vector<float> InputManager::getAudioStream()
+{
+    return left;
+}
 //--------------------------------------------------------------
 void InputManager::pollMockOSC()
 {

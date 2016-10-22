@@ -10,10 +10,23 @@
 #define AudioVisual_h
 
 #include <stdio.h>
+#include "ofMain.h"
 
 class AudioVisual
 {
+public:
+    AudioVisual(int sampleCount);
+    ~AudioVisual();
     void update(float dt);
+    void draw();
+    
+    void setSamples(vector<float> vec);
+    
     float amplitude;
+    int sampleCount;
+    float* samples;
+    ofVec2f currentScreenSz;
+private:
+    ofVboMesh mMesh;
 };
 #endif /* AudioVisual_h */

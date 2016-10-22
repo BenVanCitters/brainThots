@@ -9,6 +9,7 @@
 #include "Brain3D.h"
 #include "InputMarshaller.h"
 #include "RawBrainGraphic.h"
+#include "AudioVisual.h"
 
 class ofApp : public ofBaseApp{
 
@@ -41,6 +42,8 @@ class ofApp : public ofBaseApp{
     InputManager inputManager;
     InputMarshaller inputMarshaller;
     LightingRig lightingRig;
+    AudioVisual audioVisual;
+    
     ofFbo blurBuffer;
     ofFbo fbo;
     ofShader hPassShader;

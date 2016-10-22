@@ -73,7 +73,7 @@ public:
     void mouseExited(int x, int y);
     
     void getEEGStreams(float* streams);
-    
+    vector<float> getAudioStream();
 private:
     
     //MIDI stuff - see example code in ofxMIDI
