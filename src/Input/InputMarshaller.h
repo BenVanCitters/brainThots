@@ -25,6 +25,7 @@ public:
     Brain3DInputMask brain3DMask;
     FollowerMask followerMask;
     LightingMask lightingMask;
+    WaveFormMask audioMask;
     
     void PAD1NoteOn(ofxMidiMessage& msg);
     void PAD2NoteOn(ofxMidiMessage& msg);

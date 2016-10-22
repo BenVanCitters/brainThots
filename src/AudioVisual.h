@@ -11,13 +11,14 @@
 
 #include <stdio.h>
 #include "ofMain.h"
+#include "InputMask.h"
 
 class AudioVisual
 {
 public:
     AudioVisual(int sampleCount);
     ~AudioVisual();
-    void update(float dt);
+    void update(float dt, WaveFormMask* inputMask);
     void draw();
     
     void setSamples(vector<float> vec);

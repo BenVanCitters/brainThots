@@ -21,7 +21,9 @@ ShaderInputMask::ShaderInputMask(InputManager* input)
 :InputMask(input),
 blurAmount(.1,25*MIDI_EPSILON),
 shaderVar1(.1,MIDI_EPSILON),
-shaderVar2(.1,20*MIDI_EPSILON)
+shaderVar2(.1,20*MIDI_EPSILON),
+shaderVar3(.1,20*MIDI_EPSILON),
+shaderVar4(.1,20*MIDI_EPSILON)
 { }
 
 void ShaderInputMask::update(float dt)
@@ -31,10 +33,14 @@ void ShaderInputMask::update(float dt)
         blurAmount.setTarget( 25 * im->getMIDIFader1() );
         shaderVar1.setTarget( im->getMIDIFader2() );
         shaderVar2.setTarget( 20*im->getMIDIFader3() );
+        shaderVar3.setTarget( im->getMIDIFader4() );
+        shaderVar4.setTarget( 20*im->getMIDIFader5() );
     }
     blurAmount.update(dt);
     shaderVar1.update(dt);
     shaderVar2.update(dt);
+    shaderVar3.update(dt);
+    shaderVar4.update(dt);
 }
 
 Brain3DInputMask::Brain3DInputMask(InputManager* input)
@@ -119,3 +125,24 @@ void LightingMask::update(float dt)
     speed.update(dt);
     ambientLight.update(dt);
 }
+
+WaveFormMask::WaveFormMask(InputManager* input)
+:InputMask(input),
+amplitude(.07,1500*MIDI_EPSILON),
+lineWeight(.1,20.f*MIDI_EPSILON),
+shapeLerp(.1,MIDI_EPSILON)
+{ }
+
+void WaveFormMask::update(float dt)
+{
+    if(im != NULL)
+    {
+        amplitude.setTarget( 1500* im->getMIDIFader1() );
+        lineWeight.setTarget( 20.f * im->getMIDIFader2() );
+        shapeLerp.setTarget( im->getMIDIFader3() );
+    }
+    amplitude.update(dt);
+    lineWeight.update(dt);
+    shapeLerp.update(dt);
+}
+

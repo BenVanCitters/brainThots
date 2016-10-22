@@ -17,6 +17,7 @@ void ofApp::setup()
     inputManager.setup();
     setupFBO();
     setupShaders();
+    
 }
 
 string getStringFromFilePath(string filepath)
@@ -75,14 +76,16 @@ void ofApp::update()
 
     rawBrainGraphic.addSamples(eegStreams);
     rawBrainGraphic.update(dt, &inputMarshaller.rbgLinesMask);
+    
     brain3d.update(dt, &inputMarshaller.brain3DMask);
-    audioVisual.update(dt);
+    
     audioVisual.setSamples(inputManager.getAudioStream());
-
-    //
+    audioVisual.update(dt,&inputMarshaller.audioMask);
+    
     colorFollower.setCurrentIndex(inputManager.getBrainNote());
     colorFollower.update(dt, &inputMarshaller.followerMask);
     colorFollower.lerpSpeed = inputMarshaller.followerMask.speed.get();
+    
     particles.setTargetVector(colorFollower.getCurrentPosition());
     particles.color = colorFollower.currentColor;
     particles.update(dt);
@@ -100,6 +103,9 @@ void ofApp::update()
     hPassShader.setUniform1f("time", shaderTime);
     hPassShader.setUniform1f("factor1", inputMarshaller.shaderMask.shaderVar1.get());
     hPassShader.setUniform1f("factor2", inputMarshaller.shaderMask.shaderVar2.get());
+    hPassShader.setUniform1f("factor3", inputMarshaller.shaderMask.shaderVar3.get());
+    hPassShader.setUniform1f("factor4", inputMarshaller.shaderMask.shaderVar4.get());
+    
     hPassShader.setUniform1f("blackout", inputManager.getMIDIKnob2());
     glBegin(GL_QUADS);
     glTexCoord2f(0, 0);
@@ -132,6 +138,8 @@ void ofApp::draw()
     vPassShader.setUniform1f("time", shaderTime);
     vPassShader.setUniform1f("factor1", inputMarshaller.shaderMask.shaderVar1.get());
     vPassShader.setUniform1f("factor2", inputMarshaller.shaderMask.shaderVar2.get());
+    vPassShader.setUniform1f("factor3", inputMarshaller.shaderMask.shaderVar3.get());
+    vPassShader.setUniform1f("factor4", inputMarshaller.shaderMask.shaderVar4.get());
     vPassShader.setUniform1f("blackout", inputManager.getMIDIKnob2());
  
     

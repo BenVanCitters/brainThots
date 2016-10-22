@@ -9,7 +9,7 @@
 #include "InputMarshaller.h"
 
 InputMarshaller::InputMarshaller(InputManager* im)
-:shaderMask(im),rbgLinesMask(im), brain3DMask(im), followerMask(im),lightingMask(im)
+:shaderMask(im),rbgLinesMask(im), brain3DMask(im), followerMask(im),lightingMask(im),audioMask(im)
 {
     activeMask = &rbgLinesMask;
     im->addMIDIPADListener(this);
@@ -50,5 +50,6 @@ void InputMarshaller::PAD5NoteOn(ofxMidiMessage& msg)
 }
 void InputMarshaller::PAD6NoteOn(ofxMidiMessage& msg)
 {
-    
+    cout << "WaveForm Mode" << endl;
+    activeMask = &audioMask;
 }

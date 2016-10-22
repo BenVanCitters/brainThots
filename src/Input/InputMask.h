@@ -31,6 +31,8 @@ class ShaderInputMask : public InputMask
     SliderTrackingLerpedFloat blurAmount;
     SliderTrackingLerpedFloat shaderVar1;
     SliderTrackingLerpedFloat shaderVar2;
+    SliderTrackingLerpedFloat shaderVar3;
+    SliderTrackingLerpedFloat shaderVar4;
     void update(float dt);
 };
 
@@ -72,5 +74,16 @@ public:
     SliderTrackingLerpedFloat speed;
     SliderTrackingLerpedFloat ambientLight;
     void update(float dt);
+};
+
+class WaveFormMask : public InputMask
+{
+public:
+    WaveFormMask(InputManager* input);
+    SliderTrackingLerpedFloat amplitude;
+    SliderTrackingLerpedFloat lineWeight;
+
+    SliderTrackingLerpedFloat shapeLerp;
+void update(float dt);
 };
 #endif /* InputMask_h */
