@@ -10,6 +10,7 @@
 #define InputMask_h
 
 #include <stdio.h>
+#include "SliderTrackingLerpedFloat.h"
 #include "LerpedFloat.h"
 #include "InputManager.h"
 //class to handle tasks associated with grabbing and updating input
@@ -27,9 +28,9 @@ class ShaderInputMask : public InputMask
 {
     public:
     ShaderInputMask(InputManager* input);
-    LerpedFloat blurAmount;
-    LerpedFloat shaderVar1;
-    LerpedFloat shaderVar2;
+    SliderTrackingLerpedFloat blurAmount;
+    SliderTrackingLerpedFloat shaderVar1;
+    SliderTrackingLerpedFloat shaderVar2;
     void update(float dt);
 };
 
@@ -37,8 +38,8 @@ class Brain3DInputMask : public InputMask
 {
 public:
     Brain3DInputMask(InputManager* input);
-    LerpedFloat brain3DScale;
-    LerpedFloat brain3DRotationSpeed;
+    SliderTrackingLerpedFloat brain3DScale;
+    SliderTrackingLerpedFloat brain3DRotationSpeed;
     void update(float dt);
 };
 
@@ -46,9 +47,9 @@ class RBGInputMask : public InputMask
 {
 public:
     RBGInputMask(InputManager* input);
-    LerpedFloat amplitude;
-    LerpedFloat lineLength;
-    LerpedFloat lineThickness;
+    SliderTrackingLerpedFloat amplitude;
+    SliderTrackingLerpedFloat lineLength;
+    SliderTrackingLerpedFloat lineThickness;
     void update(float dt);
 };
 
@@ -56,9 +57,9 @@ class FollowerMask : public InputMask
 {
 public:
     FollowerMask(InputManager* input);
-    LerpedFloat speed;
-    LerpedFloat size;
-    LerpedFloat particleSize;
+    SliderTrackingLerpedFloat speed;
+    SliderTrackingLerpedFloat size;
+    SliderTrackingLerpedFloat particleSize;
     void update(float dt);
 };
 
@@ -66,8 +67,8 @@ class LightingMask : public InputMask
 {
 public:
     LightingMask(InputManager* input);
-    LerpedFloat speed;
-    LerpedFloat ambientLight;
+    SliderTrackingLerpedFloat speed;
+    SliderTrackingLerpedFloat ambientLight;
     void update(float dt);
 };
 #endif /* InputMask_h */

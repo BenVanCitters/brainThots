@@ -16,10 +16,10 @@ class LerpedFloat
 public:
     LerpedFloat(float cur, float targ, float eas);
     inline float get(){return currentValue;}
-    void setTarget(float targ);
-    void update(float dt);
+    virtual void setTarget(float targ);
+    virtual void update(float dt);
     
-private:
+protected:
     float currentValue;
     float targetValue;
     float easing;

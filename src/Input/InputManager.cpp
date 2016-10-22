@@ -187,20 +187,20 @@ void InputManager::newMidiMessage(ofxMidiMessage& msg)
     }
 }
 
+#define MAX_MIDI_VAL 127.f
+float InputManager::getMIDIKnob1(){return midiKnob1/MAX_MIDI_VAL;}
+float InputManager::getMIDIKnob2(){return midiKnob2/MAX_MIDI_VAL;}
+float InputManager::getMIDIKnob3(){return midiKnob3/MAX_MIDI_VAL;}
+float InputManager::getMIDIKnob4(){return midiKnob4/MAX_MIDI_VAL;}
+float InputManager::getMIDIKnob5(){return midiKnob5/MAX_MIDI_VAL;}
+float InputManager::getMIDIKnob6(){return midiKnob6/MAX_MIDI_VAL;}
 
-float InputManager::getMIDIKnob1(){return midiKnob1/128.f;}
-float InputManager::getMIDIKnob2(){return midiKnob2/128.f;}
-float InputManager::getMIDIKnob3(){return midiKnob3/128.f;}
-float InputManager::getMIDIKnob4(){return midiKnob4/128.f;}
-float InputManager::getMIDIKnob5(){return midiKnob5/128.f;}
-float InputManager::getMIDIKnob6(){return midiKnob6/128.f;}
-
-float InputManager::getMIDIFader1(){return midiFader1/128.f;}
-float InputManager::getMIDIFader2(){return midiFader2/128.f;}
-float InputManager::getMIDIFader3(){return midiFader3/128.f;}
-float InputManager::getMIDIFader4(){return midiFader4/128.f;}
-float InputManager::getMIDIFader5(){return midiFader5/128.f;}
-float InputManager::getMIDIFader6(){return midiFader6/128.f;}
+float InputManager::getMIDIFader1(){return midiFader1/MAX_MIDI_VAL;}
+float InputManager::getMIDIFader2(){return midiFader2/MAX_MIDI_VAL;}
+float InputManager::getMIDIFader3(){return midiFader3/MAX_MIDI_VAL;}
+float InputManager::getMIDIFader4(){return midiFader4/MAX_MIDI_VAL;}
+float InputManager::getMIDIFader5(){return midiFader5/MAX_MIDI_VAL;}
+float InputManager::getMIDIFader6(){return midiFader6/MAX_MIDI_VAL;}
 
 
 void InputManager::getEEGStreams(float* streams)

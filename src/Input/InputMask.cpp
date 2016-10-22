@@ -8,6 +8,8 @@
 
 #include "InputMask.h"
 
+#define MIDI_RANGE 128.f
+#define MIDI_EPSILON 40.f/MIDI_RANGE
 InputMask::InputMask(InputManager* input)
 {
     im = input;
@@ -16,7 +18,10 @@ InputMask::InputMask(InputManager* input)
 void InputMask::update(float dt){ }
 
 ShaderInputMask::ShaderInputMask(InputManager* input)
-:InputMask(input), blurAmount(0,0,.1),shaderVar1(0,0,.1),shaderVar2(0,0,.1)
+:InputMask(input),
+blurAmount(.1,25*MIDI_EPSILON),
+shaderVar1(.1,MIDI_EPSILON),
+shaderVar2(.1,20*MIDI_EPSILON)
 { }
 
 void ShaderInputMask::update(float dt)
@@ -33,7 +38,9 @@ void ShaderInputMask::update(float dt)
 }
 
 Brain3DInputMask::Brain3DInputMask(InputManager* input)
-:InputMask(input), brain3DScale(0,0,.1),brain3DRotationSpeed(0,0,.1)
+:InputMask(input),
+brain3DScale(.1,5*MIDI_EPSILON),
+brain3DRotationSpeed(.1,50*MIDI_EPSILON)
 { }
 
 void Brain3DInputMask::update(float dt)
@@ -49,15 +56,18 @@ void Brain3DInputMask::update(float dt)
 }
 
 RBGInputMask::RBGInputMask(InputManager* input)
-:InputMask(input), amplitude(0,0,.01), lineLength(0,0,.1), lineThickness(0,0,.1)
+:InputMask(input),
+amplitude(.01,MIDI_EPSILON),
+lineLength(.1,2000*MIDI_EPSILON),
+lineThickness(.1,20*MIDI_EPSILON)
 { }
 
 void RBGInputMask::update(float dt)
 {
     if(im != NULL)
     {
-        amplitude.setTarget( 1* im->getMIDIFader2() );
         lineLength.setTarget( 2000.f * im->getMIDIFader1() );
+        amplitude.setTarget( 1* im->getMIDIFader2() );
         lineThickness.setTarget(20 * im->getMIDIFader3());
     }
     amplitude.update(dt);
@@ -67,7 +77,10 @@ void RBGInputMask::update(float dt)
 
 
 FollowerMask::FollowerMask(InputManager* input)
-:InputMask(input), speed(0,0,.01), size(0,0,.1), particleSize(0,0,.1)
+:InputMask(input),
+speed(.01,MIDI_EPSILON),
+size(.1,2000*MIDI_EPSILON),
+particleSize(.1,20*MIDI_EPSILON)
 { }
 
 void FollowerMask::update(float dt)
@@ -85,7 +98,9 @@ void FollowerMask::update(float dt)
 
 
 LightingMask::LightingMask(InputManager* input)
-:InputMask(input), speed(0,0,.07), ambientLight(0,0,.1)
+:InputMask(input),
+speed(.07,50*MIDI_EPSILON),
+ambientLight(.1,255*MIDI_EPSILON)
 { }
 
 void LightingMask::update(float dt)

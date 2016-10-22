@@ -106,6 +106,7 @@ void ofApp::update()
     hPassShader.setUniform1f("time", shaderTime);
     hPassShader.setUniform1f("factor1", inputMarshaller.shaderMask.shaderVar1.get());
     hPassShader.setUniform1f("factor2", inputMarshaller.shaderMask.shaderVar2.get());
+    hPassShader.setUniform1f("blackout", inputManager.getMIDIKnob1());
     glBegin(GL_QUADS);
     glTexCoord2f(0, 0);
     glVertex3f(0, 0,0);
@@ -137,6 +138,7 @@ void ofApp::draw()
     vPassShader.setUniform1f("time", shaderTime);
     vPassShader.setUniform1f("factor1", inputMarshaller.shaderMask.shaderVar1.get());
     vPassShader.setUniform1f("factor2", inputMarshaller.shaderMask.shaderVar2.get());
+    vPassShader.setUniform1f("blackout", inputManager.getMIDIKnob1());
     glBegin(GL_QUADS);
     glTexCoord2f(0, 0);
     glVertex3f(0, 0,0);
