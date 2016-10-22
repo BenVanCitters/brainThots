@@ -84,8 +84,8 @@ void RBGInputMask::update(float dt)
 
 FollowerMask::FollowerMask(InputManager* input)
 :InputMask(input),
-speed(.01,MIDI_EPSILON),
-size(.1,MIDI_EPSILON),
+speed(.03,MIDI_EPSILON),
+size(.05,MIDI_EPSILON),
 particleSize(.1,20*MIDI_EPSILON)
 { }
 

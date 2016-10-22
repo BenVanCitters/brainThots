@@ -33,7 +33,7 @@ void ColorFollower::update(float dt, FollowerMask* mask)
     ofColor newc = getColorForIndex(currentNum);
     currentColor = currentColor.lerp(newc, .1);
     
-    circleRadMultiplier = mask->size.get();
+    circleRadMultiplier = (1-mask->size.get());
 }
 
 void ColorFollower::draw(float sz)
