@@ -26,7 +26,7 @@ public:
     virtual void PAD6NoteOn(ofxMidiMessage& msg) = 0;
 };
 
-class InputManager : public ofxMidiListener
+class InputManager : public ofxMidiListener, public ofBaseSoundInput
 {
 public:
     void newMidiMessage(ofxMidiMessage& msg);

@@ -217,6 +217,7 @@ void InputManager::setupAudioInput()
     left.assign(bufferSize, 0.0);
     right.assign(bufferSize, 0.0);
     soundStream.setup( 0, 2, 44100, bufferSize, 4);
+    soundStream.setInput(this);
 }
 
 
