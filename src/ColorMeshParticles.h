@@ -28,6 +28,7 @@ public:
     inline void setTargetVector(ofVec3f targ){targetVector = targ;}
     
     ofColor color;
+    ofVec2f currentScreenSz;
 
     float strokeWeight = 0;
 private:

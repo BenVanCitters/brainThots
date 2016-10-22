@@ -76,27 +76,7 @@ void RawBrainGraphic::printVecs()
     }
 }
 
-//void RawBrainGraphic::draw()
-//{
-//    //lineThickness
-//    ofSetLineWidth(brainLineThickness);
-//    ofPushMatrix();
-//    ofTranslate(ofGetWidth()/2, ofGetHeight()/2);
-//    float radianDivision = TWO_PI/LINE_COUNT;
-//    for(int i = 0; i < LINE_COUNT; i++)
-//    {
-//        ofPushMatrix();
-////        ofMultMatrix(mTransformations[i]);
-//        ofVec3f v(100*cos(i*radianDivision),100*sin(i*radianDivision),0);
-//        ofTranslate(v);
-//        ofRotateX(-90);
-//        ofRotateY(90-i*360.f/LINE_COUNT );
-//        ofSetColor(255,255,255,255);
-//        mMesh[i].draw();
-//        ofPopMatrix();
-//    }
-//    ofPopMatrix();
-//}
+
 void RawBrainGraphic::draw(ofVec2f screenDims, float alpha)
 {
     //lineThickness

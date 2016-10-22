@@ -40,7 +40,8 @@ void ShaderInputMask::update(float dt)
 Brain3DInputMask::Brain3DInputMask(InputManager* input)
 :InputMask(input),
 brain3DScale(.1,5*MIDI_EPSILON),
-brain3DRotationSpeed(.1,50*MIDI_EPSILON)
+brain3DRotationSpeed(.1,100*MIDI_EPSILON),
+brain3DRotationAxis(.1,MIDI_EPSILON)
 { }
 
 void Brain3DInputMask::update(float dt)
@@ -50,9 +51,11 @@ void Brain3DInputMask::update(float dt)
         brain3DScale.setTarget( 5 * im->getMIDIFader1() );
         float rotSpd = im->getMIDIFader2()*2-1;
         brain3DRotationSpeed.setTarget( 100 * rotSpd );
+        brain3DRotationAxis.setTarget(im->getMIDIFader3() );
     }
     brain3DScale.update(dt);
     brain3DRotationSpeed.update(dt);
+    brain3DRotationAxis.update(dt);
 }
 
 RBGInputMask::RBGInputMask(InputManager* input)
@@ -82,7 +85,7 @@ void RBGInputMask::update(float dt)
 FollowerMask::FollowerMask(InputManager* input)
 :InputMask(input),
 speed(.01,MIDI_EPSILON),
-size(.1,2000*MIDI_EPSILON),
+size(.1,MIDI_EPSILON),
 particleSize(.1,20*MIDI_EPSILON)
 { }
 
@@ -91,7 +94,7 @@ void FollowerMask::update(float dt)
     if(im != NULL)
     {
         speed.setTarget( 1* im->getMIDIFader1() );
-        size.setTarget( 2000.f * im->getMIDIFader2() );
+        size.setTarget( im->getMIDIFader2() );
         particleSize.setTarget(20.f * im->getMIDIFader3());
     }
     speed.update(dt);

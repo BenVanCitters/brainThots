@@ -40,6 +40,7 @@ public:
     Brain3DInputMask(InputManager* input);
     SliderTrackingLerpedFloat brain3DScale;
     SliderTrackingLerpedFloat brain3DRotationSpeed;
+    SliderTrackingLerpedFloat brain3DRotationAxis;
     void update(float dt);
 };
 

@@ -70,7 +70,7 @@ void Brain3D::draw()
         for(int j = 0; j < 1; j++)
         {
             ofPushMatrix();
-            ofTranslate(ofGetWidth()/2, ofGetHeight()/2);
+            ofTranslate(currentScreenSz.x/2, currentScreenSz.y/2);
 //            ofRotate(-ofGetMouseX(), 0, 1, 0);
 //            ofTranslate(model.getPosition().x, model.getPosition().y, 0);
 //            ofRotate(-ofGetMouseX(), 0, 1, 0);
@@ -79,7 +79,7 @@ void Brain3D::draw()
 //            ofScale(ofPoint(.3,.3,.3));
             ofPushMatrix();
             ofPopMatrix();
-            ofRotate(currentRotation, 0, 1, 0);
+            ofRotate(currentRotation, curRot.x, curRot.y, curRot.z);
             ofScale(ofPoint(3,3,3));
             model.drawFaces();
             ofPopMatrix();
@@ -96,7 +96,14 @@ void Brain3D::addSamples(float* samples)
 void Brain3D::update(float dt, Brain3DInputMask* bim)
 {
 //    model.update();
-    brainTime += dt* bim->brain3DRotationSpeed.get();
+    float rotSpd =bim->brain3DRotationSpeed.get();
+    brainTime += dt* rotSpd;
     currentRotation = brainTime ;
     setScale(bim->brain3DScale.get());
+    
+    float lerpTime = ofGetElapsedTimef();
+    float lerp = bim->brain3DRotationAxis.get();
+    curRot = lerp*ofVec3f(sin(lerpTime*.12+2),
+                          sin(lerpTime*.03-2),
+                          -sin(lerpTime*0.01)) + (1-lerp)*ofVec3f(0,1,0);
 }

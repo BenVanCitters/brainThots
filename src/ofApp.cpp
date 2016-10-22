@@ -8,8 +8,7 @@ ofApp::ofApp():rawBrainGraphic(16), inputMarshaller(&inputManager),lightingRig(o
 //--------------------------------------------------------------
 void ofApp::setup()
 {
-    cachedScrWidth = ofGetScreenWidth();
-    cachedScrHeight = ofGetScreenHeight();
+    updateScreenSize(ofGetScreenWidth(),ofGetScreenHeight());
     
     ofHideCursor();
     ofSetBackgroundAuto(false);
@@ -49,18 +48,14 @@ void ofApp::setupShaders()
 
 void ofApp::setupFBO()
 {
-    int drawWidth = cachedScrWidth;
-    int drawHeight = cachedScrHeight;
-    
-    
     //allocate and clear the framebuffer
-    blurBuffer.allocate(drawWidth, drawHeight, GL_RGBA);
+    blurBuffer.allocate(cachedScrSz.x, cachedScrSz.y, GL_RGBA);
     blurBuffer.begin();
     ofClear(0, 0, 0, 255);
     blurBuffer.end();
     
     //allocate and clear the framebuffer
-    fbo.allocate(drawWidth, drawHeight, GL_RGBA);
+    fbo.allocate(cachedScrSz.x, cachedScrSz.y, GL_RGBA);
     fbo.begin();
     ofClear(0, 0, 0, 255);
     fbo.end();
@@ -71,6 +66,7 @@ void ofApp::setupFBO()
 void ofApp::update()
 {
     float dt = ofGetLastFrameTime();
+    
     inputMarshaller.update(dt);
     
     inputManager.pollOSCInput();
@@ -98,7 +94,7 @@ void ofApp::update()
     blurBuffer.begin();
     hPassShader.begin();
     hPassShader.setUniformTexture("tex0", fbo.getTexture() , 1 );
-    hPassShader.setUniform2f("uResolution", ofVec2f(cachedScrWidth, cachedScrHeight ));
+    hPassShader.setUniform2f("uResolution", cachedScrSz);
     hPassShader.setUniform1f("blurAmountShaderVar", inputMarshaller.shaderMask.blurAmount.get());
     hPassShader.setUniform1f("time", shaderTime);
     hPassShader.setUniform1f("factor1", inputMarshaller.shaderMask.shaderVar1.get());
@@ -109,13 +105,13 @@ void ofApp::update()
     glVertex3f(0, 0,0);
     
     glTexCoord2f(1, 0);
-    glVertex3f(cachedScrWidth, 0, 0);
+    glVertex3f(cachedScrSz.x, 0, 0);
     
     glTexCoord2f(1, 1);
-    glVertex3f(cachedScrWidth, cachedScrHeight,0);
+    glVertex3f(cachedScrSz.x, cachedScrSz.y,0);
     
     glTexCoord2f(0, 1);
-    glVertex3f(0, cachedScrHeight, 0);
+    glVertex3f(0, cachedScrSz.y, 0);
     glEnd();
     
     hPassShader.end();
@@ -127,11 +123,10 @@ void ofApp::update()
 //--------------------------------------------------------------
 void ofApp::draw()
 {
-    ofVec2f scrSz(cachedScrWidth, cachedScrHeight);
     fbo.begin();
     vPassShader.begin();
     vPassShader.setUniformTexture("tex0", blurBuffer.getTexture() , 1 );
-    vPassShader.setUniform2f("uResolution", scrSz);
+    vPassShader.setUniform2f("uResolution", cachedScrSz);
     vPassShader.setUniform1f("blurAmountShaderVar", inputMarshaller.shaderMask.blurAmount.get());
     vPassShader.setUniform1f("time", shaderTime);
     vPassShader.setUniform1f("factor1", inputMarshaller.shaderMask.shaderVar1.get());
@@ -144,13 +139,13 @@ void ofApp::draw()
     glVertex3f(0, 0,0);
     
     glTexCoord2f(1, 0);
-    glVertex3f(cachedScrWidth, 0, 0);
+    glVertex3f(cachedScrSz.x, 0, 0);
     
     glTexCoord2f(1, 1);
-    glVertex3f(cachedScrWidth, cachedScrHeight,0);
+    glVertex3f(cachedScrSz.x, cachedScrSz.y,0);
     
     glTexCoord2f(0, 1);
-    glVertex3f(0, cachedScrHeight, 0);
+    glVertex3f(0, cachedScrSz.y, 0);
     glEnd();
     vPassShader.end();
     
@@ -168,7 +163,7 @@ void ofApp::draw()
     fbo.end();
     fbo.draw(0,0);
     
-    rawBrainGraphic.draw(scrSz,inputManager.getMIDIKnob1());
+    rawBrainGraphic.draw(cachedScrSz, inputManager.getMIDIKnob1());
     if(inputManager.showDebug)
     {
         ofSetColor(255, 255, 255 );
@@ -176,6 +171,20 @@ void ofApp::draw()
     }
 }
 
+void ofApp::updateScreenSize(int w, int h)
+{
+    cachedScrSz = ofVec2f(w,h);
+    lightingRig.setWindowSize(cachedScrSz);
+    colorFollower.currentScreenSize = cachedScrSz;
+    brain3d.currentScreenSz = cachedScrSz;
+    particles.currentScreenSz = cachedScrSz;
+    fbo.begin();
+    ofClear(0, 0, 0, 255);
+    fbo.end();
+    blurBuffer.begin();
+    ofClear(0, 0, 0, 255);
+    blurBuffer.end();
+}
 
 //--------------------------------------------------------------
 void ofApp::keyPressed(int key)
@@ -221,9 +230,7 @@ void ofApp::mouseExited(int x, int y){ inputManager.mouseExited(x,y); }
 
 //--------------------------------------------------------------
 void ofApp::windowResized(int w, int h){
-    cachedScrWidth = ofGetScreenWidth();
-    cachedScrHeight = ofGetScreenHeight();
-    lightingRig.setWindowSize(ofVec2f(cachedScrWidth,cachedScrHeight));
+    updateScreenSize(w,h);
 }
 
 //--------------------------------------------------------------

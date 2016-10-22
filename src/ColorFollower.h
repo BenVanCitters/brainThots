@@ -22,8 +22,9 @@ class ColorFollower
     
     void setCurrentIndex(int index);
     ofVec3f getCurrentPosition(){return currentPos;};
-    
+    ofVec2f currentScreenSize;
     ofColor currentColor;
+    
     
     float lerpSpeed = .2;
 private:
@@ -35,6 +36,8 @@ private:
     int currentNum; //current seeked index
     float maxDist; // max distance points could be apart from one another
     int maxIndex = 8;
+    
+    float circleRadMultiplier;
     
     ofVec3f lastPos;     
     ofVec3f currentPos;

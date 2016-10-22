@@ -28,9 +28,11 @@ public:
     void setScale(float s);
     
     double currentRotation;
+    ofVec2f currentScreenSz;
 private:
-    ofxAssimpModelLoader model;
+    ofVec3f curRot;
     
+    ofxAssimpModelLoader model;
     double brainTime;
 };
 

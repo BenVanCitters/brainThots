@@ -32,25 +32,11 @@ class ofApp : public ofBaseApp{
 		void dragEvent(ofDragInfo dragInfo);
 		void gotMessage(ofMessage msg);
     
-        void pollOSCInput();
+    void updateScreenSize(int w, int h);
     
-        void pollMockOSC();
-        //listener functions
-        void newMidiMessage(ofxMidiMessage& eventArgs);
-        
-    ofTrueTypeFont font;
-    
-    int current_msg_string;
-
-    
-    int mouseX, mouseY;
-    string mouseButtonState;
-    
-
     float shaderTime;
  
     ColorFollower colorFollower;
-
     ColorMeshParticles particles;
     InputManager inputManager;
     InputMarshaller inputMarshaller;
@@ -63,6 +49,5 @@ class ofApp : public ofBaseApp{
     Brain3D brain3d;
     
     RawBrainGraphic rawBrainGraphic;
-    float cachedScrWidth;
-    float cachedScrHeight;
+    ofVec2f cachedScrSz;
 };

@@ -32,6 +32,8 @@ void ColorFollower::update(float dt, FollowerMask* mask)
     
     ofColor newc = getColorForIndex(currentNum);
     currentColor = currentColor.lerp(newc, .1);
+    
+    circleRadMultiplier = mask->size.get();
 }
 
 void ColorFollower::draw(float sz)
@@ -64,13 +66,12 @@ void ColorFollower::setCurrentIndex(int index)
 
 ofVec3f ColorFollower::getPositionForIndex(int index)
 {
-    //size
-    int width = ofGetWindowWidth();
-    int height = ofGetWindowHeight();
     float rad = (index*1.f/8)*TWO_PI;
-    return ofVec3f((width/2.f) + (height/2.f-maxSize/2) *cosf(rad),
-                   (height/2.f) + (height/2.f-maxSize/2) *sinf(rad),
-                    0 );
+    ofVec3f halfScr((currentScreenSize.x/2.f),(currentScreenSize.y/2.f),0);
+    ofVec3f unitCirc(cosf(rad),sinf(rad));
+    float scale = circleRadMultiplier * (currentScreenSize.y/2.f-maxSize/2);
+    
+    return halfScr + unitCirc * scale;
 }
 
 ofColor ColorFollower::getColorForIndex(int index)

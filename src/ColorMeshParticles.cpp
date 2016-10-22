@@ -46,7 +46,7 @@ void ColorMeshParticles::draw()
 
 void ColorMeshParticles::update(float dt)
 {
-    float maxDist = ofDist(0, 0, ofGetWindowWidth(), ofGetWindowHeight());
+    float maxDist = ofDist(0, 0, currentScreenSz.x,currentScreenSz.y);
     float repulseAmt = .000001;
     for(int i = 0; i < particles.size(); i++)
     {
