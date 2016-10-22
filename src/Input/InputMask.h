@@ -50,6 +50,7 @@ public:
     SliderTrackingLerpedFloat amplitude;
     SliderTrackingLerpedFloat lineLength;
     SliderTrackingLerpedFloat lineThickness;
+    SliderTrackingLerpedFloat shapeLerp;
     void update(float dt);
 };
 

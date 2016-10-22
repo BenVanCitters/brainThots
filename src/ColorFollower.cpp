@@ -39,11 +39,22 @@ void ColorFollower::draw(float sz)
     float add = 700 * sz;
     ofFill();
     ofSetColor(currentColor);
-    ofPushMatrix();
+    
 //    ofRotateZ(ofGetElapsedTimef()/3 * 360/TWO_PI);
-    ofTranslate(currentPos.x, currentPos.y);
-    ofDrawSphere(0,0, currentSz+add);
-    ofPopMatrix();
+    ofVec3f start = lastPos;
+    ofVec3f end = currentPos;
+    ofVec3f dir = end-start;
+    
+    int steps = 7;
+    for(int i = 0; i < steps; i++)
+    {
+        float pct = (i+1)*1.f/steps;
+        ofPushMatrix();
+        ofTranslate(start+dir*pct);
+        ofDrawSphere(0,0, currentSz+add);
+        ofPopMatrix();
+    }
+    
 }
 
 void ColorFollower::setCurrentIndex(int index)

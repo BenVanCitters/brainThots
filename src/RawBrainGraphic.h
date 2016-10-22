@@ -20,7 +20,7 @@ class RawBrainGraphic
 public:
     RawBrainGraphic(int count);
     void update(float dt, RBGInputMask* inputMask);
-    void draw();
+    void draw(ofVec2f screenDims, float alpha);
     void addSample(int index, float newSample);
     void addSamples(float* newSample);
     
@@ -37,5 +37,6 @@ private:
     
     float brainLen = 0;    //'scale' or total length of the line
     float brainAmp = 0;
+    float shapeLerp = 0;
 };
 #endif /* RawBrainGraphic_h */

@@ -57,22 +57,25 @@ void Brain3DInputMask::update(float dt)
 
 RBGInputMask::RBGInputMask(InputManager* input)
 :InputMask(input),
-amplitude(.01,MIDI_EPSILON),
-lineLength(.1,2000*MIDI_EPSILON),
-lineThickness(.1,20*MIDI_EPSILON)
+amplitude(.04,MIDI_EPSILON),
+lineLength(.1,3000*MIDI_EPSILON),
+lineThickness(.1,20*MIDI_EPSILON),
+shapeLerp(.07,MIDI_EPSILON)
 { }
 
 void RBGInputMask::update(float dt)
 {
     if(im != NULL)
     {
-        lineLength.setTarget( 2000.f * im->getMIDIFader1() );
+        lineLength.setTarget( 3000.f * im->getMIDIFader1() );
         amplitude.setTarget( 1* im->getMIDIFader2() );
         lineThickness.setTarget(20 * im->getMIDIFader3());
+        shapeLerp.setTarget(1 * im->getMIDIFader4());
     }
     amplitude.update(dt);
     lineLength.update(dt);
     lineThickness.update(dt);
+    shapeLerp.update(dt);
 }
 
 

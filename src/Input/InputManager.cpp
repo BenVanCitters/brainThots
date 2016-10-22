@@ -256,7 +256,7 @@ void InputManager::pollMockOSC()
     //what is actual range of eeg signals?
     for(int i = 0; i < 16; i++)
     {
-        eegStreams[i] = ofRandom(10.f);
+        eegStreams[i] = ofRandom(100.f);
     }
 }
 

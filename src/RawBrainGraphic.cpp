@@ -58,6 +58,7 @@ void RawBrainGraphic::update(float dt, RBGInputMask* inputMask)
     setBrainLineLength(inputMask->lineLength.get());
     setBrainAmplitude(inputMask->amplitude.get());
     brainLineThickness = inputMask->lineThickness.get();
+    shapeLerp = inputMask->shapeLerp.get();
 //    printVecs();
 }
 
@@ -75,23 +76,49 @@ void RawBrainGraphic::printVecs()
     }
 }
 
-void RawBrainGraphic::draw()
+//void RawBrainGraphic::draw()
+//{
+//    //lineThickness
+//    ofSetLineWidth(brainLineThickness);
+//    ofPushMatrix();
+//    ofTranslate(ofGetWidth()/2, ofGetHeight()/2);
+//    float radianDivision = TWO_PI/LINE_COUNT;
+//    for(int i = 0; i < LINE_COUNT; i++)
+//    {
+//        ofPushMatrix();
+////        ofMultMatrix(mTransformations[i]);
+//        ofVec3f v(100*cos(i*radianDivision),100*sin(i*radianDivision),0);
+//        ofTranslate(v);
+//        ofRotateX(-90);
+//        ofRotateY(90-i*360.f/LINE_COUNT );
+//        ofSetColor(255,255,255,255);
+//        mMesh[i].draw();
+//        ofPopMatrix();
+//    }
+//    ofPopMatrix();
+//}
+void RawBrainGraphic::draw(ofVec2f screenDims, float alpha)
 {
     //lineThickness
     ofSetLineWidth(brainLineThickness);
     ofPushMatrix();
-    ofTranslate(ofGetWidth()/2, ofGetHeight()/2);
+    ofTranslate(shapeLerp*screenDims.x/2, shapeLerp*screenDims.y/2);
     float radianDivision = TWO_PI/LINE_COUNT;
     for(int i = 0; i < LINE_COUNT; i++)
     {
         ofPushMatrix();
-//        ofMultMatrix(mTransformations[i]);
-        ofVec3f v(100*cos(i*radianDivision),100*sin(i*radianDivision),0);
-        ofTranslate(v);
-        ofRotateX(-90);
-        ofRotateY(90-i*360.f/LINE_COUNT );
-        ofSetColor(255,255,255,255);
+        //        ofMultMatrix(mTransformations[i]);
+        ofVec3f v(0,(screenDims.y/LINE_COUNT)*i,0);
+        ofVec3f v1(100*cos(i*radianDivision),100*sin(i*radianDivision),0);
+        ofVec3f lerpv = v1*shapeLerp + v*(1-shapeLerp);
+        ofTranslate(lerpv);
+        ofRotateX(shapeLerp*-90);
+        ofRotateY(shapeLerp*(90-i*360.f/LINE_COUNT));
+        ofRotateZ(90*(1-shapeLerp));
+        ofPushStyle();
+        ofSetColor(255,255,255,alpha*255);
         mMesh[i].draw();
+        ofPopStyle();
         ofPopMatrix();
     }
     ofPopMatrix();

@@ -11,7 +11,7 @@
 ColorMeshParticles::ColorMeshParticles()
 {
     lastWeight = strokeWeight;
-    int particleCount = 20;
+    int particleCount = 80;
     float radSpacing = TWO_PI/particleCount;
     ofVec3f mid(500,500);//ofGetWindowWidth()/2.f,ofGetWindowHeight()/2.f);
     for(int i = 0; i < particleCount; i++)

@@ -76,11 +76,9 @@ void ofApp::update()
     inputManager.pollOSCInput();
     float eegStreams[16];
     inputManager.getEEGStreams(eegStreams);
-    
 
     rawBrainGraphic.addSamples(eegStreams);
     rawBrainGraphic.update(dt, &inputMarshaller.rbgLinesMask);
-    
     brain3d.update(dt, &inputMarshaller.brain3DMask);
     
 
@@ -96,7 +94,6 @@ void ofApp::update()
     lightingRig.update(dt, &inputMarshaller.lightingMask);
     
     //blur first/horizontal-pass stuff
-    
     shaderTime = ofGetElapsedTimef()*3;
     blurBuffer.begin();
     hPassShader.begin();
@@ -106,7 +103,7 @@ void ofApp::update()
     hPassShader.setUniform1f("time", shaderTime);
     hPassShader.setUniform1f("factor1", inputMarshaller.shaderMask.shaderVar1.get());
     hPassShader.setUniform1f("factor2", inputMarshaller.shaderMask.shaderVar2.get());
-    hPassShader.setUniform1f("blackout", inputManager.getMIDIKnob1());
+    hPassShader.setUniform1f("blackout", inputManager.getMIDIKnob2());
     glBegin(GL_QUADS);
     glTexCoord2f(0, 0);
     glVertex3f(0, 0,0);
@@ -130,15 +127,18 @@ void ofApp::update()
 //--------------------------------------------------------------
 void ofApp::draw()
 {
+    ofVec2f scrSz(cachedScrWidth, cachedScrHeight);
     fbo.begin();
     vPassShader.begin();
     vPassShader.setUniformTexture("tex0", blurBuffer.getTexture() , 1 );
-    vPassShader.setUniform2f("uResolution", ofVec2f(cachedScrWidth, cachedScrHeight ));
+    vPassShader.setUniform2f("uResolution", scrSz);
     vPassShader.setUniform1f("blurAmountShaderVar", inputMarshaller.shaderMask.blurAmount.get());
     vPassShader.setUniform1f("time", shaderTime);
     vPassShader.setUniform1f("factor1", inputMarshaller.shaderMask.shaderVar1.get());
     vPassShader.setUniform1f("factor2", inputMarshaller.shaderMask.shaderVar2.get());
-    vPassShader.setUniform1f("blackout", inputManager.getMIDIKnob1());
+    vPassShader.setUniform1f("blackout", inputManager.getMIDIKnob2());
+ 
+    
     glBegin(GL_QUADS);
     glTexCoord2f(0, 0);
     glVertex3f(0, 0,0);
@@ -168,7 +168,7 @@ void ofApp::draw()
     fbo.end();
     fbo.draw(0,0);
     
-    rawBrainGraphic.draw();
+    rawBrainGraphic.draw(scrSz,inputManager.getMIDIKnob1());
     if(inputManager.showDebug)
     {
         ofSetColor(255, 255, 255 );

@@ -25,13 +25,13 @@
 		72A929D3561B8232A182ABFC /* ofxOscBundle.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 65EEFA3DA3526E9CDD9C21F9 /* ofxOscBundle.cpp */; };
 		7E27881A939D76E8CC628818 /* RawBrainGraphic.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F5547D7B3CE72B24402C9445 /* RawBrainGraphic.cpp */; };
 		83D9F930112E0944444124EE /* ofxMidiOut.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 04F77E5C73A62E2E77C78EC6 /* ofxMidiOut.cpp */; };
-		8415FB2C1DB498B300195475 /* LerpedFloat.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8415FB2A1DB498B300195475 /* LerpedFloat.cpp */; };
 		8415FB351DB4A30100195475 /* InputManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8415FB311DB4A30100195475 /* InputManager.cpp */; };
 		8415FB361DB4A30100195475 /* InputMask.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8415FB331DB4A30100195475 /* InputMask.cpp */; };
 		8415FB3A1DB7306700195475 /* InputMarshaller.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8415FB381DB7306700195475 /* InputMarshaller.cpp */; };
 		8415FB3D1DB8704700195475 /* LightingRig.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8415FB3B1DB8704700195475 /* LightingRig.cpp */; };
 		8415FB401DB9B48F00195475 /* AudioVisual.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8415FB3E1DB9B48F00195475 /* AudioVisual.cpp */; };
-		8415FB431DBB477F00195475 /* SliderTrackingLerpedFloat.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8415FB411DBB477F00195475 /* SliderTrackingLerpedFloat.cpp */; };
+		8415FB491DBB5C8800195475 /* LerpedFloat.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8415FB451DBB5C8800195475 /* LerpedFloat.cpp */; };
+		8415FB4A1DBB5C8800195475 /* SliderTrackingLerpedFloat.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8415FB471DBB5C8800195475 /* SliderTrackingLerpedFloat.cpp */; };
 		846254811D98A63E00FEE84E /* Brain3D.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8462547F1D98A63E00FEE84E /* Brain3D.cpp */; };
 		879A251454401BC0B6E4F238 /* OscTypes.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D9BFFBBF4CC43DEE890B3C3E /* OscTypes.cpp */; };
 		8DED5056525646FA71980866 /* ofxAssimpModelLoader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EDE55D82BD962DAC0E94B708 /* ofxAssimpModelLoader.cpp */; };
@@ -131,8 +131,6 @@
 		8415FB251DB2D01300195475 /* defaultVert.glsl */ = {isa = PBXFileReference; lastKnownFileType = text; name = defaultVert.glsl; path = bin/data/shaders/defaultVert.glsl; sourceTree = "<group>"; };
 		8415FB261DB2D01300195475 /* horizontalPass.glsl */ = {isa = PBXFileReference; lastKnownFileType = text; name = horizontalPass.glsl; path = bin/data/shaders/horizontalPass.glsl; sourceTree = "<group>"; };
 		8415FB291DB2D01300195475 /* verticalPass.glsl */ = {isa = PBXFileReference; lastKnownFileType = text; name = verticalPass.glsl; path = bin/data/shaders/verticalPass.glsl; sourceTree = "<group>"; };
-		8415FB2A1DB498B300195475 /* LerpedFloat.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = LerpedFloat.cpp; sourceTree = "<group>"; };
-		8415FB2B1DB498B300195475 /* LerpedFloat.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LerpedFloat.h; sourceTree = "<group>"; };
 		8415FB311DB4A30100195475 /* InputManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = InputManager.cpp; sourceTree = "<group>"; };
 		8415FB321DB4A30100195475 /* InputManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InputManager.h; sourceTree = "<group>"; };
 		8415FB331DB4A30100195475 /* InputMask.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = InputMask.cpp; sourceTree = "<group>"; };
@@ -143,8 +141,10 @@
 		8415FB3C1DB8704700195475 /* LightingRig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LightingRig.h; sourceTree = "<group>"; };
 		8415FB3E1DB9B48F00195475 /* AudioVisual.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AudioVisual.cpp; sourceTree = "<group>"; };
 		8415FB3F1DB9B48F00195475 /* AudioVisual.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AudioVisual.h; sourceTree = "<group>"; };
-		8415FB411DBB477F00195475 /* SliderTrackingLerpedFloat.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SliderTrackingLerpedFloat.cpp; sourceTree = "<group>"; };
-		8415FB421DBB477F00195475 /* SliderTrackingLerpedFloat.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SliderTrackingLerpedFloat.h; sourceTree = "<group>"; };
+		8415FB451DBB5C8800195475 /* LerpedFloat.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = LerpedFloat.cpp; sourceTree = "<group>"; };
+		8415FB461DBB5C8800195475 /* LerpedFloat.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LerpedFloat.h; sourceTree = "<group>"; };
+		8415FB471DBB5C8800195475 /* SliderTrackingLerpedFloat.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SliderTrackingLerpedFloat.cpp; sourceTree = "<group>"; };
+		8415FB481DBB5C8800195475 /* SliderTrackingLerpedFloat.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SliderTrackingLerpedFloat.h; sourceTree = "<group>"; };
 		8462547F1D98A63E00FEE84E /* Brain3D.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Brain3D.cpp; sourceTree = "<group>"; };
 		846254801D98A63E00FEE84E /* Brain3D.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Brain3D.h; sourceTree = "<group>"; };
 		8B30E93FD3D3475EED522A0E /* ofxOscBundle.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ofxOscBundle.h; path = ../../../addons/ofxOsc/src/ofxOscBundle.h; sourceTree = SOURCE_ROOT; };
@@ -372,6 +372,17 @@
 			path = Input;
 			sourceTree = "<group>";
 		};
+		8415FB441DBB5C8800195475 /* Math */ = {
+			isa = PBXGroup;
+			children = (
+				8415FB451DBB5C8800195475 /* LerpedFloat.cpp */,
+				8415FB461DBB5C8800195475 /* LerpedFloat.h */,
+				8415FB471DBB5C8800195475 /* SliderTrackingLerpedFloat.cpp */,
+				8415FB481DBB5C8800195475 /* SliderTrackingLerpedFloat.h */,
+			);
+			path = Math;
+			sourceTree = "<group>";
+		};
 		86D2677079A3AF4A5A88E29A /* oscpack */ = {
 			isa = PBXGroup;
 			children = (
@@ -517,6 +528,7 @@
 		E4B69E1C0A3A1BDC003C02F2 /* src */ = {
 			isa = PBXGroup;
 			children = (
+				8415FB441DBB5C8800195475 /* Math */,
 				8415FB301DB4A30100195475 /* Input */,
 				E4B69E1D0A3A1BDC003C02F2 /* main.cpp */,
 				E4B69E1E0A3A1BDC003C02F2 /* ofApp.cpp */,
@@ -529,10 +541,6 @@
 				41194A91363205CBEA6BB4F7 /* RawBrainGraphic.h */,
 				8462547F1D98A63E00FEE84E /* Brain3D.cpp */,
 				846254801D98A63E00FEE84E /* Brain3D.h */,
-				8415FB2A1DB498B300195475 /* LerpedFloat.cpp */,
-				8415FB2B1DB498B300195475 /* LerpedFloat.h */,
-				8415FB411DBB477F00195475 /* SliderTrackingLerpedFloat.cpp */,
-				8415FB421DBB477F00195475 /* SliderTrackingLerpedFloat.h */,
 				8415FB3B1DB8704700195475 /* LightingRig.cpp */,
 				8415FB3C1DB8704700195475 /* LightingRig.h */,
 				8415FB3E1DB9B48F00195475 /* AudioVisual.cpp */,
@@ -688,10 +696,10 @@
 				0BFC9C20FD7E3C8D5873AA97 /* ofxMidiIn.cpp in Sources */,
 				C6FE64F74F1EA1D98C8F9847 /* ofxMidiMessage.cpp in Sources */,
 				83D9F930112E0944444124EE /* ofxMidiOut.cpp in Sources */,
-				8415FB431DBB477F00195475 /* SliderTrackingLerpedFloat.cpp in Sources */,
-				8415FB2C1DB498B300195475 /* LerpedFloat.cpp in Sources */,
+				8415FB4A1DBB5C8800195475 /* SliderTrackingLerpedFloat.cpp in Sources */,
 				63D0FD8734D5760B8080C901 /* RtMidi.cpp in Sources */,
 				72A929D3561B8232A182ABFC /* ofxOscBundle.cpp in Sources */,
+				8415FB491DBB5C8800195475 /* LerpedFloat.cpp in Sources */,
 				5864AD82E20F15536D054EA3 /* ofxOscMessage.cpp in Sources */,
 				4ADB88E2FB52E76A471065DE /* ofxOscParameterSync.cpp in Sources */,
 				8415FB3D1DB8704700195475 /* LightingRig.cpp in Sources */,

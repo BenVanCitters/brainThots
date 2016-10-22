@@ -31,6 +31,7 @@ public:
 private:
     ofxAssimpModelLoader model;
     
+    double brainTime;
 };
 
 
