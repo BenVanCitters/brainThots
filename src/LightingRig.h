@@ -25,6 +25,7 @@ public:
     double lightTime = 0;
     ofLight pointLight;
     ofLight ambientLight;
+    float fade;
     
 private:
     ofVec2f windowSize;

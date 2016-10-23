@@ -40,7 +40,8 @@ void ColorFollower::draw(float sz)
 {
     float add = 700 * sz;
     ofFill();
-    ofSetColor(currentColor);
+//    currentColor *= fade;
+    ofSetColor(currentColor * fade);
     
 //    ofRotateZ(ofGetElapsedTimef()/3 * 360/TWO_PI);
     ofVec3f start = lastPos;

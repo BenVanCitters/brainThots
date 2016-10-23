@@ -29,7 +29,7 @@ ColorMeshParticles::ColorMeshParticles()
 
 void ColorMeshParticles::draw()
 {
-    ofSetColor(color);
+    ofSetColor(color*fade);
     ofFill();
 //    ofSetPolyMode(OF_POLY_WINDING_NONZERO);
 //    ofBeginShape();

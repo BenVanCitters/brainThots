@@ -25,7 +25,7 @@ class ColorFollower
     ofVec2f currentScreenSize;
     ofColor currentColor;
     
-    
+    float fade;
     float lerpSpeed = .2;
 private:
     ofVec3f getPositionForIndex(int index);

@@ -29,7 +29,7 @@ public:
     
     ofColor color;
     ofVec2f currentScreenSz;
-
+    float fade;
     float strokeWeight = 0;
 private:
     float lastWeight;

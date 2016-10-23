@@ -55,8 +55,7 @@ void Brain3DInputMask::update(float dt)
     if(im != NULL)
     {
         brain3DScale.setTarget( 5 * im->getMIDIFader1() );
-        float rotSpd = im->getMIDIFader2()*2-1;
-        brain3DRotationSpeed.setTarget( 100 * rotSpd );
+        brain3DRotationSpeed.setTarget( 100 * im->getMIDIFader2() );
         brain3DRotationAxis.setTarget(im->getMIDIFader3() );
     }
     brain3DScale.update(dt);

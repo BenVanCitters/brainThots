@@ -78,6 +78,7 @@ void ofApp::update()
     rawBrainGraphic.update(dt, &inputMarshaller.rbgLinesMask);
     
     brain3d.update(dt, &inputMarshaller.brain3DMask);
+    brain3d.fade = inputManager.getMIDIKnob3();
     
     audioVisual.setSamples(inputManager.getAudioStream());
     audioVisual.update(dt,&inputMarshaller.audioMask);
@@ -85,12 +86,15 @@ void ofApp::update()
     colorFollower.setCurrentIndex(inputManager.getBrainNote());
     colorFollower.update(dt, &inputMarshaller.followerMask);
     colorFollower.lerpSpeed = inputMarshaller.followerMask.speed.get();
+    colorFollower.fade = inputManager.getMIDIKnob4();
     
+    particles.fade = inputManager.getMIDIKnob6();
     particles.setTargetVector(colorFollower.getCurrentPosition());
     particles.color = colorFollower.currentColor;
     particles.update(dt);
     particles.strokeWeight = inputMarshaller.followerMask.particleSize.get();
     
+    lightingRig.fade =inputManager.getMIDIKnob5();
     lightingRig.update(dt, &inputMarshaller.lightingMask);
     
     //blur first/horizontal-pass stuff

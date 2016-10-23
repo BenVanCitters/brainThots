@@ -12,8 +12,7 @@ LightingRig::LightingRig(ofVec2f wxh)
 :windowSize(wxh)
 {
     pointLight.setPosition(windowSize.x/2.f, windowSize.y/2.f, 500);
-    pointLight.setDiffuseColor(ofColor(128.f, 128.f, 128.f));
-    pointLight.setSpecularColor(ofColor(255.f, 255.f, 255.f));
+    
     pointLight.setDirectional();
     pointLight.setSpotlight(1000,.05);
 }
@@ -40,5 +39,13 @@ void LightingRig::update(float dt, LightingMask* inputMask)
     ofVec2f halfWin = windowSize/2;
     pointLight.setPosition(halfWin.x *(1+cos(t)),halfWin.y *(1+sin(t)), 500);
     float ambientColor = inputMask->ambientLight.get();
-    ambientLight.setAmbientColor(ofColor(ambientColor,ambientColor,ambientColor));
+    cout << "ambient: " << ambientColor << endl;
+//    ofSetGlobalAmbientColor(ofColor(ambientColor,ambientColor,ambientColor).operator*(fade));
+//    ambientLight.setPointLight();
+//    ambientLight.setDiffuseColor(ofColor::black);
+//    ambientLight.setSpecularColor(ofColor::black);
+    ambientLight.setAmbientColor(ofColor(ambientColor,ambientColor,ambientColor).operator*(fade));
+    
+    pointLight.setDiffuseColor(ofColor(128.f, 128.f, 128.f).operator*(fade));
+    pointLight.setSpecularColor(ofColor(255.f, 255.f, 255.f).operator*(fade));
 }

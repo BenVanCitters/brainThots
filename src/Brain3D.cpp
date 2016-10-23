@@ -46,10 +46,15 @@ Brain3D::Brain3D()
     model.loadModel("models/decimatex2.dae", false);
     model.setScaleNormalization(false);
     model.setScale(1.f,1.f,1.f);
-    model.enableColors();
+    model.disableColors();
+//    model.enableColors();
+//    model.enableMaterials();
+//    model.enableTextures();
 //    model.setPosition(ofGetWidth() * 0.5, (float)ofGetHeight() * 0.75 , 0);
     
 //    getTransformsForRBGs();
+
+//    tmp.load("/Users/admin/Desktop/Jacques-Louis_David_-_Mars_desarme_par_Venus.JPG");
 }
 
 void Brain3D::setScale(float s)
@@ -69,7 +74,11 @@ void Brain3D::draw()
     {
         for(int j = 0; j < 1; j++)
         {
+            ofPushStyle();
             ofPushMatrix();
+            ofSetColor(0,0,0);
+            
+//            model.disableColors()
             ofTranslate(currentScreenSz.x/2, currentScreenSz.y/2);
 //            ofRotate(-ofGetMouseX(), 0, 1, 0);
 //            ofTranslate(model.getPosition().x, model.getPosition().y, 0);
@@ -77,12 +86,14 @@ void Brain3D::draw()
 //            ofTranslate(-model.getPosition().x, -model.getPosition().y, 0);
 //            ofTranslate(150*i, 150*j, 0);
 //            ofScale(ofPoint(.3,.3,.3));
-            ofPushMatrix();
-            ofPopMatrix();
             ofRotate(currentRotation, curRot.x, curRot.y, curRot.z);
             ofScale(ofPoint(3,3,3));
             model.drawFaces();
+//            tmp.bind();
+//            me.draw();
+//            tmp.unbind();
             ofPopMatrix();
+            ofPopStyle();
         }
     }
 }

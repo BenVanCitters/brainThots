@@ -29,10 +29,12 @@ public:
     
     double currentRotation;
     ofVec2f currentScreenSz;
+    float fade;
 private:
     ofVec3f curRot;
     
     ofxAssimpModelLoader model;
+//    ofImage tmp;
     double brainTime;
 };
 

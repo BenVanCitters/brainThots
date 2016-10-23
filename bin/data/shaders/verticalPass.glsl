@@ -7,11 +7,12 @@ uniform vec2 sampleOffset;
 
 uniform float time;
 uniform float factor1;
-
-float weights[21];
 uniform float factor2;
-float factor3;
-float factor4;
+uniform float factor3;
+uniform float factor4;
+uniform float blackout;
+float weights[21];
+
 void main()
 {
     float weightCount = 10.0;
@@ -41,8 +42,13 @@ void main()
     sampleOffset *= .1; //~~ /= weightCount;
     
     vec2 position = uResolution * gl_TexCoord[0].st;
-    vec2 inputOffset = factor1* vec2(cos(time + position.x*factor1 / 8.0),
-                                     sin(time*0.91 + position.x / 3.0 + position.y /(factor2*9.0)));
+    vec2 inputOffset = factor1* vec2(cos(time + position.x*factor1 * 0.125 ),
+                                     sin(time*0.91 + position.x *0.33 + position.y /(0.001+factor2*9.0)));
+    inputOffset += factor3* vec2(cos(5.0 +time + position.y * 0.0763),
+                                 sin(9.0 +time * 0.6 + position.y * 0.04 ));
+    
+    inputOffset += factor4* vec2(0.5*factor4*cos(12.0 + time * 1.7 + position.y * 0.13),
+                                 sin(7.0 +time * 0.6 + position.x * 0.030 ));
     position = position + inputOffset;
     
     vec4 sum = vec4( 0.0, 0.0, 0.0 , 0.0);
@@ -56,5 +62,5 @@ void main()
         offset.y += sampleOffset.y;
     }
     
-    gl_FragColor = sum;//sum;//vec4(1.0,0.0,0.0,1.0);//vec4(vTexCoord.x,vTexCoord.y,0.0,1.0);//texture2D( texture[0], vTexCoord );//
+    gl_FragColor = sum*vec4(blackout,blackout,blackout,1);//  sum;//vec4(1.0,0.0,0.0,1.0);//vec4(vTexCoord.x,vTexCoord.y,0.0,1.0);//texture2D( texture[0], vTexCoord );//
 }
