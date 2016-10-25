@@ -39,7 +39,7 @@ void LightingRig::update(float dt, LightingMask* inputMask)
     ofVec2f halfWin = windowSize/2;
     pointLight.setPosition(halfWin.x *(1+cos(t)),halfWin.y *(1+sin(t)), 500);
     float ambientColor = inputMask->ambientLight.get();
-    cout << "ambient: " << ambientColor << endl;
+//    cout << "ambient: " << ambientColor << endl;
 //    ofSetGlobalAmbientColor(ofColor(ambientColor,ambientColor,ambientColor).operator*(fade));
 //    ambientLight.setPointLight();
 //    ambientLight.setDiffuseColor(ofColor::black);

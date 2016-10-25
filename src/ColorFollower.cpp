@@ -38,10 +38,10 @@ void ColorFollower::update(float dt, FollowerMask* mask)
 
 void ColorFollower::draw(float sz)
 {
-    float add = 700 * sz;
+    float add = 400 * sz;
     ofFill();
 //    currentColor *= fade;
-    ofSetColor(currentColor * fade);
+    ofSetColor(currentColor , 255*fade);
     
 //    ofRotateZ(ofGetElapsedTimef()/3 * 360/TWO_PI);
     ofVec3f start = lastPos;
@@ -54,7 +54,7 @@ void ColorFollower::draw(float sz)
         float pct = (i+1)*1.f/steps;
         ofPushMatrix();
         ofTranslate(start+dir*pct);
-        ofDrawSphere(0,0, currentSz+add);
+        ofDrawSphere(0,0, fade*(currentSz+add));
         ofPopMatrix();
     }
     
