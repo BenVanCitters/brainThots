@@ -6,7 +6,6 @@
 #include "LightingRig.h"
 #include "GeoPillars.h"
 #include "ColorMeshParticles.h"
-#include "Brain3D.h"
 #include "InputMarshaller.h"
 #include "AudioVisual.h"
 
@@ -48,7 +47,6 @@ class ofApp : public ofBaseApp{
     ofShader hPassShader;
     ofShader vPassShader;
         
-    Brain3D brain3d;
     
     ofVec2f cachedScrSz;
 };

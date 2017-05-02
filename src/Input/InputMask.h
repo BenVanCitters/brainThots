@@ -48,17 +48,6 @@ public:
     void update(float dt);
 };
 
-class RBGInputMask : public InputMask
-{
-public:
-    RBGInputMask(InputManager* input);
-    SliderTrackingLerpedFloat amplitude;
-    SliderTrackingLerpedFloat lineLength;
-    SliderTrackingLerpedFloat lineThickness;
-    SliderTrackingLerpedFloat shapeLerp;
-    void update(float dt);
-};
-
 class FollowerMask : public InputMask
 {
 public:

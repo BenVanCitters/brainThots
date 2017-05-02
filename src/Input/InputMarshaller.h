@@ -21,7 +21,6 @@ public:
     InputMarshaller(InputManager* im);
     InputMask* activeMask;
     ShaderInputMask shaderMask;
-    RBGInputMask rbgLinesMask;
     Pillar3DInputMask pillar3DMask;
     FollowerMask followerMask;
     LightingMask lightingMask;
