@@ -36,13 +36,13 @@ class ShaderInputMask : public InputMask
     void update(float dt);
 };
 
-class Brain3DInputMask : public InputMask
+class Pillar3DInputMask : public InputMask
 {
 public:
-    Brain3DInputMask(InputManager* input);
-    SliderTrackingLerpedFloat brain3DScale;
-    SliderTrackingLerpedFloat brain3DRotationSpeed;
-    SliderTrackingLerpedFloat brain3DRotationAxis;
+    Pillar3DInputMask(InputManager* input);
+    SliderTrackingLerpedFloat pillarSpreadX;
+    SliderTrackingLerpedFloat pillarSpreadY;
+    
     void update(float dt);
 };
 
@@ -64,6 +64,7 @@ public:
     SliderTrackingLerpedFloat speed;
     SliderTrackingLerpedFloat size;
     SliderTrackingLerpedFloat particleSize;
+
     void update(float dt);
 };
 

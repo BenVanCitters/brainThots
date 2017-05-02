@@ -1,5 +1,5 @@
 //
-//  InputMarshaller.hpp
+//  InputMarshaller.h
 //  brainThots
 //
 //  Created by Ben Van Citters on 10/18/16.
@@ -22,7 +22,7 @@ public:
     InputMask* activeMask;
     ShaderInputMask shaderMask;
     RBGInputMask rbgLinesMask;
-    Brain3DInputMask brain3DMask;
+    Pillar3DInputMask pillar3DMask;
     FollowerMask followerMask;
     LightingMask lightingMask;
     WaveFormMask audioMask;

@@ -9,7 +9,7 @@
 #include "InputMarshaller.h"
 
 InputMarshaller::InputMarshaller(InputManager* im)
-:shaderMask(im),rbgLinesMask(im), brain3DMask(im), followerMask(im),lightingMask(im),audioMask(im)
+:shaderMask(im),rbgLinesMask(im), pillar3DMask(im), followerMask(im),lightingMask(im),audioMask(im)
 {
     activeMask = &rbgLinesMask;
     im->addMIDIPADListener(this);
@@ -35,8 +35,8 @@ void InputMarshaller::PAD2NoteOn(ofxMidiMessage& msg)
 }
 void InputMarshaller::PAD3NoteOn(ofxMidiMessage& msg)
 {
-    cout << "3D Brain Mode" << endl;
-    activeMask = &brain3DMask;
+    cout << "3D Pillar Mode" << endl;
+    activeMask = &pillar3DMask;
 }
 void InputMarshaller::PAD4NoteOn(ofxMidiMessage& msg)
 {

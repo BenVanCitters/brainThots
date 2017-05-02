@@ -43,24 +43,21 @@ void ShaderInputMask::update(float dt)
     shaderVar4.update(dt);
 }
 
-Brain3DInputMask::Brain3DInputMask(InputManager* input)
+Pillar3DInputMask::Pillar3DInputMask(InputManager* input)
 :InputMask(input),
-brain3DScale(.1,5*MIDI_EPSILON),
-brain3DRotationSpeed(.1,100*MIDI_EPSILON),
-brain3DRotationAxis(.1,MIDI_EPSILON)
+pillarSpreadX(.1,5*MIDI_EPSILON),
+pillarSpreadY(.1,5*MIDI_EPSILON)
 { }
 
-void Brain3DInputMask::update(float dt)
+void Pillar3DInputMask::update(float dt)
 {
     if(im != NULL)
     {
-        brain3DScale.setTarget( 5 * im->getMIDIFader1() );
-        brain3DRotationSpeed.setTarget( 100 * im->getMIDIFader2() );
-        brain3DRotationAxis.setTarget(im->getMIDIFader3() );
+        pillarSpreadX.setTarget( 1 * im->getMIDIFader1() );
+        pillarSpreadY.setTarget( 1 * im->getMIDIFader2() );
     }
-    brain3DScale.update(dt);
-    brain3DRotationSpeed.update(dt);
-    brain3DRotationAxis.update(dt);
+    pillarSpreadX.update(dt);
+    pillarSpreadY.update(dt);
 }
 
 RBGInputMask::RBGInputMask(InputManager* input)

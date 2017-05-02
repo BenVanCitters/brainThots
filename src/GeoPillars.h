@@ -1,35 +1,34 @@
 //
-//  ColorFollower.h
+//  GeoPillars.h
 //  brainThots
 //
 //  Created by Ben Van Citters on 8/23/16.
 //
 //
 
-#ifndef ColorFollower_h
-#define ColorFollower_h
+#ifndef GeoPillars_h
+#define GeoPillars_h
 
 #include <stdio.h>
 #include "ofMain.h"
 #include "InputMask.h"
 
-class ColorFollower
+class GeoPillars
 {
     public:
-    ColorFollower();
-    void update(float dt, FollowerMask* mask);
+    GeoPillars();
+    void update(float dt, Pillar3DInputMask* mask);
     void draw(float sz);
-    
-    void setCurrentIndex(int index);
-    ofVec3f getCurrentPosition(){return currentPos;};
+
     ofVec2f currentScreenSize;
+     ofVec2f currentSpread;
     ofColor currentColor;
     
+    ofVec3f currentPos;
     float fade;
     float lerpSpeed = .2;
 private:
-    ofVec3f getPositionForIndex(int index);
-    ofColor getColorForIndex(int index);
+
     
     float currentSz = 10;
     float maxSize = 35;
@@ -39,7 +38,6 @@ private:
     
     float circleRadMultiplier;
     
-    ofVec3f lastPos;     
-    ofVec3f currentPos;
+    ofVec3f lastPos;
 };
 #endif /* ColorFollower_h */

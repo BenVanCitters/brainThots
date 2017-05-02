@@ -104,16 +104,16 @@ void Brain3D::addSamples(float* samples)
 //    rawBrainGraphic.update();
 }
 
-void Brain3D::update(float dt, Brain3DInputMask* bim)
+void Brain3D::update(float dt)
 {
 //    model.update();
-    float rotSpd =bim->brain3DRotationSpeed.get();
+    float rotSpd =0;//bim->brain3DRotationSpeed.get();
     brainTime += dt* rotSpd;
     currentRotation = brainTime ;
-    setScale(bim->brain3DScale.get());
+    setScale(0);//bim->brain3DScale.get());
     
     float lerpTime = ofGetElapsedTimef();
-    float lerp = bim->brain3DRotationAxis.get();
+    float lerp = 0;//bim->brain3DRotationAxis.get();
     curRot = lerp*ofVec3f(sin(lerpTime*.12+2),
                           sin(lerpTime*.03-2),
                           -sin(lerpTime*0.01)) + (1-lerp)*ofVec3f(0,1,0);

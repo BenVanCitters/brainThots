@@ -22,7 +22,7 @@ public:
     Brain3D();
     
     void draw();
-    void update(float dt, Brain3DInputMask* bim);
+    void update(float dt);
     
     void addSamples(float* samples);
     void setScale(float s);

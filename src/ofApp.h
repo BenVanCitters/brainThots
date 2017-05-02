@@ -4,7 +4,7 @@
 #include "ofxOsc.h"
 #include "InputManager.h"
 #include "LightingRig.h"
-#include "ColorFollower.h"
+#include "GeoPillars.h"
 #include "ColorMeshParticles.h"
 #include "Brain3D.h"
 #include "InputMarshaller.h"
@@ -36,7 +36,7 @@ class ofApp : public ofBaseApp{
     
     float shaderTime;
  
-    ColorFollower colorFollower;
+    GeoPillars pillar;
     ColorMeshParticles particles;
     InputManager inputManager;
     InputMarshaller inputMarshaller;

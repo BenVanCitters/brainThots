@@ -84,14 +84,14 @@ void ofApp::update()
     audioVisual.setSamples(inputManager.getAudioStream());
     audioVisual.update(dt,&inputMarshaller.audioMask);
     
-    colorFollower.setCurrentIndex(inputManager.getBrainNote());
-    colorFollower.update(dt, &inputMarshaller.followerMask);
-    colorFollower.lerpSpeed = inputMarshaller.followerMask.speed.get();
-    colorFollower.fade = inputManager.getMIDIKnob4();
+    
+    pillar.update(dt, &inputMarshaller.pillar3DMask);
+    pillar.lerpSpeed = inputMarshaller.followerMask.speed.get();
+    pillar.fade = inputManager.getMIDIKnob4();
     
     particles.fade = inputManager.getMIDIKnob6();
-    particles.setTargetVector(colorFollower.getCurrentPosition());
-    particles.color = colorFollower.currentColor;
+//    particles.setTargetVector(pillar.getCurrentPosition());
+    particles.color = pillar.currentColor;
     particles.update(dt);
     particles.strokeWeight = inputMarshaller.followerMask.particleSize.get();
     
@@ -111,7 +111,7 @@ void ofApp::update()
     hPassShader.setUniform1f("factor3", inputMarshaller.shaderMask.shaderVar3.get());
     hPassShader.setUniform1f("factor4", inputMarshaller.shaderMask.shaderVar4.get());
     
-    hPassShader.setUniform1f("blackout", inputManager.getMIDIKnob7());
+    hPassShader.setUniform1f("blackout", inputManager.getMIDIKnob2());
     glBegin(GL_QUADS);
     glTexCoord2f(0, 0);
     glVertex3f(0, 0,0);
@@ -145,7 +145,7 @@ void ofApp::draw()
     vPassShader.setUniform1f("factor2", inputMarshaller.shaderMask.shaderVar2.get());
     vPassShader.setUniform1f("factor3", inputMarshaller.shaderMask.shaderVar3.get());
     vPassShader.setUniform1f("factor4", inputMarshaller.shaderMask.shaderVar4.get());
-    vPassShader.setUniform1f("blackout", inputManager.getMIDIKnob8());
+    vPassShader.setUniform1f("blackout", inputManager.getMIDIKnob2());
  
     
     glBegin(GL_QUADS);
@@ -171,7 +171,7 @@ void ofApp::draw()
     
     lightingRig.enable();
     
-    colorFollower.draw(inputManager.curVol);
+    pillar.draw(inputManager.curVol);
 //    brain3d.draw();
     
     lightingRig.disable();
@@ -195,7 +195,7 @@ void ofApp::updateScreenSize(int w, int h)
 {
     cachedScrSz = ofVec2f(w,h);
     lightingRig.setWindowSize(cachedScrSz);
-    colorFollower.currentScreenSize = cachedScrSz;
+    pillar.currentScreenSize = cachedScrSz;
 //    brain3d.currentScreenSz = cachedScrSz;
     particles.currentScreenSz = cachedScrSz;
     audioVisual.currentScreenSz = cachedScrSz;
