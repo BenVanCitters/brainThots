@@ -45,13 +45,16 @@ public:
     float getMIDIKnob4();
     float getMIDIKnob5();
     float getMIDIKnob6();
+    float getMIDIKnob7();
+    float getMIDIKnob8();
     
-    float getMIDIFader1();
-    float getMIDIFader2();
-    float getMIDIFader3();
-    float getMIDIFader4();
-    float getMIDIFader5();
-    float getMIDIFader6();
+    
+//    float getMIDIFader1();
+//    float getMIDIFader2();
+//    float getMIDIFader3();
+//    float getMIDIFader4();
+//    float getMIDIFader5();
+//    float getMIDIFader6();
     
     void addMIDIPADListener(MIDIPADListener* listener);
     void removeMIDIPADListener(MIDIPADListener* listener);
@@ -85,6 +88,8 @@ private:
     float midiKnob4;
     float midiKnob5;
     float midiKnob6;
+    float midiKnob7;
+    float midiKnob8;
     
     float midiFader1;
     float midiFader2;

@@ -30,11 +30,11 @@ void ShaderInputMask::update(float dt)
 {
     if(im != NULL)
     {
-        blurAmount.setTarget( 25 * im->getMIDIFader1() );
-        shaderVar1.setTarget( im->getMIDIFader2() );
-        shaderVar2.setTarget( 20*im->getMIDIFader3() );
-        shaderVar3.setTarget( im->getMIDIFader4() );
-        shaderVar4.setTarget( 20*im->getMIDIFader5() );
+        blurAmount.setTarget( 25 * im->getMIDIKnob1() );
+        shaderVar1.setTarget( im->getMIDIKnob2() );
+        shaderVar2.setTarget( 20*im->getMIDIKnob3() );
+        shaderVar3.setTarget( im->getMIDIKnob4() );
+        shaderVar4.setTarget( 20*im->getMIDIKnob5() );
     }
     blurAmount.update(dt);
     shaderVar1.update(dt);
@@ -54,9 +54,9 @@ void Brain3DInputMask::update(float dt)
 {
     if(im != NULL)
     {
-        brain3DScale.setTarget( 5 * im->getMIDIFader1() );
-        brain3DRotationSpeed.setTarget( 100 * im->getMIDIFader2() );
-        brain3DRotationAxis.setTarget(im->getMIDIFader3() );
+        brain3DScale.setTarget( 5 * im->getMIDIKnob1() );
+        brain3DRotationSpeed.setTarget( 100 * im->getMIDIKnob2() );
+        brain3DRotationAxis.setTarget(im->getMIDIKnob3() );
     }
     brain3DScale.update(dt);
     brain3DRotationSpeed.update(dt);
@@ -75,10 +75,10 @@ void RBGInputMask::update(float dt)
 {
     if(im != NULL)
     {
-        lineLength.setTarget( 3000.f * im->getMIDIFader1() );
-        amplitude.setTarget( 1* im->getMIDIFader2() );
-        lineThickness.setTarget(20 * im->getMIDIFader3());
-        shapeLerp.setTarget(1 * im->getMIDIFader4());
+        lineLength.setTarget( 3000.f * im->getMIDIKnob1() );
+        amplitude.setTarget( 1* im->getMIDIKnob2() );
+        lineThickness.setTarget(20 * im->getMIDIKnob3());
+        shapeLerp.setTarget(1 * im->getMIDIKnob4());
     }
     amplitude.update(dt);
     lineLength.update(dt);
@@ -98,9 +98,9 @@ void FollowerMask::update(float dt)
 {
     if(im != NULL)
     {
-        speed.setTarget( 1* im->getMIDIFader1() );
-        size.setTarget( im->getMIDIFader2() );
-        particleSize.setTarget(20.f * im->getMIDIFader3());
+        speed.setTarget( 1* im->getMIDIKnob1() );
+        size.setTarget( im->getMIDIKnob2() );
+        particleSize.setTarget(20.f * im->getMIDIKnob3());
     }
     speed.update(dt);
     size.update(dt);
@@ -118,8 +118,8 @@ void LightingMask::update(float dt)
 {
     if(im != NULL)
     {
-        speed.setTarget( 50* im->getMIDIFader1() );
-        ambientLight.setTarget( 255.f * im->getMIDIFader2() );
+        speed.setTarget( 50* im->getMIDIKnob1() );
+        ambientLight.setTarget( 255.f * im->getMIDIKnob2() );
     }
     speed.update(dt);
     ambientLight.update(dt);
@@ -136,9 +136,9 @@ void WaveFormMask::update(float dt)
 {
     if(im != NULL)
     {
-        amplitude.setTarget( 1500* im->getMIDIFader1() );
-        lineWeight.setTarget( 20.f * im->getMIDIFader2() );
-        shapeLerp.setTarget( im->getMIDIFader3() );
+        amplitude.setTarget( 1500* im->getMIDIKnob1() );
+        lineWeight.setTarget( 20.f * im->getMIDIKnob2() );
+        shapeLerp.setTarget( im->getMIDIKnob3() );
     }
     amplitude.update(dt);
     lineWeight.update(dt);

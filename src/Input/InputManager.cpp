@@ -61,11 +61,11 @@ void InputManager::removeMIDIPADListener(MIDIPADListener* listener)
     }
 }
 
-// incoming midi
+// incoming midi from the big midi deck
 //--------------------------------------------------------------
 void InputManager::newMidiMessage(ofxMidiMessage& msg)
 {
-    //    cout << " MIDI msg: " << msg << endl;
+//        cout << " MIDI msg: " << msg << endl;
     
     if(msg.status == MIDI_AFTERTOUCH)
     {
@@ -83,19 +83,19 @@ void InputManager::newMidiMessage(ofxMidiMessage& msg)
                     case 36:
                         (*it)->PAD1NoteOn(msg);
                         break;
-                    case 37:
+                    case 38:
                         (*it)->PAD2NoteOn(msg);
                         break;
-                    case 38:
+                    case 40:
                         (*it)->PAD3NoteOn(msg);
                         break;
-                    case 39:
+                    case 41:
                         (*it)->PAD4NoteOn(msg);
                         break;
-                    case 40:
+                    case 43:
                         (*it)->PAD5NoteOn(msg);
                         break;
-                    case 41:
+                    case 45:
                         (*it)->PAD6NoteOn(msg);
                         break;
                     ///////etc
@@ -110,70 +110,50 @@ void InputManager::newMidiMessage(ofxMidiMessage& msg)
     {
         //knobs in 'Live' preset
         //k5:control 11, k6: 12, k3:13, k4:14, k1:15, k2:16
-        if(msg.control >= 11 && msg.control <= 16)
+        if(msg.control >= 1 && msg.control <= 8)
         {
             int knobNum = 0;
-            if(msg.control == 15)
+            if(msg.control == 1)
             {
                 midiKnob1 = msg.value;
                 knobNum = 1;
             }
-            else if(msg.control == 16)
+            else if(msg.control == 2)
             {
                 midiKnob2 = msg.value;
                 knobNum = 2;
             }
-            else if(msg.control == 13)
+            else if(msg.control == 3)
             {
                 midiKnob3 = msg.value;
                 knobNum = 3;
             }
-            else if(msg.control == 14)
+            else if(msg.control == 4)
             {
                 midiKnob4 = msg.value;
                 knobNum = 4;
             }
-            else if(msg.control == 11)
+            else if(msg.control == 5)
             {
                 midiKnob5 = msg.value;
                 knobNum = 5;
             }
-            else if(msg.control == 12)
+            else if(msg.control == 6)
             {
                 midiKnob6 = msg.value;
                 knobNum = 6;
             }
-            
+            else if(msg.control == 7)
+            {
+                midiKnob7 = msg.value;
+                knobNum = 7;
+            }
+            else if(msg.control == 8)
+            {
+                midiKnob8 = msg.value;
+                knobNum = 8;
+            }
 //            cout << "knob: " << knobNum << " val: " << msg.value << endl;
-        }
-        
-        if(msg.control >= 1 && msg.control <= 6)
-        {
-            if(msg.control == 1)
-            {
-                midiFader1 = msg.value;
-            }
-            else if(msg.control == 2)
-            {
-                midiFader2 = msg.value;
-            }
-            else if(msg.control == 3)
-            {
-                midiFader3 = msg.value;
-            }
-            else if(msg.control == 4)
-            {
-                midiFader4 = msg.value;
-            }
-            else if(msg.control == 5)
-            {
-                midiFader5 = msg.value;
-            }
-            else if(msg.control == 6)
-            {
-                midiFader6 = msg.value;
-            }
-//            cout << "fader: " << msg.control << " val: " << msg.value << endl;
         }
     }
 
@@ -181,9 +161,9 @@ void InputManager::newMidiMessage(ofxMidiMessage& msg)
     {
         cout<<setfill('=')<<setw(49)<<"="<<endl << setfill(' ');
         cout << setw(4) << "f1"<< setw(4) << "f2"<< setw(4) << "f3"<< setw(4) << "f4"<< setw(4) << "f5"<< setw(4) << "f6";
-        cout << setw(4) << "k1"<< setw(4) << "k2"<< setw(4) << "k3"<< setw(4) << "k4"<< setw(4) << "k5"<< setw(4) << "k6" <<endl;
+        cout << setw(4) << "k1"<< setw(4) << "k2"<< setw(4) << "k3"<< setw(4) << "k4"<< setw(4) << "k5"<< setw(4) << "k6"<< setw(4) << "k7"<< setw(4) << "k8" <<endl;
         cout << setw(4) << midiFader1<< setw(4) << midiFader2<< setw(4) << midiFader3<< setw(4) << midiFader4<< setw(4) << midiFader5<< setw(4) << midiFader6;
-        cout << setw(4) << midiKnob1<< setw(4) << midiKnob2<< setw(4) << midiKnob3<< setw(4) << midiKnob4<< setw(4) << midiKnob5<< setw(4) << midiKnob6 << endl;
+        cout << setw(4) << midiKnob1<< setw(4) << midiKnob2<< setw(4) << midiKnob3<< setw(4) << midiKnob4<< setw(4) << midiKnob5<< setw(4) << midiKnob6<< setw(4) << midiKnob7<< setw(4) << midiKnob8 << endl;
     }
 }
 
@@ -194,13 +174,15 @@ float InputManager::getMIDIKnob3(){return midiKnob3/MAX_MIDI_VAL;}
 float InputManager::getMIDIKnob4(){return midiKnob4/MAX_MIDI_VAL;}
 float InputManager::getMIDIKnob5(){return midiKnob5/MAX_MIDI_VAL;}
 float InputManager::getMIDIKnob6(){return midiKnob6/MAX_MIDI_VAL;}
+float InputManager::getMIDIKnob7(){return midiKnob6/MAX_MIDI_VAL;}
+float InputManager::getMIDIKnob8(){return midiKnob6/MAX_MIDI_VAL;}
 
-float InputManager::getMIDIFader1(){return midiFader1/MAX_MIDI_VAL;}
-float InputManager::getMIDIFader2(){return midiFader2/MAX_MIDI_VAL;}
-float InputManager::getMIDIFader3(){return midiFader3/MAX_MIDI_VAL;}
-float InputManager::getMIDIFader4(){return midiFader4/MAX_MIDI_VAL;}
-float InputManager::getMIDIFader5(){return midiFader5/MAX_MIDI_VAL;}
-float InputManager::getMIDIFader6(){return midiFader6/MAX_MIDI_VAL;}
+//float InputManager::getMIDIFader1(){return midiFader1/MAX_MIDI_VAL;}
+//float InputManager::getMIDIFader2(){return midiFader2/MAX_MIDI_VAL;}
+//float InputManager::getMIDIFader3(){return midiFader3/MAX_MIDI_VAL;}
+//float InputManager::getMIDIFader4(){return midiFader4/MAX_MIDI_VAL;}
+//float InputManager::getMIDIFader5(){return midiFader5/MAX_MIDI_VAL;}
+//float InputManager::getMIDIFader6(){return midiFader6/MAX_MIDI_VAL;}
 
 
 void InputManager::getEEGStreams(float* streams)
