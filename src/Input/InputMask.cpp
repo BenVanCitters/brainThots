@@ -46,7 +46,9 @@ void ShaderInputMask::update(float dt)
 Pillar3DInputMask::Pillar3DInputMask(InputManager* input)
 :InputMask(input),
 pillarSpreadX(.1,5*MIDI_EPSILON),
-pillarSpreadY(.1,5*MIDI_EPSILON)
+pillarSpreadY(.1,5*MIDI_EPSILON),
+pillarScale(.1,5*MIDI_EPSILON),
+pillarRotationDiff(.1,5*MIDI_EPSILON)
 { }
 
 void Pillar3DInputMask::update(float dt)
@@ -55,9 +57,14 @@ void Pillar3DInputMask::update(float dt)
     {
         pillarSpreadX.setTarget( 1 * im->getMIDIFader1() );
         pillarSpreadY.setTarget( 1 * im->getMIDIFader2() );
+        pillarScale.setTarget( 1 * im->getMIDIFader3() );
+        pillarRotationDiff.setTarget( 1 * im->getMIDIFader4() );
     }
     pillarSpreadX.update(dt);
     pillarSpreadY.update(dt);
+    pillarScale.update(dt);
+    pillarRotationDiff.update(dt);
+
 }
 
 RBGInputMask::RBGInputMask(InputManager* input)

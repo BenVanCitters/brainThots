@@ -40,6 +40,8 @@ class Pillar3DInputMask : public InputMask
 {
 public:
     Pillar3DInputMask(InputManager* input);
+    SliderTrackingLerpedFloat pillarScale;
+    SliderTrackingLerpedFloat pillarRotationDiff;
     SliderTrackingLerpedFloat pillarSpreadX;
     SliderTrackingLerpedFloat pillarSpreadY;
     

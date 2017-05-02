@@ -17,36 +17,27 @@ GeoPillars::GeoPillars()
 void GeoPillars::update(float dt, Pillar3DInputMask* mask)
 {
     //save the old pos
-    lastPos = currentPos;
     
-    ofVec3f tmp = ofVec3f(0,0,0);//getPositionForIndex(currentNum);
-    float d = ofDist(currentPos[0],currentPos[1],tmp[0],tmp[1]);
-    
-    d/=maxDist; //normalize
-    d = 1-d;
-    float newSz = d*maxSize;
-    
-    currentSz =  ofLerp(currentSz,newSz,.5);
-    currentPos = currentPos.getInterpolated(tmp,lerpSpeed);
-
+    currentSz =  75;
     
     ofColor newc = ofColor::aliceBlue;// getColorForIndex(currentNum);
     currentColor = currentColor.lerp(newc, .1);
     currentSpread= ofVec2f(mask->pillarSpreadX.get(),mask->pillarSpreadY.get());
     
     circleRadMultiplier = (1-mask->pillarSpreadX.get());
+    
+    
+    boxScale = mask->pillarScale.get();
+    rotationAmt = mask->pillarRotationDiff.get();
 }
 
 void GeoPillars::draw(float sz)
 {
-    float add = 400 * sz;
+    float add = 800 * sz;
     ofFill();
     ofSetColor(currentColor);
     
-
-    
     ofVec2f mid = currentScreenSize/2;
-    
     
     int steps = 7;
     
@@ -58,13 +49,11 @@ void GeoPillars::draw(float sz)
         {
             float pct = (i+1)*1.f/steps;
             ofPushMatrix();
-            ofTranslate(spacing.x*i,spacing.y*j);
+            ofTranslate(currentSpread.x*spacing.x*(i+.5),currentSpread.y*spacing.y*(j+.5));
             ofTranslate(mid);
             
-    //        ofDrawSphere(0,0, fade*(currentSz+add));
-            ofRotateY(currentSpread.y*90*(j*1.f/steps)+ ofGetElapsedTimef()/3 * 360/TWO_PI);
-    //        ofDrawBox(0, 0, 0, 50, 50, 50);
-            
+            ofRotateY(currentSpread.y*rotationAmt*360*(j*1.f/steps)+ ofGetElapsedTimef()/3 * 360/TWO_PI);
+            ofScale(boxScale, boxScale);
             ofDrawBox(currentSz+add);
             ofPopMatrix();
         }

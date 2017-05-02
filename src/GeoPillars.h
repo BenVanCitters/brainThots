@@ -24,12 +24,13 @@ class GeoPillars
      ofVec2f currentSpread;
     ofColor currentColor;
     
-    ofVec3f currentPos;
+
     float fade;
     float lerpSpeed = .2;
 private:
 
-    
+    float boxScale = 0;
+    float rotationAmt = 0;
     float currentSz = 10;
     float maxSize = 35;
     int currentNum; //current seeked index
@@ -38,6 +39,5 @@ private:
     
     float circleRadMultiplier;
     
-    ofVec3f lastPos;
 };
 #endif /* ColorFollower_h */
