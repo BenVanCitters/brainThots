@@ -1,6 +1,7 @@
 #include "ofApp.h"
 
-ofApp::ofApp():rawBrainGraphic(16), inputMarshaller(&inputManager),audioVisual(256), lightingRig(ofVec2f(ofGetScreenWidth(),ofGetScreenHeight()))
+ofApp::ofApp()://rawBrainGraphic(16),
+inputMarshaller(&inputManager),audioVisual(256), lightingRig(ofVec2f(ofGetScreenWidth(),ofGetScreenHeight()))
 {
 //    super();
 }
@@ -74,11 +75,11 @@ void ofApp::update()
     float eegStreams[16];
     inputManager.getEEGStreams(eegStreams);
 
-    rawBrainGraphic.addSamples(eegStreams);
-    rawBrainGraphic.update(dt, &inputMarshaller.rbgLinesMask);
+//    rawBrainGraphic.addSamples(eegStreams);
+//    rawBrainGraphic.update(dt, &inputMarshaller.rbgLinesMask);
     
-    brain3d.update(dt, &inputMarshaller.brain3DMask);
-    brain3d.fade = inputManager.getMIDIKnob3();
+//    brain3d.update(dt, &inputMarshaller.brain3DMask);
+//    brain3d.fade = inputManager.getMIDIKnob3();
     
     audioVisual.setSamples(inputManager.getAudioStream());
     audioVisual.update(dt,&inputMarshaller.audioMask);
@@ -110,7 +111,7 @@ void ofApp::update()
     hPassShader.setUniform1f("factor3", inputMarshaller.shaderMask.shaderVar3.get());
     hPassShader.setUniform1f("factor4", inputMarshaller.shaderMask.shaderVar4.get());
     
-    hPassShader.setUniform1f("blackout", inputManager.getMIDIKnob2());
+    hPassShader.setUniform1f("blackout", inputManager.getMIDIKnob7());
     glBegin(GL_QUADS);
     glTexCoord2f(0, 0);
     glVertex3f(0, 0,0);
@@ -144,7 +145,7 @@ void ofApp::draw()
     vPassShader.setUniform1f("factor2", inputMarshaller.shaderMask.shaderVar2.get());
     vPassShader.setUniform1f("factor3", inputMarshaller.shaderMask.shaderVar3.get());
     vPassShader.setUniform1f("factor4", inputMarshaller.shaderMask.shaderVar4.get());
-    vPassShader.setUniform1f("blackout", inputManager.getMIDIKnob2());
+    vPassShader.setUniform1f("blackout", inputManager.getMIDIKnob8());
  
     
     glBegin(GL_QUADS);
@@ -171,7 +172,7 @@ void ofApp::draw()
     lightingRig.enable();
     
     colorFollower.draw(inputManager.curVol);
-    brain3d.draw();
+//    brain3d.draw();
     
     lightingRig.disable();
     
@@ -182,7 +183,7 @@ void ofApp::draw()
     fbo.end();
     fbo.draw(0,0);
     
-    rawBrainGraphic.draw(cachedScrSz, inputManager.getMIDIKnob1());
+//    rawBrainGraphic.draw(cachedScrSz, inputManager.getMIDIKnob1());
     if(inputManager.showDebug)
     {
         ofSetColor(255, 255, 255 );
@@ -195,7 +196,7 @@ void ofApp::updateScreenSize(int w, int h)
     cachedScrSz = ofVec2f(w,h);
     lightingRig.setWindowSize(cachedScrSz);
     colorFollower.currentScreenSize = cachedScrSz;
-    brain3d.currentScreenSz = cachedScrSz;
+//    brain3d.currentScreenSz = cachedScrSz;
     particles.currentScreenSz = cachedScrSz;
     audioVisual.currentScreenSz = cachedScrSz;
 

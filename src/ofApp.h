@@ -8,7 +8,6 @@
 #include "ColorMeshParticles.h"
 #include "Brain3D.h"
 #include "InputMarshaller.h"
-#include "RawBrainGraphic.h"
 #include "AudioVisual.h"
 
 class ofApp : public ofBaseApp{
@@ -51,6 +50,5 @@ class ofApp : public ofBaseApp{
         
     Brain3D brain3d;
     
-    RawBrainGraphic rawBrainGraphic;
     ofVec2f cachedScrSz;
 };
