@@ -11,7 +11,7 @@
 ColorMeshParticles::ColorMeshParticles()
 {
     lastWeight = strokeWeight;
-    int particleCount = 80;
+    int particleCount = 390;
     float radSpacing = TWO_PI/particleCount;
     ofVec3f mid(500,500);//ofGetWindowWidth()/2.f,ofGetWindowHeight()/2.f);
     for(int i = 0; i < particleCount; i++)
@@ -19,7 +19,7 @@ ColorMeshParticles::ColorMeshParticles()
         ColorMeshParticle p;
         p.vel = ofVec3f();
         p.pos = ofVec3f(cosf(radSpacing*i),sinf(radSpacing*i),ofRandom(40)-20);
-        p.pos *= 60;
+        p.pos *= 560;
         p.pos += mid;
         p.maxSpeed = ofRandom(3);
         particles.push_back(p);
@@ -49,6 +49,21 @@ void ColorMeshParticles::draw()
 
 void ColorMeshParticles::update(float dt)
 {
+    if( centerSwitchCountdown <= 0)
+    {
+        curCenter = ofVec3f(ofRandom(1),ofRandom(1))*currentScreenSz;
+        curCenter.z = -ofRandom(1500);
+        float minRad = min(min(curCenter.x,currentScreenSz.x-curCenter.x),
+                           min(curCenter.y,currentScreenSz.y-curCenter.y));
+        curRadius = ofRandom(minRad);
+        centerSwitchCountdown = ofRandom(5);
+    }
+    else
+    {
+        centerSwitchCountdown -=dt;
+    }
+    float t =ofGetElapsedTimef()*10;
+    setTargetVector(curCenter+ curRadius* ofVec3f(cos(t), sin(t),0));
     float maxDist = ofDist(0, 0, currentScreenSz.x,currentScreenSz.y);
     float repulseAmt = .000001;
     for(int i = 0; i < particles.size(); i++)

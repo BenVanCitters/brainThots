@@ -46,6 +46,12 @@ void ofApp::setupShaders()
     vPassShader.setupShaderFromSource(GL_VERTEX_SHADER, vertShader);
     vPassShader.setupShaderFromSource(GL_FRAGMENT_SHADER, HQBlurVerticalProgram);
     vPassShader.linkProgram();
+    
+    string tintProgram = getStringFromFilePath(data + "shaders/tint.glsl");
+    tintShader.setupShaderFromSource(GL_VERTEX_SHADER, vertShader);
+    tintShader.setupShaderFromSource(GL_FRAGMENT_SHADER, tintProgram);
+    tintShader.linkProgram();
+    
 }
 
 void ofApp::setupFBO()
@@ -109,7 +115,8 @@ void ofApp::update()
     hPassShader.setUniform1f("factor3", inputMarshaller.shaderMask.shaderVar3.get());
     hPassShader.setUniform1f("factor4", inputMarshaller.shaderMask.shaderVar4.get());
     
-    hPassShader.setUniform1f("blackout", inputManager.getMIDIKnob2());
+    float knob2 =inputManager.getMIDIKnob2();
+    hPassShader.setUniform1f("blackout", knob2);
     glBegin(GL_QUADS);
     glTexCoord2f(0, 0);
     glVertex3f(0, 0,0);
@@ -143,9 +150,10 @@ void ofApp::draw()
     vPassShader.setUniform1f("factor2", inputMarshaller.shaderMask.shaderVar2.get());
     vPassShader.setUniform1f("factor3", inputMarshaller.shaderMask.shaderVar3.get());
     vPassShader.setUniform1f("factor4", inputMarshaller.shaderMask.shaderVar4.get());
-    vPassShader.setUniform1f("blackout", inputManager.getMIDIKnob2());
- 
-    
+    float knob2 =inputManager.getMIDIKnob2();
+    vPassShader.setUniform1f("blackout", knob2);
+
+    //this action - rendering the second blur pass - would be faster with a quad in vram
     glBegin(GL_QUADS);
     glTexCoord2f(0, 0);
     glVertex3f(0, 0,0);
@@ -179,10 +187,23 @@ void ofApp::draw()
     glDisable(GL_DEPTH_TEST);
     
     fbo.end();
+    tintShader.begin();
+    tintShader.setUniformTexture("tex0", fbo.getTexture() , 1 );
+    tintShader.setUniform2f("uResolution", cachedScrSz);
+    
+    tintShader.setUniform4f("tintColor", ofVec4f(chromaController.currentColor.r,
+                                                 chromaController.currentColor.g,
+                                                 chromaController.currentColor.b,256)/256.f);
     fbo.draw(0,0);
+    tintShader.end();
+    
     
     if(inputManager.showDebug)
     {
+        ofFill();
+        ofSetColor(chromaController.currentColor);
+        ofDrawRectangle(0, 0, 100, 100);
+        
         ofSetColor(255, 255, 255 );
         ofDrawBitmapString("fps: "+ofToString(ofGetFrameRate(), 2), 10, 15);
     }

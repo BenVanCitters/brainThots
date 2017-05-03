@@ -47,6 +47,7 @@ class ofApp : public ofBaseApp{
     ofFbo fbo;
     ofShader hPassShader;
     ofShader vPassShader;
+    ofShader tintShader;
     ChromaController chromaController;
     
     ofVec2f cachedScrSz;

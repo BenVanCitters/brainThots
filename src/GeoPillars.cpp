@@ -35,7 +35,7 @@ void GeoPillars::draw(float sz)
 {
     float add = 800 * sz;
     ofFill();
-    ofSetColor(currentColor);
+    ofSetColor(ofColor::white);
     
     ofVec2f mid = currentScreenSize/2;
     

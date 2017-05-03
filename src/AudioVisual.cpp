@@ -75,7 +75,7 @@ void AudioVisual::draw()
     
     ofVec3f t(0,currentScreenSz.y/2.f,0);
     ofTranslate(t);
-    ofSetColor(currentColor);
+    ofSetColor(ofColor::white);
     ofSetLineWidth(5);
     mMesh.draw();
     

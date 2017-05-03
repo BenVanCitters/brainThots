@@ -145,6 +145,7 @@
 		8415FB481DBB5C8800195475 /* SliderTrackingLerpedFloat.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SliderTrackingLerpedFloat.h; sourceTree = "<group>"; };
 		84BD9B4D1EB95642009106B8 /* ChromaController.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ChromaController.cpp; sourceTree = "<group>"; };
 		84BD9B4E1EB95642009106B8 /* ChromaController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChromaController.h; sourceTree = "<group>"; };
+		84BD9B501EB97CB3009106B8 /* tint.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = tint.glsl; path = bin/data/shaders/tint.glsl; sourceTree = "<group>"; };
 		8B30E93FD3D3475EED522A0E /* ofxOscBundle.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ofxOscBundle.h; path = ../../../addons/ofxOsc/src/ofxOscBundle.h; sourceTree = SOURCE_ROOT; };
 		8B473495EAE4247AC1A851F1 /* ofxAssimpTexture.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ofxAssimpTexture.h; path = ../../../addons/ofxAssimpModelLoader/src/ofxAssimpTexture.h; sourceTree = SOURCE_ROOT; };
 		8C75AFC8774A62495DD53464 /* ofxOscReceiver.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ofxOscReceiver.h; path = ../../../addons/ofxOsc/src/ofxOscReceiver.h; sourceTree = SOURCE_ROOT; };
@@ -350,6 +351,7 @@
 			isa = PBXGroup;
 			children = (
 				8415FB251DB2D01300195475 /* defaultVert.glsl */,
+				84BD9B501EB97CB3009106B8 /* tint.glsl */,
 				8415FB261DB2D01300195475 /* horizontalPass.glsl */,
 				8415FB291DB2D01300195475 /* verticalPass.glsl */,
 			);

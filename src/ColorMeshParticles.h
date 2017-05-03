@@ -29,6 +29,11 @@ public:
     
     ofColor color;
     ofVec2f currentScreenSz;
+
+    ofVec3f curCenter;
+    float curRadius;
+    float centerSwitchCountdown;
+    
     float fade;
     float strokeWeight = 0;
 private:
