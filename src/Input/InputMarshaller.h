@@ -25,6 +25,7 @@ public:
     FollowerMask followerMask;
     LightingMask lightingMask;
     WaveFormMask audioMask;
+    ChromaMask chromaMask;
     
     void PAD1NoteOn(ofxMidiMessage& msg);
     void PAD2NoteOn(ofxMidiMessage& msg);

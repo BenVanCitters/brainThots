@@ -69,12 +69,13 @@ void AudioVisual::update(float dt, WaveFormMask* inputMask)
 
 void AudioVisual::draw()
 {
+    
     ofPushMatrix();
     ofPushStyle();
     
     ofVec3f t(0,currentScreenSz.y/2.f,0);
     ofTranslate(t);
-    ofSetColor(255, 255, 255);
+    ofSetColor(currentColor);
     ofSetLineWidth(5);
     mMesh.draw();
     

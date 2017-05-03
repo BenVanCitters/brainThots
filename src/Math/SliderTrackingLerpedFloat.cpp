@@ -9,6 +9,9 @@
 #include "SliderTrackingLerpedFloat.h"
 #include "ofMain.h"
 
+//cur - current value
+//targ - target value
+//easing how quickly the value goes towards the target from the current value - used as the param in 'lerp'
 SliderTrackingLerpedFloat::SliderTrackingLerpedFloat(float cur, float targ, float eas)
 :LerpedFloat(cur,targ,eas)
 {

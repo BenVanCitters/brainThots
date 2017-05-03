@@ -48,6 +48,15 @@ public:
     void update(float dt);
 };
 
+class ChromaMask : public InputMask
+{
+public:
+    ChromaMask(InputManager* input);
+    SliderTrackingLerpedFloat speed;
+    SliderTrackingLerpedFloat offset;
+    void update(float dt);
+};
+
 class FollowerMask : public InputMask
 {
 public:

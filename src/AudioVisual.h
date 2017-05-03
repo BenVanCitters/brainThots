@@ -27,6 +27,7 @@ public:
     int sampleCount;
     float* samples;
     ofVec2f currentScreenSz;
+    ofColor currentColor;
 private:
     ofVboMesh mMesh;
 };

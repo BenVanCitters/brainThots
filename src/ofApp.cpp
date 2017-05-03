@@ -1,6 +1,6 @@
 #include "ofApp.h"
 
-ofApp::ofApp()://rawBrainGraphic(16),
+ofApp::ofApp():
 inputMarshaller(&inputManager),audioVisual(256), lightingRig(ofVec2f(ofGetScreenWidth(),ofGetScreenHeight()))
 {
 //    super();
@@ -75,23 +75,21 @@ void ofApp::update()
     float eegStreams[16];
     inputManager.getEEGStreams(eegStreams);
 
-//    rawBrainGraphic.addSamples(eegStreams);
-//    rawBrainGraphic.update(dt, &inputMarshaller.rbgLinesMask);
-    
-//    brain3d.update(dt, &inputMarshaller.brain3DMask);
-//    brain3d.fade = inputManager.getMIDIKnob3();
+    chromaController.update(dt,&inputMarshaller.chromaMask);
     
     audioVisual.setSamples(inputManager.getAudioStream());
     audioVisual.update(dt,&inputMarshaller.audioMask);
-    
+    audioVisual.currentColor = chromaController.currentColor;
     
     pillar.update(dt, &inputMarshaller.pillar3DMask);
     pillar.lerpSpeed = inputMarshaller.followerMask.speed.get();
     pillar.fade = inputManager.getMIDIKnob4();
+    pillar.currentColor = chromaController.currentColor;
+    
     
     particles.fade = inputManager.getMIDIKnob6();
 //    particles.setTargetVector(pillar.getCurrentPosition());
-    particles.color = pillar.currentColor;
+    particles.color = chromaController.currentColor;
     particles.update(dt);
     particles.strokeWeight = inputMarshaller.followerMask.particleSize.get();
     
@@ -167,12 +165,12 @@ void ofApp::draw()
     glEnable(GL_DEPTH_TEST);
     
     
+    
     audioVisual.draw();
     
     lightingRig.enable();
     
     pillar.draw(inputManager.curVol);
-//    brain3d.draw();
     
     lightingRig.disable();
     
@@ -183,7 +181,6 @@ void ofApp::draw()
     fbo.end();
     fbo.draw(0,0);
     
-//    rawBrainGraphic.draw(cachedScrSz, inputManager.getMIDIKnob1());
     if(inputManager.showDebug)
     {
         ofSetColor(255, 255, 255 );
@@ -196,7 +193,6 @@ void ofApp::updateScreenSize(int w, int h)
     cachedScrSz = ofVec2f(w,h);
     lightingRig.setWindowSize(cachedScrSz);
     pillar.currentScreenSize = cachedScrSz;
-//    brain3d.currentScreenSz = cachedScrSz;
     particles.currentScreenSz = cachedScrSz;
     audioVisual.currentScreenSz = cachedScrSz;
 

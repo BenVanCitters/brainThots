@@ -31,6 +31,7 @@
 		8415FB401DB9B48F00195475 /* AudioVisual.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8415FB3E1DB9B48F00195475 /* AudioVisual.cpp */; };
 		8415FB491DBB5C8800195475 /* LerpedFloat.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8415FB451DBB5C8800195475 /* LerpedFloat.cpp */; };
 		8415FB4A1DBB5C8800195475 /* SliderTrackingLerpedFloat.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8415FB471DBB5C8800195475 /* SliderTrackingLerpedFloat.cpp */; };
+		84BD9B4F1EB95642009106B8 /* ChromaController.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 84BD9B4D1EB95642009106B8 /* ChromaController.cpp */; };
 		879A251454401BC0B6E4F238 /* OscTypes.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D9BFFBBF4CC43DEE890B3C3E /* OscTypes.cpp */; };
 		8DED5056525646FA71980866 /* ofxAssimpModelLoader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EDE55D82BD962DAC0E94B708 /* ofxAssimpModelLoader.cpp */; };
 		8F5205AEF8861EF234F0651A /* ofxOscSender.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 81967292BFC87A0144BD32C6 /* ofxOscSender.cpp */; };
@@ -142,6 +143,8 @@
 		8415FB461DBB5C8800195475 /* LerpedFloat.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LerpedFloat.h; sourceTree = "<group>"; };
 		8415FB471DBB5C8800195475 /* SliderTrackingLerpedFloat.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SliderTrackingLerpedFloat.cpp; sourceTree = "<group>"; };
 		8415FB481DBB5C8800195475 /* SliderTrackingLerpedFloat.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SliderTrackingLerpedFloat.h; sourceTree = "<group>"; };
+		84BD9B4D1EB95642009106B8 /* ChromaController.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ChromaController.cpp; sourceTree = "<group>"; };
+		84BD9B4E1EB95642009106B8 /* ChromaController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChromaController.h; sourceTree = "<group>"; };
 		8B30E93FD3D3475EED522A0E /* ofxOscBundle.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ofxOscBundle.h; path = ../../../addons/ofxOsc/src/ofxOscBundle.h; sourceTree = SOURCE_ROOT; };
 		8B473495EAE4247AC1A851F1 /* ofxAssimpTexture.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ofxAssimpTexture.h; path = ../../../addons/ofxAssimpModelLoader/src/ofxAssimpTexture.h; sourceTree = SOURCE_ROOT; };
 		8C75AFC8774A62495DD53464 /* ofxOscReceiver.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ofxOscReceiver.h; path = ../../../addons/ofxOsc/src/ofxOscReceiver.h; sourceTree = SOURCE_ROOT; };
@@ -535,6 +538,8 @@
 				8415FB3C1DB8704700195475 /* LightingRig.h */,
 				8415FB3E1DB9B48F00195475 /* AudioVisual.cpp */,
 				8415FB3F1DB9B48F00195475 /* AudioVisual.h */,
+				84BD9B4D1EB95642009106B8 /* ChromaController.cpp */,
+				84BD9B4E1EB95642009106B8 /* ChromaController.h */,
 			);
 			path = src;
 			sourceTree = SOURCE_ROOT;
@@ -681,6 +686,7 @@
 				1A86B7721CAEBC6F1C572C45 /* ofxBaseMidi.cpp in Sources */,
 				8415FB351DB4A30100195475 /* InputManager.cpp in Sources */,
 				63F9FE1D90234FA6DE6F509E /* ofxMidi.cpp in Sources */,
+				84BD9B4F1EB95642009106B8 /* ChromaController.cpp in Sources */,
 				0BFC9C20FD7E3C8D5873AA97 /* ofxMidiIn.cpp in Sources */,
 				C6FE64F74F1EA1D98C8F9847 /* ofxMidiMessage.cpp in Sources */,
 				83D9F930112E0944444124EE /* ofxMidiOut.cpp in Sources */,

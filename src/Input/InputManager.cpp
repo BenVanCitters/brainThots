@@ -19,8 +19,9 @@ void InputManager::setup()
 
 void InputManager::setupOSC()
 {
+    cout << "Initializing OSC...";
     receiver.setup(PORT);
-    cout << "listening for osc messages on port " << PORT << "\n";
+    cout << "...OK! Listening for osc messages on port " << PORT << "\n";
     //mocking shit
     nextUpdateSeconds = 0;
     updateDeltaSeconds = .5;

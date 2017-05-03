@@ -89,6 +89,25 @@ void FollowerMask::update(float dt)
 }
 
 
+ChromaMask::ChromaMask(InputManager* input)
+:InputMask(input),
+speed(.3,MIDI_EPSILON*10),
+offset(.2,MIDI_EPSILON*10)
+{ }
+
+void ChromaMask::update(float dt)
+{
+    if(im != NULL)
+    {
+        speed.setTarget( 10* im->getMIDIFader1() );
+        float ofTarg = TWO_PI*im->getMIDIFader2();
+        offset.setTarget( TWO_PI*im->getMIDIFader2() );
+    }
+    speed.update(dt);
+    offset.update(dt);
+}
+
+
 LightingMask::LightingMask(InputManager* input)
 :InputMask(input),
 speed(.07,50*MIDI_EPSILON),
