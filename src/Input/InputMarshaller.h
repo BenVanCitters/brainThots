@@ -21,11 +21,13 @@ public:
     InputMarshaller(InputManager* im);
     InputMask* activeMask;
     ShaderInputMask shaderMask;
+    RayMarcherInputMask rayMarcherMask;
     Pillar3DInputMask pillar3DMask;
     FollowerMask followerMask;
     LightingMask lightingMask;
     WaveFormMask audioMask;
     ChromaMask chromaMask;
+    TriangleMask triMask;
     
     void PAD1NoteOn(ofxMidiMessage& msg);
     void PAD2NoteOn(ofxMidiMessage& msg);
@@ -33,6 +35,8 @@ public:
     void PAD4NoteOn(ofxMidiMessage& msg);
     void PAD5NoteOn(ofxMidiMessage& msg);
     void PAD6NoteOn(ofxMidiMessage& msg);
+    void PAD7NoteOn(ofxMidiMessage& msg);
+    void PAD8NoteOn(ofxMidiMessage& msg);
     void update(float dt);
 };
 #endif /* InputMarshaller_h */

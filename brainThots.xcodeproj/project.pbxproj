@@ -32,6 +32,7 @@
 		8415FB491DBB5C8800195475 /* LerpedFloat.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8415FB451DBB5C8800195475 /* LerpedFloat.cpp */; };
 		8415FB4A1DBB5C8800195475 /* SliderTrackingLerpedFloat.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8415FB471DBB5C8800195475 /* SliderTrackingLerpedFloat.cpp */; };
 		84BD9B4F1EB95642009106B8 /* ChromaController.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 84BD9B4D1EB95642009106B8 /* ChromaController.cpp */; };
+		84BD9B551EBACC20009106B8 /* TriangleMotion.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 84BD9B531EBACC20009106B8 /* TriangleMotion.cpp */; };
 		879A251454401BC0B6E4F238 /* OscTypes.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D9BFFBBF4CC43DEE890B3C3E /* OscTypes.cpp */; };
 		8DED5056525646FA71980866 /* ofxAssimpModelLoader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EDE55D82BD962DAC0E94B708 /* ofxAssimpModelLoader.cpp */; };
 		8F5205AEF8861EF234F0651A /* ofxOscSender.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 81967292BFC87A0144BD32C6 /* ofxOscSender.cpp */; };
@@ -146,6 +147,9 @@
 		84BD9B4D1EB95642009106B8 /* ChromaController.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ChromaController.cpp; sourceTree = "<group>"; };
 		84BD9B4E1EB95642009106B8 /* ChromaController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChromaController.h; sourceTree = "<group>"; };
 		84BD9B501EB97CB3009106B8 /* tint.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = tint.glsl; path = bin/data/shaders/tint.glsl; sourceTree = "<group>"; };
+		84BD9B521EBACB5F009106B8 /* rayMarch1.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = rayMarch1.glsl; path = bin/data/shaders/rayMarch1.glsl; sourceTree = "<group>"; };
+		84BD9B531EBACC20009106B8 /* TriangleMotion.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TriangleMotion.cpp; sourceTree = "<group>"; };
+		84BD9B541EBACC20009106B8 /* TriangleMotion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TriangleMotion.h; sourceTree = "<group>"; };
 		8B30E93FD3D3475EED522A0E /* ofxOscBundle.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ofxOscBundle.h; path = ../../../addons/ofxOsc/src/ofxOscBundle.h; sourceTree = SOURCE_ROOT; };
 		8B473495EAE4247AC1A851F1 /* ofxAssimpTexture.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ofxAssimpTexture.h; path = ../../../addons/ofxAssimpModelLoader/src/ofxAssimpTexture.h; sourceTree = SOURCE_ROOT; };
 		8C75AFC8774A62495DD53464 /* ofxOscReceiver.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ofxOscReceiver.h; path = ../../../addons/ofxOsc/src/ofxOscReceiver.h; sourceTree = SOURCE_ROOT; };
@@ -351,6 +355,7 @@
 			isa = PBXGroup;
 			children = (
 				8415FB251DB2D01300195475 /* defaultVert.glsl */,
+				84BD9B521EBACB5F009106B8 /* rayMarch1.glsl */,
 				84BD9B501EB97CB3009106B8 /* tint.glsl */,
 				8415FB261DB2D01300195475 /* horizontalPass.glsl */,
 				8415FB291DB2D01300195475 /* verticalPass.glsl */,
@@ -542,6 +547,8 @@
 				8415FB3F1DB9B48F00195475 /* AudioVisual.h */,
 				84BD9B4D1EB95642009106B8 /* ChromaController.cpp */,
 				84BD9B4E1EB95642009106B8 /* ChromaController.h */,
+				84BD9B531EBACC20009106B8 /* TriangleMotion.cpp */,
+				84BD9B541EBACC20009106B8 /* TriangleMotion.h */,
 			);
 			path = src;
 			sourceTree = SOURCE_ROOT;
@@ -673,6 +680,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				84BD9B551EBACC20009106B8 /* TriangleMotion.cpp in Sources */,
 				E4B69E200A3A1BDC003C02F2 /* main.cpp in Sources */,
 				E4B69E210A3A1BDC003C02F2 /* ofApp.cpp in Sources */,
 				A63CD7ADDABC8271397F2742 /* GeoPillars.cpp in Sources */,

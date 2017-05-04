@@ -24,6 +24,8 @@ public:
     virtual void PAD4NoteOn(ofxMidiMessage& msg) = 0;
     virtual void PAD5NoteOn(ofxMidiMessage& msg) = 0;
     virtual void PAD6NoteOn(ofxMidiMessage& msg) = 0;
+    virtual void PAD7NoteOn(ofxMidiMessage& msg) = 0;
+    virtual void PAD8NoteOn(ofxMidiMessage& msg) = 0;
 };
 
 class InputManager : public ofxMidiListener, public ofBaseSoundInput

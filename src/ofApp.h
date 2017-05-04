@@ -9,6 +9,8 @@
 #include "InputMarshaller.h"
 #include "AudioVisual.h"
 #include "ChromaController.h"
+#include "TriangleMotion.h"
+
 
 class ofApp : public ofBaseApp{
 
@@ -42,9 +44,13 @@ class ofApp : public ofBaseApp{
     InputMarshaller inputMarshaller;
     LightingRig lightingRig;
     AudioVisual audioVisual;
+    TriangleMotion triMotion;
     
     ofFbo blurBuffer;
     ofFbo fbo;
+    
+    ofShader rayMarch; double rayMarchTime; // :(
+    
     ofShader hPassShader;
     ofShader vPassShader;
     ofShader tintShader;

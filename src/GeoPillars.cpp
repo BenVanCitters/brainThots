@@ -10,7 +10,6 @@
 
 GeoPillars::GeoPillars()
 {
-    
     maxIndex = 8;
     maxDist = sqrt(ofGetWindowWidth()*ofGetWindowWidth()+ofGetWindowHeight()*ofGetWindowHeight());
 }
@@ -20,6 +19,7 @@ void GeoPillars::update(float dt, Pillar3DInputMask* mask)
     
     currentSz =  75;
     
+    pillarTime += mask->pillarSpeed.get()*dt;
     ofColor newc = ofColor::aliceBlue;// getColorForIndex(currentNum);
     currentColor = currentColor.lerp(newc, .1);
     currentSpread= ofVec2f(mask->pillarSpreadX.get(),mask->pillarSpreadY.get());
@@ -52,7 +52,7 @@ void GeoPillars::draw(float sz)
             ofTranslate(currentSpread.x*spacing.x*(i+.5),currentSpread.y*spacing.y*(j+.5));
             ofTranslate(mid);
             
-            ofRotateY(currentSpread.y*rotationAmt*360*(j*1.f/steps)+ ofGetElapsedTimef()/3 * 360/TWO_PI);
+            ofRotateY(currentSpread.y*rotationAmt*360*(j*1.f/steps)+pillarTime * 360/TWO_PI);
             ofScale(boxScale, boxScale);
             ofDrawBox(currentSz+add);
             ofPopMatrix();

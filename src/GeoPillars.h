@@ -24,6 +24,7 @@ class GeoPillars
      ofVec2f currentSpread;
     ofColor currentColor;
     
+    float pillarTime;
 
     float fade;
     float lerpSpeed = .2;

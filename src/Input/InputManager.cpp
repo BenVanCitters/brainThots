@@ -99,6 +99,13 @@ void InputManager::newMidiMessage(ofxMidiMessage& msg)
                     case 41:
                         (*it)->PAD6NoteOn(msg);
                         break;
+                    case 42:
+                        (*it)->PAD7NoteOn(msg);
+                        break;
+                    case 43:
+                        (*it)->PAD8NoteOn(msg);
+                        break;
+                        
                     ///////etc
                     default:
                         break;

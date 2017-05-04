@@ -43,8 +43,52 @@ void ShaderInputMask::update(float dt)
     shaderVar4.update(dt);
 }
 
+RayMarcherInputMask::RayMarcherInputMask(InputManager* input)
+:InputMask(input),
+blurAmount(.1,25*MIDI_EPSILON),
+shaderVar1(.1,MIDI_EPSILON),
+shaderVar2(.1,20*MIDI_EPSILON),
+shaderVar3(.1,20*MIDI_EPSILON),
+timeMult(.1,20*MIDI_EPSILON),
+renderDepth(.4,150)
+{ }
+
+void RayMarcherInputMask::update(float dt)
+{
+    isActive = (im != NULL);
+    if(isActive)
+    {
+        shaderVar1.setTarget( im->getMIDIFader1() );
+        shaderVar2.setTarget( im->getMIDIFader2() );
+        shaderVar3.setTarget( im->getMIDIFader3() );
+        timeMult.setTarget( im->getMIDIFader4() );
+        renderDepth.setTarget( 20+100*(1-im->getMIDIFader5()));
+    }
+    shaderVar1.update(dt);
+    shaderVar2.update(dt);
+    shaderVar3.update(dt);
+    timeMult.update(dt);
+    renderDepth.update(dt);
+}
+/*
+ class RayMarcherInputMask : public InputMask
+ {
+ public:
+ ShaderInputMask(InputManager* input);
+ SliderTrackingLerpedFloat blurAmount;
+ SliderTrackingLerpedFloat shaderVar1;
+ SliderTrackingLerpedFloat shaderVar2;
+ SliderTrackingLerpedFloat shaderVar3;
+ SliderTrackingLerpedFloat shaderVar4;
+ SliderTrackingLerpedFloat renderDepth;
+ 
+ void update(float dt);
+ };
+ */
+
 Pillar3DInputMask::Pillar3DInputMask(InputManager* input)
 :InputMask(input),
+pillarSpeed(.1,MIDI_EPSILON),
 pillarSpreadX(.1,5*MIDI_EPSILON),
 pillarSpreadY(.1,5*MIDI_EPSILON),
 pillarScale(.1,5*MIDI_EPSILON),
@@ -59,12 +103,13 @@ void Pillar3DInputMask::update(float dt)
         pillarSpreadY.setTarget( 1 * im->getMIDIFader2() );
         pillarScale.setTarget( 1 * im->getMIDIFader3() );
         pillarRotationDiff.setTarget( 1 * im->getMIDIFader4() );
+        pillarSpeed.setTarget( 3 * im->getMIDIFader5() );
     }
     pillarSpreadX.update(dt);
     pillarSpreadY.update(dt);
     pillarScale.update(dt);
     pillarRotationDiff.update(dt);
-
+    pillarSpeed.update(dt);
 }
 
 
@@ -118,7 +163,7 @@ void LightingMask::update(float dt)
 {
     if(im != NULL)
     {
-        speed.setTarget( 50* im->getMIDIFader1() );
+        speed.setTarget( 5* im->getMIDIFader1() );
         ambientLight.setTarget( 255.f * im->getMIDIFader2() );
     }
     speed.update(dt);
@@ -145,3 +190,34 @@ void WaveFormMask::update(float dt)
     shapeLerp.update(dt);
 }
 
+TriangleMask::TriangleMask(InputManager* input)
+:InputMask(input),
+size(.07,1500*MIDI_EPSILON),
+zRotSpeed(.07,1500*MIDI_EPSILON),
+extrusionOffset(.1,1500*MIDI_EPSILON),
+extrusionAmt(.1,1500*MIDI_EPSILON),
+count(.1,1500*MIDI_EPSILON)
+{ }
+
+void TriangleMask::update(float dt)
+{
+    if(im != NULL)
+    {
+        size.setTarget( 1* im->getMIDIFader1() );
+        zRotSpeed.setTarget( 90* im->getMIDIFader2() );
+        extrusionOffset.setTarget( 30 * im->getMIDIFader3() );
+        extrusionAmt.setTarget( 20.f * im->getMIDIFader4() );
+        count.setTarget(5+ 50 *im->getMIDIFader5() );
+    }
+    size.update(dt);
+    zRotSpeed.update(dt);
+    extrusionOffset.update(dt);
+    extrusionAmt.update(dt);
+    count.update(dt);
+}
+
+/*
+ SliderTrackingLerpedFloat ;
+ SliderTrackingLerpedFloat ;
+ SliderTrackingLerpedFloat ;
+ SliderTrackingLerpedFloat count;*/

@@ -52,6 +52,11 @@ void ofApp::setupShaders()
     tintShader.setupShaderFromSource(GL_FRAGMENT_SHADER, tintProgram);
     tintShader.linkProgram();
     
+
+    string marchProgram = getStringFromFilePath(data + "shaders/rayMarch1.glsl");
+    rayMarch.setupShaderFromSource(GL_VERTEX_SHADER, vertShader);
+    rayMarch.setupShaderFromSource(GL_FRAGMENT_SHADER, marchProgram);
+    rayMarch.linkProgram();
 }
 
 void ofApp::setupFBO()
@@ -92,14 +97,14 @@ void ofApp::update()
     pillar.fade = inputManager.getMIDIKnob4();
     pillar.currentColor = chromaController.currentColor;
     
-    
+    triMotion.update(dt, inputMarshaller.triMask);
     particles.fade = inputManager.getMIDIKnob6();
 //    particles.setTargetVector(pillar.getCurrentPosition());
     particles.color = chromaController.currentColor;
     particles.update(dt);
     particles.strokeWeight = inputMarshaller.followerMask.particleSize.get();
     
-    lightingRig.fade =inputManager.getMIDIKnob5();
+    lightingRig.fade = 1;//inputManager.getMIDIKnob5();
     lightingRig.update(dt, &inputMarshaller.lightingMask);
     
     //blur first/horizontal-pass stuff
@@ -134,44 +139,68 @@ void ofApp::update()
     hPassShader.end();
     blurBuffer.end();
     //end blur
+    
+    rayMarchTime+= inputMarshaller.rayMarcherMask.timeMult.get()*dt;
 }
 
 
 //--------------------------------------------------------------
 void ofApp::draw()
 {
+    ofVec2f uvScale(1,1);
+    
     fbo.begin();
-    vPassShader.begin();
-    vPassShader.setUniformTexture("tex0", blurBuffer.getTexture() , 1 );
-    vPassShader.setUniform2f("uResolution", cachedScrSz);
-    vPassShader.setUniform1f("blurAmountShaderVar", inputMarshaller.shaderMask.blurAmount.get());
-    vPassShader.setUniform1f("time", shaderTime);
-    vPassShader.setUniform1f("factor1", inputMarshaller.shaderMask.shaderVar1.get());
-    vPassShader.setUniform1f("factor2", inputMarshaller.shaderMask.shaderVar2.get());
-    vPassShader.setUniform1f("factor3", inputMarshaller.shaderMask.shaderVar3.get());
-    vPassShader.setUniform1f("factor4", inputMarshaller.shaderMask.shaderVar4.get());
-    float knob2 =inputManager.getMIDIKnob2();
-    vPassShader.setUniform1f("blackout", knob2);
-
-    //this action - rendering the second blur pass - would be faster with a quad in vram
+    
+    if(&inputMarshaller.rayMarcherMask == inputMarshaller.activeMask)
+    {
+        uvScale*=cachedScrSz;
+        rayMarch.begin();
+        rayMarch.setUniform1f("iGlobalTime", rayMarchTime );
+        rayMarch.setUniform3f("iResolution", cachedScrSz.x,cachedScrSz.y,0);
+        rayMarch.setUniform4f("iMouse", ofVec4f(cachedScrSz.x/2,cachedScrSz.y/2,1,1));
+        float t = inputMarshaller.rayMarcherMask.renderDepth.get();
+        rayMarch.setUniform1f("renderDepth", t);
+        rayMarch.setUniform1f("blackout", inputManager.getMIDIKnob2());
+        rayMarch.setUniform3f("factor", ofVec3f(inputMarshaller.rayMarcherMask.shaderVar1.get(),
+                                                inputMarshaller.rayMarcherMask.shaderVar2.get(),
+                                                inputMarshaller.rayMarcherMask.shaderVar3.get()));
+        tintShader.setUniform4f("tintColor", ofVec4f(chromaController.currentColor.r,
+                                                     chromaController.currentColor.g,
+                                                     chromaController.currentColor.b,256)/256.f);
+    }
+    else
+    {
+        vPassShader.begin();
+        vPassShader.setUniformTexture("tex0", blurBuffer.getTexture() , 1 );
+        vPassShader.setUniform2f("uResolution", cachedScrSz);
+        vPassShader.setUniform1f("blurAmountShaderVar", inputMarshaller.shaderMask.blurAmount.get());
+        vPassShader.setUniform1f("time", shaderTime);
+        vPassShader.setUniform1f("factor1", inputMarshaller.shaderMask.shaderVar1.get());
+        vPassShader.setUniform1f("factor2", inputMarshaller.shaderMask.shaderVar2.get());
+        vPassShader.setUniform1f("factor3", inputMarshaller.shaderMask.shaderVar3.get());
+        vPassShader.setUniform1f("factor4", inputMarshaller.shaderMask.shaderVar4.get());
+        vPassShader.setUniform1f("blackout", inputManager.getMIDIKnob2());
+    }
+    
+        //this action - rendering the second blur pass - would be faster with a quad in vram
     glBegin(GL_QUADS);
     glTexCoord2f(0, 0);
     glVertex3f(0, 0,0);
     
-    glTexCoord2f(1, 0);
+    glTexCoord2f(uvScale.x, 0);
     glVertex3f(cachedScrSz.x, 0, 0);
     
-    glTexCoord2f(1, 1);
+    glTexCoord2f(uvScale.x,uvScale.y);
     glVertex3f(cachedScrSz.x, cachedScrSz.y,0);
     
-    glTexCoord2f(0, 1);
+    glTexCoord2f(0, uvScale.y);
     glVertex3f(0, cachedScrSz.y, 0);
     glEnd();
     vPassShader.end();
+    rayMarch.end();
     
     glClear(GL_DEPTH_BUFFER_BIT);
     glEnable(GL_DEPTH_TEST);
-    
     
     
     audioVisual.draw();
@@ -180,6 +209,11 @@ void ofApp::draw()
     
     pillar.draw(inputManager.curVol);
     
+    ofPushMatrix();
+    ofTranslate(cachedScrSz/2.f);
+    triMotion.draw();
+    ofPopMatrix();
+    
     lightingRig.disable();
     
     particles.draw();
@@ -187,15 +221,20 @@ void ofApp::draw()
     glDisable(GL_DEPTH_TEST);
     
     fbo.end();
-    tintShader.begin();
-    tintShader.setUniformTexture("tex0", fbo.getTexture() , 1 );
-    tintShader.setUniform2f("uResolution", cachedScrSz);
     
-    tintShader.setUniform4f("tintColor", ofVec4f(chromaController.currentColor.r,
-                                                 chromaController.currentColor.g,
-                                                 chromaController.currentColor.b,256)/256.f);
-    fbo.draw(0,0);
-    tintShader.end();
+    
+    
+    {
+        tintShader.begin();
+        tintShader.setUniformTexture("tex0", fbo.getTexture() , 1 );
+        tintShader.setUniform2f("uResolution", cachedScrSz);
+        
+        tintShader.setUniform4f("tintColor", ofVec4f(chromaController.currentColor.r,
+                                                     chromaController.currentColor.g,
+                                                     chromaController.currentColor.b,256)/256.f);
+        fbo.draw(0,0);
+        tintShader.end();
+    }
     
     
     if(inputManager.showDebug)
